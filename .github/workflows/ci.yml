@@ -1,0 +1,31 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    name: JDK ${{ matrix.java_version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java_version: [1.8, 12] # 9, 11 once kapt supports them or github supports neutral exit codes
+      fail-fast: false
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install JDK ${{ matrix.java_version }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java_version }}
+    - name: Configure Gradle
+      # Initial gradle configuration, install dependencies, etc
+      run: ./gradlew help
+    - name: Build project
+      run: ./gradlew assemble --stacktrace
+    - name: Run tests
+      run: ./gradlew test --stacktrace
+    - name: Final checks
+      run: ./gradlew check --stacktrace
+    - name: Upload snapshot (main only)
+      run: ./gradlew uploadArchives -PSONATYPE_NEXUS_USERNAME=${{ secrets.SonatypeUsername }} -PSONATYPE_NEXUS_PASSWORD=${{ secrets.SonatypePassword }}
+      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && matrix.java_version == '1.8'
