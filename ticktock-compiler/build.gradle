@@ -20,9 +20,6 @@ plugins {
   id 'com.vanniktech.maven.publish'
 }
 
-mavenPublish {
-  useLegacyMode = false
-}
 
 dependencies {
   api deps.kotlin.stdlibjdk8
