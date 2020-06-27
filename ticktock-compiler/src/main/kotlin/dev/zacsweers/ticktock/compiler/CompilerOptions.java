@@ -47,8 +47,7 @@ public final class CompilerOptions extends OptionsBase {
       converter = LanguageConverter.class)
   public Language language;
 
-  @Option(name = "packageName", help = "Package name to output with.", defaultValue = "com"
-      + ".gabrielittner.threetenbp")
+  @Option(name = "packageName", help = "Package name to output with.", defaultValue = "ticktock")
   public String packageName;
 
   private List<File> tzdbFiles;
