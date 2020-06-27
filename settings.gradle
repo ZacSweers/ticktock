@@ -41,6 +41,6 @@ pluginManagement {
   }
 }
 
-rootProject.name = 'template-root'
-include 'template'
+rootProject.name = 'ticktock-root'
+include 'ticktock-compiler'
 include 'sample'
