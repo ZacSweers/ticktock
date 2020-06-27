@@ -20,14 +20,15 @@ plugins {
   id 'com.vanniktech.maven.publish'
 }
 
-
 dependencies {
   api deps.kotlin.stdlibjdk8
   implementation deps.misc.threetenbp
   implementation deps.misc.javapoet
   implementation deps.misc.kotlinpoet
-  implementation deps.misc.google_options
+  implementation deps.misc.googleOptions
 
   testImplementation deps.test.junit
   testImplementation deps.test.truth
+  testImplementation deps.test.compileTesting
+  testImplementation deps.test.kotlinCompileTesting
 }

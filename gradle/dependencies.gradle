@@ -44,14 +44,16 @@ def kotlin = [
 def misc = [
     threetenbpNotz: "org.threeten:threetenbp:1.4.4:no-tzdb",
     threetenbp: "org.threeten:threetenbp:1.4.4",
-    google_options: "com.github.pcj:google-options:1.0.0",
+    googleOptions: "com.github.pcj:google-options:1.0.0",
     javapoet : "com.squareup:javapoet:1.13.0",
     kotlinpoet : "com.squareup:kotlinpoet:1.6.0",
 ]
 
 def test = [
+    compileTesting: 'com.google.testing.compile:compile-testing:0.18',
     junit: 'junit:junit:4.13',
-    truth: 'com.google.truth:truth:1.0.1'
+    kotlinCompileTesting: 'com.github.tschuchortdev:kotlin-compile-testing:1.2.9',
+    truth: 'com.google.truth:truth:1.0.1',
 ]
 
 ext.deps = [
