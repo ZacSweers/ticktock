@@ -42,7 +42,11 @@ def kotlin = [
 ]
 
 def misc = [
-    
+    threetenbpNotz: "org.threeten:threetenbp:1.4.4:no-tzdb",
+    threetenbp: "org.threeten:threetenbp:1.4.4",
+    google_options: "com.github.pcj:google-options:1.0.0",
+    javapoet : "com.squareup:javapoet:1.13.0",
+    kotlinpoet : "com.squareup:kotlinpoet:1.6.0",
 ]
 
 def test = [
