@@ -18,8 +18,10 @@ import java.nio.file.Path
 
 @RunWith(JUnit4::class)
 class KotlinWriterTest {
+
   @get:Rule
   var tmpFolder = TemporaryFolder()
+
   private lateinit var outputDir: Path
   private lateinit var kotlinWriter: KotlinWriter
 
