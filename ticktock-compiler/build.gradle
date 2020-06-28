@@ -20,6 +20,12 @@ plugins {
   id 'com.vanniktech.maven.publish'
 }
 
+mavenPublish {
+  nexus {
+    groupId = "dev.zacsweers"
+  }
+}
+
 dependencies {
   api deps.kotlin.stdlibjdk8
   implementation deps.misc.threetenbp
