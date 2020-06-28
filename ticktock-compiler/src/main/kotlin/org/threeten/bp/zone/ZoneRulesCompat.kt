@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,20 +20,20 @@ import java.io.File
 import java.util.SortedMap
 
 class ZoneRulesCompat(version: String, sourceFiles: List<File>, leapSecondsFile: File?, verbose: Boolean) {
-    private val compiler: TzdbZoneRulesCompiler = TzdbZoneRulesCompiler(version, sourceFiles, leapSecondsFile, verbose)
+  private val compiler: TzdbZoneRulesCompiler = TzdbZoneRulesCompiler(version, sourceFiles, leapSecondsFile, verbose)
 
-    init {
-        compiler.setDeduplicateMap(mutableMapOf())
-    }
+  init {
+    compiler.setDeduplicateMap(mutableMapOf())
+  }
 
-    fun compile(): SortedMap<String, ZoneRules> {
-        compiler.compile()
-        return compiler.zones
-    }
+  fun compile(): SortedMap<String, ZoneRules> {
+    compiler.compile()
+    return compiler.zones
+  }
 
-    companion object {
-        fun writeZoneRules(rules: ZoneRules, stream: DataOutputStream?) {
-            (rules as StandardZoneRules).writeExternal(stream)
-        }
+  companion object {
+    fun writeZoneRules(rules: ZoneRules, stream: DataOutputStream?) {
+      (rules as StandardZoneRules).writeExternal(stream)
     }
+  }
 }
