@@ -1,5 +1,5 @@
 /*
- * Copyright (C) $YEAR Zac Sweers
+ * Copyright (C) 2020 Zac Sweers
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,3 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package dev.zacsweers.ticktock.compiler
+
+interface RulesWriter {
+  fun writeZoneIds(packageName: String, version: String, zoneIds: Set<String>)
+}
