@@ -44,3 +44,9 @@ pluginManagement {
 rootProject.name = 'ticktock-root'
 include 'ticktock-compiler'
 include 'sample'
+
+includeBuild('ticktock-gradle-plugin') {
+  dependencySubstitution {
+    substitute module('dev.zacsweers.ticktock:ticktock') with project(':')
+  }
+}
