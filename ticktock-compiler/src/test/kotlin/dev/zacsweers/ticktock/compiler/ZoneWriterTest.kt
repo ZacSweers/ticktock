@@ -15,7 +15,7 @@
  */
 package dev.zacsweers.ticktock.compiler
 
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import java.io.DataInputStream
 import java.io.FileInputStream
 import java.nio.file.Files
@@ -57,36 +57,33 @@ class ZoneWriterTest {
   }
 
   @Test
-  @Throws(Exception::class)
   fun writeZones() {
     val zones: Map<String, ZoneRules> = generateZones(
         "Europe/Berlin", "US/Pacific", "Zulu")
     for ((key, value) in zones) {
       val file = zoneFile(key)
-      Truth.assertThat(Files.exists(file)).isTrue()
+      assertThat(Files.exists(file)).isTrue()
       DataInputStream(FileInputStream(file.toFile())).use { input ->
-        Truth.assertThat(input.readByte()).isEqualTo(1)
-        Truth.assertThat(input.readUTF()).isEqualTo("TZDB-ZONE")
-        val readZoneRules = ZoneRulesReaderCompat.readZoneRules(
-            input)
-        Truth.assertThat(readZoneRules).isEqualTo(value)
+        assertThat(input.readByte()).isEqualTo(1)
+        assertThat(input.readUTF()).isEqualTo("TZDB-ZONE")
+        val readZoneRules = ZoneRulesReaderCompat.readZoneRules(input)
+        assertThat(readZoneRules).isEqualTo(value)
       }
     }
   }
 
   @Test
-  @Throws(Exception::class)
   fun clearDirectory() {
     val zones1: Map<String, ZoneRules> = generateZones(
         "Europe/Berlin", "US/Pacific", "Zulu")
     for ((key) in zones1) {
-      Truth.assertThat(Files.exists(zoneFile(key))).isTrue()
+      assertThat(Files.exists(zoneFile(key))).isTrue()
     }
     val zones2 = generateZones(
         "Europe/Berlin", "US/Pacific")
     for ((key) in zones2) {
-      Truth.assertThat(Files.exists(zoneFile(key))).isTrue()
+      assertThat(Files.exists(zoneFile(key))).isTrue()
     }
-    Truth.assertThat(Files.exists(zoneFile("Zulu"))).isFalse()
+    assertThat(Files.exists(zoneFile("Zulu"))).isFalse()
   }
 }

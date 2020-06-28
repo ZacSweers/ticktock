@@ -1,9 +1,9 @@
-package org.threeten.bp.zone;
+package org.threeten.bp.zone
 
-import java.io.DataInput;
+import java.io.DataInput
 
-public final class ZoneRulesReaderCompat {
-  public static ZoneRules readZoneRules(DataInput input) throws Exception {
-    return StandardZoneRules.readExternal(input);
+object ZoneRulesReaderCompat {
+  fun readZoneRules(input: DataInput?): ZoneRules {
+    return StandardZoneRules.readExternal(input)
   }
 }
