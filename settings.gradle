@@ -43,6 +43,7 @@ pluginManagement {
 
 rootProject.name = 'ticktock-root'
 include 'ticktock-compiler'
+include 'ticktock-lazyrules-runtime'
 include 'sample'
 
 includeBuild('ticktock-gradle-plugin') {
