@@ -13,11 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   id 'org.jetbrains.kotlin.jvm'
   id 'org.jetbrains.dokka'
   id 'com.vanniktech.maven.publish'
+}
+
+tasks.withType(KotlinCompile) {
+  kotlinOptions {
+    freeCompilerArgs += [
+        "-progressive",
+        "-Xopt-in=kotlin.ExperimentalStdlibApi"
+    ]
+  }
 }
 
 mavenPublish {
