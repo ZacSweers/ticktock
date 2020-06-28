@@ -1,87 +1,79 @@
-package dev.zacsweers.ticktock.compiler;
+package dev.zacsweers.ticktock.compiler
 
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableList;
-import com.tschuchort.compiletesting.KotlinCompilation;
-import com.tschuchort.compiletesting.SourceFile;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import org.intellij.lang.annotations.Language;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import com.google.common.collect.ImmutableList
+import com.google.common.truth.Truth.assertThat
+import com.tschuchort.compiletesting.KotlinCompilation
+import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.OK
+import com.tschuchort.compiletesting.SourceFile
+import com.tschuchort.compiletesting.SourceFile.Companion.kotlin
+import org.intellij.lang.annotations.Language
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.TemporaryFolder
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import java.nio.file.Files
+import java.nio.file.Path
 
-import static com.google.common.truth.Truth.assertThat;
+@RunWith(JUnit4::class)
+class KotlinWriterTest {
+  @get:Rule
+  var tmpFolder = TemporaryFolder()
+  private lateinit var outputDir: Path
+  private lateinit var kotlinWriter: KotlinWriter
 
-@RunWith(JUnit4.class) public class KotlinWriterTest {
-
-  @Rule public TemporaryFolder tmpFolder = new TemporaryFolder();
-
-  private static final String SOURCE_NAME = "ticktock/GeneratedZoneIdsProvider.kt";
-
-  private Path outputDir;
-  private KotlinWriter kotlinWriter;
-
-  @Before public void setup() throws IOException {
-    outputDir = tmpFolder.newFolder()
-        .toPath();
-    kotlinWriter = new KotlinWriter(outputDir);
+  @Before
+  fun setup() {
+    outputDir = tmpFolder.newFolder().toPath()
+    kotlinWriter = KotlinWriter(outputDir)
   }
 
-  private static SourceFile kotlinFile(String name, @Language("kotlin") String source) {
-    return SourceFile.Companion.kotlin(name, source, false);
+  private fun generatedSource(version: String, vararg zoneIds: String): String {
+    kotlinWriter.writeZoneIds("ticktock", version, setOf(*zoneIds))
+    val output = outputDir.resolve(SOURCE_NAME)
+    return Files.readAllBytes(output).decodeToString()
   }
 
-  private String generatedSource(String version, String... zoneIds) throws Exception {
-    kotlinWriter.writeZoneIds("ticktock",
-        version,
-        new LinkedHashSet<>(Arrays.asList(zoneIds)));
-    Path output = outputDir.resolve(SOURCE_NAME);
-    @Language("kotlin") String sourceString =
-        new String(Files.readAllBytes(output), Charsets.UTF_8);
-    return sourceString;
+  @Test
+  fun writeZoneIds() {
+    val source = generatedSource("2010a", "Europe/Berlin", "UTC", "US/Pacific")
+    @Language("kotlin")
+    val expectedSource = """package ticktock
+
+import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider
+import kotlin.String
+import kotlin.collections.List
+
+internal object GeneratedZoneIdsProvider : ZoneIdsProvider {
+  private const val VERSION_ID: String = "2010a"
+
+  private val ZONE_IDS: List<String> = listOf(
+          "Europe/Berlin",
+          "UTC",
+          "US/Pacific"
+      )
+
+  override fun getVersionId(): String = VERSION_ID
+
+  override fun getZoneIds(): List<String> = ZONE_IDS
+}
+"""
+    assertThat(source).isEqualTo(expectedSource)
+    val expected = kotlinFile("KClass.kt", expectedSource)
+    val compilation = KotlinCompilation()
+    compilation.sources = ImmutableList.of(expected)
+    compilation.messageOutputStream = System.out
+    compilation.inheritClassPath = true
+    compilation.verbose = false
+    val result = compilation.compile()
+    assertThat(result.exitCode).isEqualTo(OK)
   }
 
-  @Test public void writeZoneIds() throws Exception {
-    String source = generatedSource("2010a", "Europe/Berlin", "UTC", "US/Pacific");
-
-    @Language("kotlin") String expectedSource = ""
-        + "package ticktock\n"
-        + "\n"
-        + "import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider\n"
-        + "import kotlin.String\n"
-        + "import kotlin.collections.List\n"
-        + "\n"
-        + "internal object GeneratedZoneIdsProvider : ZoneIdsProvider {\n"
-        + "  private const val VERSION_ID: String = \"2010a\"\n"
-        + "\n"
-        + "  private val ZONE_IDS: List<String> = listOf(\n"
-        + "          \"Europe/Berlin\",\n"
-        + "          \"UTC\",\n"
-        + "          \"US/Pacific\"\n"
-        + "      )\n"
-        + "\n"
-        + "  override fun getVersionId(): String = VERSION_ID\n"
-        + "\n"
-        + "  override fun getZoneIds(): List<String> = ZONE_IDS\n"
-        + "}\n";
-
-    assertThat(source).isEqualTo(expectedSource);
-
-    SourceFile expected = kotlinFile("KClass.kt", expectedSource);
-
-    KotlinCompilation compilation = new KotlinCompilation();
-    compilation.setSources(ImmutableList.of(expected));
-    compilation.setMessageOutputStream(System.out);
-    compilation.setInheritClassPath(true);
-    compilation.setVerbose(false);
-    KotlinCompilation.Result result = compilation.compile();
-    assertThat(result.getExitCode()).isEqualTo(KotlinCompilation.ExitCode.OK);
+  companion object {
+    private const val SOURCE_NAME = "ticktock/GeneratedZoneIdsProvider.kt"
+    private fun kotlinFile(name: String, @Language("kotlin") source: String): SourceFile {
+      return kotlin(name, source, false)
+    }
   }
 }
