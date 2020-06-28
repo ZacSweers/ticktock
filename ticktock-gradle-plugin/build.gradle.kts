@@ -64,7 +64,7 @@ gradlePlugin {
   plugins {
     plugins.create("ticktock") {
       id = "dev.zacsweers.ticktock"
-      implementationClass = "dev.zacsweers.ticktock.TickTockPlugin"
+      implementationClass = "dev.zacsweers.ticktock.gradle.TickTockPlugin"
     }
   }
 }
