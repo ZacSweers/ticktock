@@ -34,7 +34,7 @@ internal class ZoneWriter(private val outputDir: Path) {
       Files.walkFileTree(outputDir, deleteFilesRecursively)
     }
     for ((key, value) in zones) {
-      writeZoneRulesFile(outputDir.resolve("tzdb/$key.dat"), value)
+      writeZoneRulesFile(outputDir.resolve(fileName(key)), value)
     }
   }
 
@@ -57,6 +57,12 @@ internal class ZoneWriter(private val outputDir: Path) {
     override fun postVisitDirectory(dir: Path, exc: IOException?): FileVisitResult {
       Files.delete(dir)
       return FileVisitResult.CONTINUE
+    }
+  }
+
+  companion object {
+    fun fileName(key: String): String {
+      return "tzdb/$key.dat"
     }
   }
 }
