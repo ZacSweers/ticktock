@@ -24,7 +24,7 @@ import org.junit.runners.JUnit4;
 
   @Rule public TemporaryFolder tmpFolder = new TemporaryFolder();
 
-  private static final String SOURCE_NAME = "ticktock/LazyZoneRules";
+  private static final String SOURCE_NAME = "ticktock/GeneratedZoneIdsProvider";
 
   private Path outputDir;
   private JavaWriter javaWriter;
@@ -48,20 +48,32 @@ import org.junit.runners.JUnit4;
     JavaFileObject source = generatedSource("2010a", "Europe/Berlin", "UTC", "US/Pacific");
     JavaFileObject expected = JavaFileObjects.forSourceString(SOURCE_NAME,
         ""
-            + "package ticktock;"
+            + "package ticktock;\n"
             + "\n"
-            + "import java.lang.String;"
-            + "import java.util.Arrays;"
-            + "import java.util.List;"
+            + "import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider;\n"
+            + "import java.lang.Override;\n"
+            + "import java.lang.String;\n"
+            + "import java.util.Arrays;\n"
+            + "import java.util.List;\n"
             + "\n"
-            + "final class LazyZoneRules {\n"
-            + "    static final String VERSION = \"2010a\";\n"
+            + "final class GeneratedZoneIdsProvider implements ZoneIdsProvider {\n"
+            + "  private static final String VERSION_ID = \"2010a\";\n"
             + "\n"
-            + "    static final List<String> REGION_IDS = Arrays.asList(\n"
-            + "            \"Europe/Berlin\",\n"
-            + "            \"UTC\",\n"
-            + "            \"US/Pacific\");\n"
-            + "        }");
+            + "  private static final List<String> ZONE_IDS = Arrays.asList(\n"
+            + "      \"Europe/Berlin\",\n"
+            + "      \"UTC\",\n"
+            + "      \"US/Pacific\");\n"
+            + "\n"
+            + "  @Override\n"
+            + "  public String getVersionId() {\n"
+            + "    return VERSION_ID;\n"
+            + "  }\n"
+            + "\n"
+            + "  @Override\n"
+            + "  public List<String> getZoneIds() {\n"
+            + "    return ZONE_IDS;\n"
+            + "  }\n"
+            + "}");
 
     Compilation compilation = javac().compile(source);
     assertThat(compilation).succeeded();

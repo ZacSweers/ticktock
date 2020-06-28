@@ -28,6 +28,7 @@ mavenPublish {
 
 dependencies {
   api deps.kotlin.stdlibjdk8
+  implementation project(":ticktock-lazyrules-runtime")
   implementation deps.misc.threetenbp
   implementation deps.misc.javapoet
   implementation deps.misc.kotlinpoet

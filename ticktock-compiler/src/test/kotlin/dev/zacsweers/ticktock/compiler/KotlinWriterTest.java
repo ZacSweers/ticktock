@@ -23,7 +23,7 @@ import static com.google.common.truth.Truth.assertThat;
 
   @Rule public TemporaryFolder tmpFolder = new TemporaryFolder();
 
-  private static final String SOURCE_NAME = "ticktock/LazyZoneRules.kt";
+  private static final String SOURCE_NAME = "ticktock/GeneratedZoneIdsProvider.kt";
 
   private Path outputDir;
   private KotlinWriter kotlinWriter;
@@ -54,17 +54,22 @@ import static com.google.common.truth.Truth.assertThat;
     @Language("kotlin") String expectedSource = ""
         + "package ticktock\n"
         + "\n"
+        + "import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider\n"
         + "import kotlin.String\n"
         + "import kotlin.collections.List\n"
         + "\n"
-        + "internal object LazyZoneRules {\n"
-        + "  const val VERSION: String = \"2010a\"\n"
+        + "internal object GeneratedZoneIdsProvider : ZoneIdsProvider {\n"
+        + "  private const val VERSION_ID: String = \"2010a\"\n"
         + "\n"
-        + "  val REGION_IDS: List<String> = listOf(\n"
+        + "  private val ZONE_IDS: List<String> = listOf(\n"
         + "          \"Europe/Berlin\",\n"
         + "          \"UTC\",\n"
         + "          \"US/Pacific\"\n"
         + "      )\n"
+        + "\n"
+        + "  override fun getVersionId(): String = VERSION_ID\n"
+        + "\n"
+        + "  override fun getZoneIds(): List<String> = ZONE_IDS\n"
         + "}\n";
 
     assertThat(source).isEqualTo(expectedSource);
