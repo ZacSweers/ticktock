@@ -21,7 +21,7 @@ import java.time.zone.ZoneRules;
  * An interface for loading {@link ZoneRules}. This is used by {@link LazyZoneRulesProvider} via
  * {@link LazyZoneRulesPlugins}.
  */
-interface ZoneRulesLoader {
+public interface ZoneRulesLoader {
   /** Loads {@link ZoneRules} for a given {@code zoneId}. */
   ZoneRules loadData(String zoneId);
 }

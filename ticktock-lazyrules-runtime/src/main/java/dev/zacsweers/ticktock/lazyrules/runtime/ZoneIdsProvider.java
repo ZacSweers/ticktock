@@ -21,7 +21,7 @@ import java.util.List;
  * An interface for indicating available zone ids. This is used by {@link LazyZoneRulesProvider} via
  * {@link LazyZoneRulesPlugins}.
  */
-interface ZoneIdsProvider {
+public interface ZoneIdsProvider {
   /** The timezone data version (e.g. "2020a"). */
   String getVersionId();
   /** A list of zone IDs included in this data set. */
