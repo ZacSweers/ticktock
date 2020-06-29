@@ -28,7 +28,8 @@ tickTock {
 
 dependencies {
   tickTockCompiler project(":ticktock-compiler")
-  implementation project(":ticktock-lazyrules-runtime")
+  implementation project(":ticktock-runtime-lazyzonerules")
+  implementation project(":ticktock-runtime-tzdb")
   implementation deps.kotlin.stdlibjdk8
 
   testImplementation deps.test.junit

@@ -15,9 +15,9 @@
  */
 package dev.zacsweers.ticktock.sample
 
-import dev.zacsweers.ticktock.lazyrules.runtime.LazyZoneRules
-import dev.zacsweers.ticktock.lazyrules.runtime.LazyZoneRulesPlugins
-import dev.zacsweers.ticktock.lazyrules.runtime.ResourcesZoneRulesLoader
+import dev.zacsweers.ticktock.runtime.LazyZoneRules
+import dev.zacsweers.ticktock.runtime.TickTockPlugins
+import dev.zacsweers.ticktock.runtime.ResourcesZoneDataLoader
 import java.time.Instant
 import java.time.ZoneId
 import kotlin.system.measureTimeMillis
@@ -29,10 +29,10 @@ fun main() {
       "java.time.zone.DefaultZoneRulesProvider",
       "dev.zacsweers.ticktock.lazyrules.runtime.LazyZoneRulesProvider"
   )
-  LazyZoneRulesPlugins.setZoneIdsProvider { GeneratedZoneIdsProvider }
+  TickTockPlugins.setZoneIdsProvider { GeneratedZoneIdsProvider }
 
   // This is the default
-  LazyZoneRulesPlugins.setZoneRulesLoader { ResourcesZoneRulesLoader() }
+  TickTockPlugins.setZoneRulesLoader { ResourcesZoneDataLoader() }
 
   println("Loading default zone")
   measureTimeMillis {

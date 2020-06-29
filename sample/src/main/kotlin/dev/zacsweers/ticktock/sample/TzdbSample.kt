@@ -15,7 +15,7 @@
  */
 package dev.zacsweers.ticktock.sample
 
-import dev.zacsweers.ticktock.lazyrules.runtime.LazyZoneRules
+import dev.zacsweers.ticktock.runtime.LazyZoneRules
 import java.time.Instant
 import java.time.ZoneId
 import kotlin.system.measureTimeMillis
@@ -24,7 +24,7 @@ fun main() {
   println("Setting DefaultZoneRulesProvider property")
   System.setProperty(
       "java.time.zone.DefaultZoneRulesProvider",
-      "dev.zacsweers.ticktock.lazyrules.runtime.TzdbZoneRulesProvider"
+      "dev.zacsweers.ticktock.runtime.tzdb.TzdbZoneRulesProvider"
   )
 
   println("Loading default zone")
