@@ -42,9 +42,9 @@ def kotlin = [
 ]
 
 def misc = [
+    clikt: "com.github.ajalt:clikt:2.7.1",
     threetenbpNotz: "org.threeten:threetenbp:1.4.4:no-tzdb",
     threetenbp: "org.threeten:threetenbp:1.4.4",
-    googleOptions: "com.github.pcj:google-options:1.0.0",
     javapoet : "com.squareup:javapoet:1.13.0",
     kotlinpoet : "com.squareup:kotlinpoet:1.6.0",
 ]
