@@ -15,11 +15,19 @@
  */
 package dev.zacsweers.ticktock.lazyrules.runtime;
 
+import dev.zacsweers.ticktock.runtime.ResourcesZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.TickTockPlugins;
+import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.ZoneIdsProvider;
-import dev.zacsweers.ticktock.runtime.ZoneRulesLoader;
+import dev.zacsweers.ticktock.runtime.internal.StandardZoneRules;
 import dev.zacsweers.ticktock.runtime.internal.Suppliers;
+import java.io.Closeable;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StreamCorruptedException;
 import java.time.zone.ZoneRules;
+import java.time.zone.ZoneRulesException;
 import java.time.zone.ZoneRulesProvider;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -45,11 +53,11 @@ public final class LazyZoneRulesProvider extends ZoneRulesProvider {
     return callable.get();
   });
 
-  private final Supplier<ZoneRulesLoader> zoneRulesLoader = Suppliers.memoize(() -> {
-    Supplier<ZoneRulesLoader> callable = TickTockPlugins.getZoneRulesLoader();
+  private final Supplier<ZoneDataLoader> zoneDataLoader = Suppliers.memoize(() -> {
+    Supplier<ZoneDataLoader> callable = TickTockPlugins.getZoneRulesLoader();
     if (callable == null) {
       // Default to using resources.
-      return new ResourcesZoneRulesLoader();
+      return new ResourcesZoneDataLoader();
     } else {
       return callable.get();
     }
@@ -68,11 +76,46 @@ public final class LazyZoneRulesProvider extends ZoneRulesProvider {
     requireNonNull(zoneId, "zoneId");
     ZoneRules rules = map.get(zoneId);
     if (rules == null) {
-      rules = zoneRulesLoader.get()
-          .loadData(zoneId);
+      rules = loadData(zoneId);
       map.put(zoneId, rules);
     }
     return rules;
+  }
+
+  private ZoneRules loadData(String zoneId) {
+    String fileName = "tzdb/" + zoneId + ".dat";
+    InputStream is = null;
+    try {
+      is = zoneDataLoader.get().openData(fileName);
+      return loadData(is);
+    } catch (Exception ex) {
+      throw new ZoneRulesException("Invalid binary time-zone data: " + fileName, ex);
+    } finally {
+      close(is);
+    }
+  }
+
+  private ZoneRules loadData(InputStream in) throws Exception {
+    DataInputStream dis = new DataInputStream(in);
+    if (dis.readByte() != 1) {
+      throw new StreamCorruptedException("File format not recognised");
+    }
+
+    String groupId = dis.readUTF();
+    if (!"TZDB-ZONE".equals(groupId)) {
+      throw new StreamCorruptedException("File format not recognised");
+    }
+    return StandardZoneRules.readExternal(dis);
+  }
+
+  private void close(Closeable closeable) {
+    if (closeable != null) {
+      try {
+        closeable.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   @Override protected NavigableMap<String, ZoneRules> provideVersions(String zoneId) {

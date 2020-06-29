@@ -113,7 +113,7 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     try {
       String fileName = "j$/time/zone/tzdb.dat";
       URL datUrl = TzdbZoneRulesProvider.class.getClassLoader()
-          .getResource(System.getProperty("jre.tzdb.dat", fileName));
+          .getResource("j$/time/zone/tzdb.dat");
       if (datUrl == null) {
         throw new ZoneRulesException("Missing time-zone data: " + fileName);
       }

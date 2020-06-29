@@ -15,13 +15,14 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
+import java.io.InputStream;
 import java.time.zone.ZoneRules;
 
 /**
  * An interface for loading {@link ZoneRules}. This is used by TickTock ZoneRulesProviders via
  * {@link TickTockPlugins}.
  */
-public interface ZoneRulesLoader {
+public interface ZoneDataLoader {
   /** Loads {@link ZoneRules} for a given {@code zoneId}. */
-  ZoneRules loadData(String zoneId);
+  InputStream openData(String path) throws Exception;
 }

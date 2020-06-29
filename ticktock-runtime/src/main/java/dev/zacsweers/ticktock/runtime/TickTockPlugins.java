@@ -8,7 +8,7 @@ public final class TickTockPlugins {
   }
 
   static volatile Supplier<ZoneIdsProvider> zoneIdsProvider;
-  static volatile Supplier<ZoneRulesLoader> zoneRulesLoader;
+  static volatile Supplier<ZoneDataLoader> zoneRulesLoader;
 
   /** Prevents changing the plugins. */
   static volatile boolean lockdown;
@@ -47,16 +47,16 @@ public final class TickTockPlugins {
     zoneIdsProvider = provider;
   }
 
-  /** @return the value for handling {@link ZoneRulesLoader}. */
-  public static Supplier<ZoneRulesLoader> getZoneRulesLoader() {
+  /** @return the value for handling {@link ZoneDataLoader}. */
+  public static Supplier<ZoneDataLoader> getZoneRulesLoader() {
     return zoneRulesLoader;
   }
 
   /**
-   * @param loader the supplier for creating a {@link ZoneRulesLoader} to use, null
+   * @param loader the supplier for creating a {@link ZoneDataLoader} to use, null
    * allowed
    */
-  public static void setZoneRulesLoader(Supplier<ZoneRulesLoader> loader) {
+  public static void setZoneRulesLoader(Supplier<ZoneDataLoader> loader) {
     if (lockdown) {
       throw new IllegalStateException("Plugins can't be changed anymore");
     }
