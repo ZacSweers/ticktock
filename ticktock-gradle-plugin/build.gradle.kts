@@ -65,6 +65,7 @@ gradlePlugin {
     plugins.create("ticktock") {
       id = "dev.zacsweers.ticktock"
       implementationClass = "dev.zacsweers.ticktock.gradle.TickTockPlugin"
+      description = project.findProperty("POM_DESCRIPTION").toString()
     }
   }
 }
@@ -83,4 +84,5 @@ dependencies {
   implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
   implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.3.72")
   implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72")
+  implementation("de.undercouch:gradle-download-task:4.0.4")
 }
