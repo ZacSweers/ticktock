@@ -72,6 +72,7 @@ final class StandardZoneRules {
           long[].class,
           ZoneOffset[].class,
           ZoneOffsetTransitionRule[].class);
+      constructor.setAccessible(true);
       return constructor.newInstance(stdTrans, stdOffsets, savTrans, savOffsets, rules);
     } catch (Exception e) {
       throw new IOException("No constructor found", e);
