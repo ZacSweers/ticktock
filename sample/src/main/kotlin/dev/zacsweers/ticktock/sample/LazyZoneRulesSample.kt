@@ -16,8 +16,8 @@
 package dev.zacsweers.ticktock.sample
 
 import dev.zacsweers.ticktock.runtime.LazyZoneRules
-import dev.zacsweers.ticktock.runtime.TickTockPlugins
 import dev.zacsweers.ticktock.runtime.ResourcesZoneDataLoader
+import dev.zacsweers.ticktock.runtime.TickTockPlugins
 import java.time.Instant
 import java.time.ZoneId
 import kotlin.system.measureTimeMillis
