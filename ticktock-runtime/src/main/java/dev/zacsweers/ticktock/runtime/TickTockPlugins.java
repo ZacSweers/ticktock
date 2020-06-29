@@ -1,8 +1,8 @@
-package dev.zacsweers.ticktock.lazyrules.runtime;
+package dev.zacsweers.ticktock.runtime;
 
 import java.util.function.Supplier;
 
-/** Plugins for controlling loading of timezone  data in TickTock. */
+/** Plugins for controlling loading of timezone data in TickTock. */
 public final class TickTockPlugins {
   private TickTockPlugins() {
   }

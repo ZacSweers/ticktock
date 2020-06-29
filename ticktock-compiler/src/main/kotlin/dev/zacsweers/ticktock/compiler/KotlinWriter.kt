@@ -28,7 +28,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.joinToCode
-import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider
+import dev.zacsweers.ticktock.runtime.ZoneIdsProvider
 import java.nio.file.Files
 import java.nio.file.Path
 

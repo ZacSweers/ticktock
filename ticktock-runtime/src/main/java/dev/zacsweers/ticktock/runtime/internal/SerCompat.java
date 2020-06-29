@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.zacsweers.ticktock.lazyrules.runtime;
+package dev.zacsweers.ticktock.runtime.internal;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -39,7 +39,7 @@ import java.time.zone.ZoneRules;
  *
  * @serial include
  */
-final class SerCompat implements Externalizable {
+public final class SerCompat implements Externalizable {
 
   /** Serialization version. */
   private static final long serialVersionUID = -8885321777449118786L;
@@ -107,7 +107,7 @@ final class SerCompat implements Externalizable {
     object = readInternal(type, in);
   }
 
-  static Object read(DataInput in) throws IOException {
+  public static Object read(DataInput in) throws IOException {
     byte type = in.readByte();
     return readInternal(type, in);
   }
@@ -126,7 +126,7 @@ final class SerCompat implements Externalizable {
   }
 
   // Reflection is necessary for compatibility with D8
-  static Object readExternalFor(Class<?> clazz, DataInput in) {
+  public static Object readExternalFor(Class<?> clazz, DataInput in) {
     Method method;
     try {
       method = clazz.getDeclaredMethod("readExternal", DataInput.class);
@@ -153,7 +153,7 @@ final class SerCompat implements Externalizable {
    * @return the created object, not null
    * @throws IOException if an error occurs
    */
-  static ZoneOffset readOffset(DataInput in) throws IOException {
+  public static ZoneOffset readOffset(DataInput in) throws IOException {
     int offsetByte = in.readByte();
     return (offsetByte == 127
         ? ZoneOffset.ofTotalSeconds(in.readInt())
@@ -167,7 +167,7 @@ final class SerCompat implements Externalizable {
    * @return the epoch seconds, not null
    * @throws IOException if an error occurs
    */
-  static long readEpochSec(DataInput in) throws IOException {
+  public static long readEpochSec(DataInput in) throws IOException {
     int hiByte = in.readByte() & 255;
     if (hiByte == 255) {
       return in.readLong();

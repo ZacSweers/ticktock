@@ -1,5 +1,7 @@
 package dev.zacsweers.ticktock.lazyrules.runtime;
 
+import dev.zacsweers.ticktock.runtime.ZoneRulesLoader;
+import dev.zacsweers.ticktock.runtime.internal.StandardZoneRules;
 import java.io.BufferedInputStream;
 import java.io.Closeable;
 import java.io.DataInputStream;

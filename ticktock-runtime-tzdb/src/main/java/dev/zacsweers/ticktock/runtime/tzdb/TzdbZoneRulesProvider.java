@@ -59,8 +59,9 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package dev.zacsweers.ticktock.lazyrules.runtime;
+package dev.zacsweers.ticktock.runtime.tzdb;
 
+import dev.zacsweers.ticktock.runtime.internal.SerCompat;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

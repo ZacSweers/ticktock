@@ -43,7 +43,9 @@ pluginManagement {
 
 rootProject.name = 'ticktock-root'
 include 'ticktock-compiler'
-include 'ticktock-lazyrules-runtime'
+include 'ticktock-runtime'
+include 'ticktock-runtime-lazyzonerules'
+include 'ticktock-runtime-tzdb'
 include 'sample'
 
 includeBuild('ticktock-gradle-plugin') {

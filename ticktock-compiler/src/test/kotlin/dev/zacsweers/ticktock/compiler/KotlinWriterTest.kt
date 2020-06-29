@@ -58,7 +58,7 @@ class KotlinWriterTest {
     @Language("kotlin")
     val expectedSource = """package ticktock
 
-import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider
+import dev.zacsweers.ticktock.runtime.ZoneIdsProvider
 import kotlin.String
 import kotlin.collections.List
 

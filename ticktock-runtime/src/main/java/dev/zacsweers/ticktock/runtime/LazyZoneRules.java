@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.zacsweers.ticktock.lazyrules.runtime;
+package dev.zacsweers.ticktock.runtime;
 
 import java.time.ZoneId;
 import java.time.zone.ZoneRulesProvider;

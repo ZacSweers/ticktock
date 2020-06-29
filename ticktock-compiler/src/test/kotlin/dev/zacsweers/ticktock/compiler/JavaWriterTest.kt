@@ -58,7 +58,7 @@ class JavaWriterTest {
         SOURCE_NAME,
         """package ticktock;
 
-import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider;
+import dev.zacsweers.ticktock.runtime.ZoneIdsProvider;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Arrays;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.zacsweers.ticktock.lazyrules.runtime;
+package dev.zacsweers.ticktock.runtime.internal;
 
 import java.io.DataInput;
 import java.io.IOException;
@@ -31,7 +31,7 @@ import java.time.zone.ZoneRules;
  *
  * This class is immutable and thread-safe.
  */
-final class StandardZoneRules {
+public final class StandardZoneRules {
 
   /**
    * Reads the state from the stream.
@@ -40,7 +40,7 @@ final class StandardZoneRules {
    * @return the created object, not null
    * @throws IOException if an error occurs
    */
-  static ZoneRules readExternal(DataInput in) throws IOException {
+  public static ZoneRules readExternal(DataInput in) throws IOException {
     int stdSize = in.readInt();
     long[] stdTrans = new long[stdSize];
     for (int i = 0; i < stdSize; i++) {

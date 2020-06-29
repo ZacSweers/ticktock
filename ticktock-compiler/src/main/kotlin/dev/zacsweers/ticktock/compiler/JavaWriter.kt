@@ -22,7 +22,7 @@ import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
-import dev.zacsweers.ticktock.lazyrules.runtime.ZoneIdsProvider
+import dev.zacsweers.ticktock.runtime.ZoneIdsProvider
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.Arrays

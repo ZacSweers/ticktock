@@ -1,4 +1,4 @@
-package dev.zacsweers.ticktock.lazyrules.runtime;
+package dev.zacsweers.ticktock.runtime.internal;
 
 import java.io.Serializable;
 import java.util.function.Supplier;
@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 import static java.util.Objects.requireNonNull;
 
 /** Utilities for {@link Supplier} copied from Guava. */
-final class Suppliers {
+public final class Suppliers {
 
   private Suppliers() {
 
@@ -21,18 +21,18 @@ final class Suppliers {
    * <p>The returned supplier is thread-safe. The delegate's {@code get()}
    * method will be invoked at most once. The supplier's serialized form does
    * not contain the cached value, which will be recalculated when {@code get()}
-   * is called on the reserialized instance.
+   * is called on the re-serialized instance.
    *
    * <p>If {@code delegate} is an instance created by an earlier call to {@code
    * memoize}, it is returned directly.
    */
-  static <T> Supplier<T> memoize(Supplier<T> delegate) {
+  public static <T> Supplier<T> memoize(Supplier<T> delegate) {
     return (delegate instanceof MemoizingSupplier)
         ? delegate
         : new MemoizingSupplier<>(requireNonNull(delegate));
   }
 
-  static class MemoizingSupplier<T> implements Supplier<T>, Serializable {
+  private static class MemoizingSupplier<T> implements Supplier<T>, Serializable {
     final Supplier<T> delegate;
     transient volatile boolean initialized;
     // "value" does not need to be volatile; visibility piggy-backs
