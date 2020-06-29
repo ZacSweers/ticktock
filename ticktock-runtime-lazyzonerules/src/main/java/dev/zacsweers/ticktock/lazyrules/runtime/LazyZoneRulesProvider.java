@@ -24,7 +24,6 @@ import dev.zacsweers.ticktock.runtime.internal.Suppliers;
 import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StreamCorruptedException;
 import java.time.zone.ZoneRules;
 import java.time.zone.ZoneRulesException;
@@ -84,7 +83,7 @@ public final class LazyZoneRulesProvider extends ZoneRulesProvider {
 
   private ZoneRules loadData(String zoneId) {
     String fileName = "tzdb/" + zoneId + ".dat";
-    InputStream is = null;
+    DataInputStream is = null;
     try {
       is = zoneDataLoader.get().openData(fileName);
       return loadData(is);
@@ -95,8 +94,7 @@ public final class LazyZoneRulesProvider extends ZoneRulesProvider {
     }
   }
 
-  private ZoneRules loadData(InputStream in) throws Exception {
-    DataInputStream dis = new DataInputStream(in);
+  private ZoneRules loadData(DataInputStream dis) throws Exception {
     if (dis.readByte() != 1) {
       throw new StreamCorruptedException("File format not recognised");
     }

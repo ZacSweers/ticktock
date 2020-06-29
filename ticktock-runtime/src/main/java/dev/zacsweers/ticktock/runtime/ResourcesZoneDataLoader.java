@@ -2,7 +2,6 @@ package dev.zacsweers.ticktock.runtime;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.time.zone.ZoneRulesException;
 
@@ -10,7 +9,7 @@ import java.time.zone.ZoneRulesException;
  * A resources-based {@link ZoneDataLoader} that expects rules to be under "tzdb/" in resources.
  */
 public final class ResourcesZoneDataLoader implements ZoneDataLoader {
-  @Override public InputStream openData(String path) {
+  @Override public DataInputStream openData(String path) {
     try {
       URL datUrl = ResourcesZoneDataLoader.class.getClassLoader()
           .getResource(path);
