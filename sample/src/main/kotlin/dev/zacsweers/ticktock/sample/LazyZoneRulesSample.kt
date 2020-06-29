@@ -27,7 +27,7 @@ fun main() {
   println("Setting DefaultZoneRulesProvider property")
   System.setProperty(
       "java.time.zone.DefaultZoneRulesProvider",
-      "dev.zacsweers.ticktock.lazyrules.runtime.LazyZoneRulesProvider"
+      "dev.zacsweers.ticktock.runtime.lazyzonerules.LazyZoneRulesProvider"
   )
   TickTockPlugins.setZoneIdsProvider { GeneratedZoneIdsProvider }
 
