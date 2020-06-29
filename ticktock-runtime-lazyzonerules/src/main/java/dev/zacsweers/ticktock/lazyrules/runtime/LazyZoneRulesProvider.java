@@ -37,12 +37,12 @@ public final class LazyZoneRulesProvider extends ZoneRulesProvider {
 
   private final Supplier<ZoneIdsProvider> zoneIdsProvider = Suppliers.memoize(() -> {
     Supplier<ZoneIdsProvider> callable =
-        requireNonNull(LazyZoneRulesPlugins.getZoneIdsProvider(), "No ZoneIdsProvider registered!");
+        requireNonNull(TickTockPlugins.getZoneIdsProvider(), "No ZoneIdsProvider registered!");
     return callable.get();
   });
 
   private final Supplier<ZoneRulesLoader> zoneRulesLoader = Suppliers.memoize(() -> {
-    Supplier<ZoneRulesLoader> callable = LazyZoneRulesPlugins.getZoneRulesLoader();
+    Supplier<ZoneRulesLoader> callable = TickTockPlugins.getZoneRulesLoader();
     if (callable == null) {
       // Default to using resources.
       return new ResourcesZoneRulesLoader();

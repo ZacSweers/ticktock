@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * An interface for indicating available zone ids. This is used by {@link LazyZoneRulesProvider} via
- * {@link LazyZoneRulesPlugins}.
+ * {@link TickTockPlugins}.
  */
 public interface ZoneIdsProvider {
   /** The timezone data version (e.g. "2020a"). */

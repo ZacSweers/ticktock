@@ -2,9 +2,9 @@ package dev.zacsweers.ticktock.lazyrules.runtime;
 
 import java.util.function.Supplier;
 
-/** Plugins for controlling lazy-loading of ZoneRules in TickTock. */
-public final class LazyZoneRulesPlugins {
-  private LazyZoneRulesPlugins() {
+/** Plugins for controlling loading of timezone  data in TickTock. */
+public final class TickTockPlugins {
+  private TickTockPlugins() {
   }
 
   static volatile Supplier<ZoneIdsProvider> zoneIdsProvider;
