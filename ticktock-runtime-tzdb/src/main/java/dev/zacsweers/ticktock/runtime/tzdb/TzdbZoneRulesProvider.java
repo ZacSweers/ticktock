@@ -80,6 +80,7 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 /**
@@ -88,6 +89,8 @@ import java.util.function.Supplier;
  * @since 1.8
  */
 public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
+
+  private static final AtomicBoolean INITIALIZED = new AtomicBoolean();
 
   /**
    * All the regions that are available.
@@ -118,17 +121,8 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
    *
    * @throws ZoneRulesException if unable to load
    */
-  // TODO use ZoneRulesLoader?
   public TzdbZoneRulesProvider() {
     System.out.println("Initializing TzdbZoneRulesProvider");
-
-    // TODO lazily init?
-    try {
-      DataInputStream dis = zoneDataLoader.get().openData("j$/time/zone/tzdb.dat");
-      load(dis);
-    } catch (Exception ex) {
-      throw new ZoneRulesException("Unable to load TZDB time-zone rules", ex);
-    }
   }
 
   @Override protected Set<String> provideZoneIds() {
@@ -136,6 +130,14 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
   }
 
   @Override protected ZoneRules provideRules(String zoneId, boolean forCaching) {
+    if (INITIALIZED.compareAndSet(false, true)) {
+      try {
+        DataInputStream dis = zoneDataLoader.get().openData("j$/time/zone/tzdb.dat");
+        load(dis);
+      } catch (Exception ex) {
+        throw new ZoneRulesException("Unable to load TZDB time-zone rules", ex);
+      }
+    }
     // forCaching flag is ignored because this is not a dynamic provider
     Object obj = regionToRules.get(zoneId);
     if (obj == null) {
