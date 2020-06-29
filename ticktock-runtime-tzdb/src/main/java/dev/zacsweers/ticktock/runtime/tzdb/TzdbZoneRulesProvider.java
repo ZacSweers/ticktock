@@ -90,16 +90,16 @@ import java.util.function.Supplier;
  */
 public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
 
-  private static final AtomicBoolean INITIALIZED = new AtomicBoolean();
-
   /**
    * All the regions that are available.
    */
   private List<String> regionIds;
+
   /**
    * Version Id of this tzdb rules
    */
   private String versionId;
+
   /**
    * Region to rules mapping
    */
@@ -115,6 +115,8 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     }
   });
 
+  private final AtomicBoolean initialized = new AtomicBoolean();
+
   /**
    * Creates an instance.
    * Created by the {@code ServiceLoader}.
@@ -125,12 +127,8 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     System.out.println("Initializing TzdbZoneRulesProvider");
   }
 
-  @Override protected Set<String> provideZoneIds() {
-    return new HashSet<>(regionIds);
-  }
-
-  @Override protected ZoneRules provideRules(String zoneId, boolean forCaching) {
-    if (INITIALIZED.compareAndSet(false, true)) {
+  private void checkInitialized() {
+    if (initialized.compareAndSet(false, true)) {
       try {
         DataInputStream dis = zoneDataLoader.get().openData("j$/time/zone/tzdb.dat");
         load(dis);
@@ -138,6 +136,15 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
         throw new ZoneRulesException("Unable to load TZDB time-zone rules", ex);
       }
     }
+  }
+
+  @Override protected Set<String> provideZoneIds() {
+    checkInitialized();
+    return new HashSet<>(regionIds);
+  }
+
+  @Override protected ZoneRules provideRules(String zoneId, boolean forCaching) {
+    checkInitialized();
     // forCaching flag is ignored because this is not a dynamic provider
     Object obj = regionToRules.get(zoneId);
     if (obj == null) {
