@@ -35,17 +35,21 @@ pluginManagement {
     }
   }
   repositories {
-    mavenCentral()
-    jcenter()
     gradlePluginPortal()
+    mavenCentral()
+    google()
+    jcenter()
   }
 }
 
 rootProject.name = 'ticktock-root'
-include 'ticktock-compiler'
-include 'ticktock-runtime'
-include 'ticktock-runtime-lazyzonerules'
-include 'ticktock-runtime-tzdb'
+include ':ticktock-compiler'
+include ':ticktock-runtime'
+include ':ticktock-runtime-lazyzonerules'
+include ':ticktock-runtime-tzdb'
+include ':ticktock-android:runtime'
+include ':ticktock-android:lazyzonerules'
+include ':ticktock-android:tzdb'
 include 'sample'
 
 includeBuild('ticktock-gradle-plugin') {
