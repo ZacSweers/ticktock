@@ -107,6 +107,8 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
   // TODO use ZoneRulesLoader?
   public TzdbZoneRulesProvider() {
     System.out.println("Initializing TzdbZoneRulesProvider");
+
+    // TODO lazily init?
     try {
       String fileName = "j$/time/zone/tzdb.dat";
       URL datUrl = TzdbZoneRulesProvider.class.getClassLoader()

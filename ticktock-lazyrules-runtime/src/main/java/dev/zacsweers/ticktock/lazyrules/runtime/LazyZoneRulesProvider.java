@@ -52,6 +52,7 @@ public final class LazyZoneRulesProvider extends ZoneRulesProvider {
   });
 
   public LazyZoneRulesProvider() {
+    System.out.println("Initializing LazyZoneRulesProvider");
   }
 
   @Override protected Set<String> provideZoneIds() {
