@@ -98,6 +98,7 @@ class TickTockPlugin : Plugin<Project> {
       tzOutputDir.set(extension.tzOutputDir)
       codeOutputDir.set(extension.codeOutputDir)
       language.set(extension.language)
+      packageName.set(extension.packageName)
     }
 
     val tzdatOutputDir = tzdbVersion.flatMap { layout.buildDirectory.dir("$INTERMEDIATES/$it/dat") }
@@ -151,6 +152,9 @@ abstract class TickTockExtension @Inject constructor(
 
   val language: Property<String> = objects.property<String>()
       .convention("java")
+
+  val packageName: Property<String> = objects.property<String>()
+      .convention("ticktock")
 }
 
 /** A zone rules generation task for granular zone rules. */
@@ -161,6 +165,9 @@ abstract class GenerateZoneRuleFilesTask : JavaExec() {
 
   @get:Input
   abstract val language: Property<String>
+
+  @get:Input
+  abstract val packageName: Property<String>
 
   @get:PathSensitive(PathSensitivity.RELATIVE)
   @get:InputDirectory
@@ -187,7 +194,9 @@ abstract class GenerateZoneRuleFilesTask : JavaExec() {
         "--version",
         tzVersion.get(),
         "--language",
-        language.get()
+        language.get(),
+        "--packagename",
+        packageName.get()
     )
   }
 }
