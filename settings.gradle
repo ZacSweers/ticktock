@@ -50,6 +50,8 @@ include ':ticktock-runtime-tzdb'
 include ':ticktock-android:runtime'
 include ':ticktock-android:lazyzonerules'
 include ':ticktock-android:tzdb'
+include ':ticktock-android:lazyzonerules-startup'
+include ':ticktock-android:tzdb-startup'
 include 'sample'
 
 includeBuild('ticktock-gradle-plugin') {
