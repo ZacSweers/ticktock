@@ -36,6 +36,7 @@ import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.property
 import org.gradle.kotlin.dsl.register
 import org.gradle.process.CommandLineArgumentProvider
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import java.io.File
 import javax.inject.Inject
 
@@ -54,6 +55,11 @@ class TickTockPlugin : Plugin<Project> {
   private fun Project.setup() {
     // TODO how can we depend on the direct artifact as a default? Should we?
     val tickTockCompiler = configurations.maybeCreate("tickTockCompiler")
+    // Necessary with Clikt/MPP deps on the classpath of this
+    // See https://github.com/gradle/gradle/issues/12126
+    tickTockCompiler.attributes {
+      attribute(KotlinPlatformType.attribute, KotlinPlatformType.jvm)
+    }
 
     val threetenbp = configurations.maybeCreate("threetenbp")
     dependencies.add(threetenbp.name, "org.threeten:threetenbp:1.4.4")
