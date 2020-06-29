@@ -5,9 +5,7 @@ import java.io.DataInputStream;
 import java.net.URL;
 import java.time.zone.ZoneRulesException;
 
-/**
- * A resources-based {@link ZoneDataLoader} that expects rules to be under "tzdb/" in resources.
- */
+/** A resources-based {@link ZoneDataLoader}. */
 public final class ResourcesZoneDataLoader implements ZoneDataLoader {
   @Override public DataInputStream openData(String path) {
     try {
