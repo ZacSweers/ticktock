@@ -61,12 +61,14 @@
  */
 package dev.zacsweers.ticktock.runtime.tzdb;
 
+import dev.zacsweers.ticktock.runtime.ResourcesZoneDataLoader;
+import dev.zacsweers.ticktock.runtime.TickTockPlugins;
+import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.internal.SerCompat;
-import java.io.BufferedInputStream;
+import dev.zacsweers.ticktock.runtime.internal.Suppliers;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.StreamCorruptedException;
-import java.net.URL;
 import java.time.zone.ZoneRules;
 import java.time.zone.ZoneRulesException;
 import java.time.zone.ZoneRulesProvider;
@@ -78,6 +80,7 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
 /**
  * Loads time-zone rules for 'TZDB'.
@@ -99,6 +102,16 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
    */
   private final Map<String, Object> regionToRules = new ConcurrentHashMap<>();
 
+  private final Supplier<ZoneDataLoader> zoneDataLoader = Suppliers.memoize(() -> {
+    Supplier<ZoneDataLoader> callable = TickTockPlugins.getZoneRulesLoader();
+    if (callable == null) {
+      // Default to using resources.
+      return new ResourcesZoneDataLoader();
+    } else {
+      return callable.get();
+    }
+  });
+
   /**
    * Creates an instance.
    * Created by the {@code ServiceLoader}.
@@ -111,13 +124,7 @@ public final class TzdbZoneRulesProvider extends ZoneRulesProvider {
 
     // TODO lazily init?
     try {
-      String fileName = "j$/time/zone/tzdb.dat";
-      URL datUrl = TzdbZoneRulesProvider.class.getClassLoader()
-          .getResource("j$/time/zone/tzdb.dat");
-      if (datUrl == null) {
-        throw new ZoneRulesException("Missing time-zone data: " + fileName);
-      }
-      DataInputStream dis = new DataInputStream(new BufferedInputStream(datUrl.openStream()));
+      DataInputStream dis = zoneDataLoader.get().openData("j$/time/zone/tzdb.dat");
       load(dis);
     } catch (Exception ex) {
       throw new ZoneRulesException("Unable to load TZDB time-zone rules", ex);
