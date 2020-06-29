@@ -17,9 +17,25 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.internal.jvm.Jvm
 
 plugins {
+  id 'application'
   id 'org.jetbrains.kotlin.jvm'
   id 'org.jetbrains.dokka'
   id 'com.vanniktech.maven.publish'
+}
+
+mainClassName = 'dev.zacsweers.ticktock.compiler.LazyZoneRulesCompiler'
+
+// Fat jar configuration to run this as a standalone jar
+// Configuration borrowed from https://stackoverflow.com/a/49284432/3323598
+jar {
+  manifest {
+    attributes(
+        'Main-Class': 'dev.zacsweers.ticktock.compiler.LazyZoneRulesCompiler'
+    )
+  }
+  from {
+    configurations.compileClasspath.filter { it.exists() }.collect { it.isDirectory() ? it : zipTree(it) }
+  }
 }
 
 tasks.withType(KotlinCompile) {

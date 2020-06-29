@@ -19,22 +19,11 @@ import com.google.devtools.common.options.OptionsParser
 import java.nio.file.Path
 import org.threeten.bp.zone.ZoneRulesCompat
 
-fun main(args: Array<String>) {
-  val parser =
-    OptionsParser.newOptionsParser(
-      CompilerOptions::class.java
-    )
-  parser.parseAndExitUponError(args)
-  val options = parser.getOptions(CompilerOptions::class.java)
-  if (options != null && options.validate()) {
-    LazyZoneRulesCompiler(options).run()
-  }
-}
-
 class LazyZoneRulesCompiler(o: CompilerOptions) {
 
   private val version: String = o.version
-  private val compiler: ZoneRulesCompat = ZoneRulesCompat(o.version, o.tzdbFiles(), o.leapSecondFile(), o.verbose)
+  private val compiler: ZoneRulesCompat = ZoneRulesCompat(o.version, o.tzdbFiles(),
+      o.leapSecondFile(), o.verbose)
   private val rulesWriter: RulesWriter = rulesWriter(o.language, o.codeOutputDir)
   private val zoneWriter: ZoneWriter = ZoneWriter(o.tzdbOutputDir)
   private val packageName: String = o.packageName
@@ -55,6 +44,18 @@ class LazyZoneRulesCompiler(o: CompilerOptions) {
     } catch (ex: Exception) {
       println("Failed: $ex")
       ex.printStackTrace()
+    }
+  }
+
+  companion object {
+    @JvmStatic
+    fun main(args: Array<String>) {
+      val parser = OptionsParser.newOptionsParser(CompilerOptions::class.java)
+      parser.parseAndExitUponError(args)
+      val options = parser.getOptions(CompilerOptions::class.java)
+      if (options != null && options.validate()) {
+        LazyZoneRulesCompiler(options).run()
+      }
     }
   }
 }
