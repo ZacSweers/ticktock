@@ -24,18 +24,19 @@ import java.nio.file.Paths
 class LazyZoneRulesCommand : CliktCommand() {
 
   private val version: String by option(
+      "--version",
       help = "Version of the time zone data, e.g. 2017b."
   ).default("")
       .validate { it.isNotBlank() }
 
   private val srcDir: Path by option(
-      "srcdir",
+      "--srcdir",
       help = "Directory containing the unpacked leapsecond and tzdb files."
-  ).path(mustExist = true, canBeDir = false)
+  ).path(mustExist = true, canBeFile = false)
       .required()
 
   private val tzdbFileNames: List<String> by option(
-      "tzdbfiles",
+      "--tzdbfiles",
       help = "Names of the tzdb files to process."
   ).split(",")
       .default(
@@ -53,31 +54,33 @@ class LazyZoneRulesCommand : CliktCommand() {
       )
 
   private val leapSecondFileName: String by option(
-      "leapfile",
+      "--leapfile",
       help = "Name of the leapsecond file to process."
   ).default("leapseconds")
 
   private val codeOutputDir: Path by option(
-      "codeoutdir",
+      "--codeoutdir",
       help = "Output directory for the generated java code."
   ).path(canBeFile = false).required()
 
   private val tzdbOutputDir: Path by option(
-      "tzdboutdir",
+      "--tzdboutdir",
       help = "Output directory for the generated tzdb files."
   ).path(canBeFile = false).required()
 
   private val verbose: Boolean by option(help = "Verbose output.").flag()
 
   private val language: Language by option(
+      "--language",
       help = "Language output (java or kotlin)."
   ).enum<Language>().default(Language.JAVA)
 
   private val packageName: String by option(
+      "--packagename",
       help = "Package name to output with."
   ).default("ticktock")
 
-  val tzdbFiles: List<File> by lazy {
+  private val tzdbFiles: List<File> by lazy {
     tzdbFileNames.asSequence()
         .map(srcDir::resolve)
         .filter { Files.exists(it) }
