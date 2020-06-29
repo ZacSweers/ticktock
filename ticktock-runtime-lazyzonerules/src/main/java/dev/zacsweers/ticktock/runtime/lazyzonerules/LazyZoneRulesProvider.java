@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.zacsweers.ticktock.lazyrules.runtime;
+package dev.zacsweers.ticktock.runtime.lazyzonerules;
 
 import dev.zacsweers.ticktock.runtime.ResourcesZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.TickTockPlugins;
