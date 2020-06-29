@@ -101,7 +101,7 @@ class TickTockPlugin : Plugin<Project> {
     }
 
     val tzdatOutputDir = tzdbVersion.flatMap { layout.buildDirectory.dir("$INTERMEDIATES/$it/dat") }
-    val generateTzDat = tasks.register<GenerateTzDatTask>("generateTzDat") {
+    val generateTzdbDat = tasks.register<GenerateTzDatTask>("generateTzdbDat") {
       classpath(threetenbp)
       mainClass.set("org.threeten.bp.zone.TzdbZoneRulesCompiler")
       tzVersion.set(tzdbVersion)
@@ -110,14 +110,18 @@ class TickTockPlugin : Plugin<Project> {
       argumentProviders.add(CommandLineArgumentProvider(::computeArguments))
     }
 
-    tasks.register<Sync>("syncTzDatToResources") {
+    val syncTask = tasks.register<Sync>("syncTzDatToResources") {
       group = TICKTOCK_GROUP
-      from(generateTzDat.map { it.outputDir })
+      from(generateTzdbDat.map { it.outputDir })
       into(extension.tzOutputDir.map { it.dir("j\$/time/zone") })
       // The CLI outputs TZDB.dat but we want lowercase
       rename {
         it.replace("TZDB.dat", "tzdb.dat")
       }
+    }
+
+    generateTzdbDat.configure {
+      finalizedBy(syncTask)
     }
   }
 
