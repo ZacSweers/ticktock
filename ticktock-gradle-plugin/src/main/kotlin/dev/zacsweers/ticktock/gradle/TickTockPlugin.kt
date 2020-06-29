@@ -39,6 +39,8 @@ import org.gradle.process.CommandLineArgumentProvider
 import java.io.File
 import javax.inject.Inject
 
+private const val TICKTOCK_GROUP = "ticktock"
+
 class TickTockPlugin : Plugin<Project> {
 
   companion object {
@@ -64,6 +66,7 @@ class TickTockPlugin : Plugin<Project> {
     }
         .map { it.asFile }
     val downloadTzdb = tasks.register<Download>("downloadTzData") {
+      group = TICKTOCK_GROUP
       src(tzdbVersion.map { "https://data.iana.org/time-zones/releases/tzdata$it.tar.gz" })
       dest(tzDbOutput)
     }
@@ -72,6 +75,7 @@ class TickTockPlugin : Plugin<Project> {
       layout.buildDirectory.dir("$INTERMEDIATES/$it/unpacked/$it")
     }
     val unzipTzData = tasks.register<Sync>("unzipTzdata") {
+      group = TICKTOCK_GROUP
       from(tzDbOutput.map { tarTree(resources.gzip(it)) })
       into(unzippedOutput)
     }
@@ -100,6 +104,7 @@ class TickTockPlugin : Plugin<Project> {
     }
 
     tasks.register<Sync>("syncTzDatToResources") {
+      group = TICKTOCK_GROUP
       from(generateTzDat.map { it.outputDir })
       into(extension.tzOutputDir.map { it.dir("j\$/time/zone") })
       // The CLI outputs TZDB.dat but we want lowercase
@@ -150,6 +155,10 @@ abstract class GenerateZoneRuleFilesTask : JavaExec() {
   @get:OutputDirectory
   abstract val codeOutputDir: DirectoryProperty
 
+  init {
+    group = TICKTOCK_GROUP
+  }
+
   fun computeArguments(): List<String> {
     return listOf(
         "--srcdir",
@@ -176,6 +185,10 @@ abstract class GenerateTzDatTask : JavaExec() {
 
   @get:OutputDirectory
   abstract val outputDir: DirectoryProperty
+
+  init {
+    group = TICKTOCK_GROUP
+  }
 
   fun computeArguments(): List<String> {
     return listOf(
