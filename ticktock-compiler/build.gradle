@@ -60,6 +60,7 @@ dependencies {
   implementation deps.misc.javapoet
   implementation deps.misc.kotlinpoet
   implementation deps.misc.googleOptions
+  implementation deps.misc.clikt
 
   testImplementation deps.test.junit
   testImplementation deps.test.truth

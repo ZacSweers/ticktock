@@ -19,7 +19,12 @@ import java.io.DataOutputStream
 import java.io.File
 import java.util.SortedMap
 
-class ZoneRulesCompat(version: String, sourceFiles: List<File>, leapSecondsFile: File?, verbose: Boolean) {
+class ZoneRulesCompat(
+    version: String,
+    sourceFiles: List<File>,
+    leapSecondsFile: File?,
+    verbose: Boolean
+) {
   private val compiler: TzdbZoneRulesCompiler = TzdbZoneRulesCompiler(version, sourceFiles, leapSecondsFile, verbose)
 
   init {
