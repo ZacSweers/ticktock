@@ -15,11 +15,20 @@
  */
 
 plugins {
+  id 'application'
   id 'org.jetbrains.kotlin.jvm'
-  id 'org.jetbrains.kotlin.kapt'
+  id 'dev.zacsweers.ticktock'
+}
+
+tickTock {
+  tzVersion.set("2020a")
+  language.set("kotlin")
+  codeOutputDir.set(layout.projectDirectory.dir("src/main/kotlin"))
 }
 
 dependencies {
+  tickTockCompiler project(":ticktock-compiler")
+  implementation project(":ticktock-lazyrules-runtime")
   implementation deps.kotlin.stdlibjdk8
 
   testImplementation deps.test.junit

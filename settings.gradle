@@ -50,6 +50,6 @@ include 'sample'
 
 includeBuild('ticktock-gradle-plugin') {
   dependencySubstitution {
-    substitute module('dev.zacsweers.ticktock:ticktock') with project(':')
+    substitute module('dev.zacsweers.ticktock:ticktock-gradle-plugin') with project(':')
   }
 }
