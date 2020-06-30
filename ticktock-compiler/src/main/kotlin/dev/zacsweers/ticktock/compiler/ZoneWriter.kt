@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,7 @@ internal class ZoneWriter(private val outputDir: Path) {
       Files.walkFileTree(outputDir, deleteFilesRecursively)
     }
     for ((key, value) in zones) {
-      writeZoneRulesFile(outputDir.resolve("tzdb/$key.dat"), value)
+      writeZoneRulesFile(outputDir.resolve(fileName(key)), value)
     }
   }
 
@@ -57,6 +57,12 @@ internal class ZoneWriter(private val outputDir: Path) {
     override fun postVisitDirectory(dir: Path, exc: IOException?): FileVisitResult {
       Files.delete(dir)
       return FileVisitResult.CONTINUE
+    }
+  }
+
+  companion object {
+    fun fileName(key: String): String {
+      return "tzdb/$key.dat"
     }
   }
 }

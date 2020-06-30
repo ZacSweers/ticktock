@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *   https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,22 +13,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.internal.jvm.Jvm
 
 plugins {
+  id 'application'
   id 'org.jetbrains.kotlin.jvm'
   id 'org.jetbrains.dokka'
   id 'com.vanniktech.maven.publish'
 }
 
+mainClassName = 'dev.zacsweers.ticktock.compiler.LazyZoneRulesCompiler'
+
+// Fat jar configuration to run this as a standalone jar
+// Configuration borrowed from https://stackoverflow.com/a/49284432/3323598
+jar {
+  manifest {
+    attributes(
+        'Main-Class': 'dev.zacsweers.ticktock.compiler.LazyZoneRulesCompiler'
+    )
+  }
+  from {
+    configurations.compileClasspath.filter { it.exists() }.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
+
+tasks.withType(KotlinCompile) {
+  kotlinOptions {
+    freeCompilerArgs += [
+        "-progressive",
+        "-Xopt-in=kotlin.ExperimentalStdlibApi"
+    ]
+  }
+}
+
+mavenPublish {
+  nexus {
+    groupId = "dev.zacsweers"
+  }
+}
+
 dependencies {
   api deps.kotlin.stdlibjdk8
+  implementation project(":ticktock-runtime")
   implementation deps.misc.threetenbp
   implementation deps.misc.javapoet
   implementation deps.misc.kotlinpoet
-  implementation deps.misc.googleOptions
+  implementation deps.misc.clikt
 
   testImplementation deps.test.junit
   testImplementation deps.test.truth
   testImplementation deps.test.compileTesting
   testImplementation deps.test.kotlinCompileTesting
+  if (JavaVersion.current() < JavaVersion.VERSION_1_9) {
+    testImplementation files(Jvm.current().getToolsJar())
+  }
 }
