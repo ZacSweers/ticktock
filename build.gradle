@@ -17,6 +17,7 @@
 buildscript {
   dependencies {
     classpath("dev.zacsweers.ticktock:ticktock-gradle-plugin:${findProperty("VERSION_NAME")}")
+    classpath("com.android.tools.build:gradle:4.0.0")
   }
 }
 
@@ -32,6 +33,7 @@ subprojects {
 
   repositories {
     mavenCentral()
+    google()
     jcenter()
   }
 
