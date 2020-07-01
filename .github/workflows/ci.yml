@@ -35,6 +35,9 @@ jobs:
         path: build-reports.zip
     - name: Final checks
       run: ./gradlew check --stacktrace
+    - name: Reclaim memory
+      run: ./gradlew --stop && jps|grep -E 'KotlinCompileDaemon|GradleDaemon'| awk '{print $1}'| xargs kill -9
+      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && matrix.java_version == '1.8'
     - name: Upload snapshot (main only)
       run: ./gradlew uploadArchives -PSONATYPE_NEXUS_USERNAME=${{ secrets.SonatypeUsername }} -PSONATYPE_NEXUS_PASSWORD=${{ secrets.SonatypePassword }}
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && matrix.java_version == '1.8'
