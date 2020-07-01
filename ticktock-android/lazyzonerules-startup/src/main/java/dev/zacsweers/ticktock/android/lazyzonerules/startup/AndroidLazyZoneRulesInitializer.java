@@ -6,11 +6,11 @@ import dev.zacsweers.ticktock.android.lazyzonerules.AndroidLazyZoneRules;
 import java.util.Collections;
 import java.util.List;
 
-class AndroidLazyZoneRulesInitializer implements Initializer<AndroidLazyZoneRulesInitializer> {
+class AndroidLazyZoneRulesInitializer implements Initializer<Class<AndroidLazyZoneRulesInitializer>> {
 
-  @Override public AndroidLazyZoneRulesInitializer create(Context context) {
+  @Override public Class<AndroidLazyZoneRulesInitializer> create(Context context) {
     AndroidLazyZoneRules.init(context);
-    return this;
+    return AndroidLazyZoneRulesInitializer.class;
   }
 
   @Override public List<Class<? extends Initializer<?>>> dependencies() {
