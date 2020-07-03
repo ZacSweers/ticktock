@@ -5,9 +5,8 @@ subprojects {
     // Workaround because modern sdk installations don't seem to contain a docs dir
     tasks.withType(AndroidJavadocs).configureEach {
       options {
-        setLinksOffline([
-            new JavadocOfflineLink("https://developer.android.com/reference", "http://docs.oracle.com/javase/7/docs/api/")
-        ])
+        setLinksOffline([])
+        links("https://developer.android.com/reference")
       }
     }
   }
