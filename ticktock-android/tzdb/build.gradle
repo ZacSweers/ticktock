@@ -33,12 +33,6 @@ tickTock {
 
 // TODO make build depend on tasks.getByName("generateTzdbDat")
 
-mavenPublish {
-  nexus {
-    groupId = "dev.zacsweers"
-  }
-}
-
 dependencies {
   tickTockCompiler project(":ticktock-compiler")
   api project(":ticktock-android:runtime")

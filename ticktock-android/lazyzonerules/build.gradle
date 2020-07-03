@@ -41,12 +41,6 @@ android.libraryVariants.configureEach {
   it.registerJavaGeneratingTask(tasks.getByName("generateLazyZoneRules"), generatedDir.get().asFile)
 }
 
-mavenPublish {
-  nexus {
-    groupId = "dev.zacsweers"
-  }
-}
-
 dependencies {
   tickTockCompiler project(":ticktock-compiler")
   api project(":ticktock-android:runtime")

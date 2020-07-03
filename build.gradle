@@ -53,6 +53,14 @@ subprojects {
     }
   }
 
+  pluginManager.withPlugin("com.vanniktech.maven.publish") {
+    mavenPublish {
+      nexus {
+        groupId = "dev.zacsweers"
+      }
+    }
+  }
+
   apply from: rootProject.file('gradle/config-spotless.gradle')
 }
 

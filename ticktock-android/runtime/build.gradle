@@ -26,12 +26,6 @@ android {
   }
 }
 
-mavenPublish {
-  nexus {
-    groupId = "dev.zacsweers"
-  }
-}
-
 dependencies {
   api project(":ticktock-runtime")
 }
