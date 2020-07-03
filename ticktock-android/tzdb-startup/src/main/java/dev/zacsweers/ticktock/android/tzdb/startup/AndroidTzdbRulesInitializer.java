@@ -6,7 +6,7 @@ import dev.zacsweers.ticktock.android.tzdb.AndroidTzdbZoneRules;
 import java.util.Collections;
 import java.util.List;
 
-class AndroidTzdbRulesInitializer implements Initializer<Class<AndroidTzdbRulesInitializer>> {
+public class AndroidTzdbRulesInitializer implements Initializer<Class<AndroidTzdbRulesInitializer>> {
 
   @Override public Class<AndroidTzdbRulesInitializer> create(Context context) {
     AndroidTzdbZoneRules.init(context);

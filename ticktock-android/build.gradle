@@ -1,0 +1,13 @@
+import com.vanniktech.maven.publish.tasks.AndroidJavadocs
+
+subprojects {
+  pluginManager.withPlugin("com.android.library") {
+    // Workaround because modern sdk installations don't seem to contain a docs dir
+    tasks.withType(AndroidJavadocs).configureEach {
+      options {
+        setLinksOffline([])
+        links("https://developer.android.com/reference")
+      }
+    }
+  }
+}
