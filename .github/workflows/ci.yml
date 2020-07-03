@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java_version }}
-    - name: Configure Gradle
-      # Initial gradle configuration, install dependencies, etc
-      run: ./gradlew help
+    - name: Configure Gradle + spot check
+      # Initial gradle configuration, install dependencies, check formatting, etc
+      run: ./gradlew spotlessCheck
     - name: Build project
       run: ./gradlew assemble --stacktrace
     - name: Run tests
