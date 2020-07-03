@@ -4,7 +4,7 @@ import android.content.Context;
 import dev.zacsweers.ticktock.android.AssetsZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.TickTockPlugins;
 
-public class AndroidTzdbZoneRules {
+public final class AndroidTzdbZoneRules {
   public static void init(Context context) {
     System.setProperty(
         "java.time.zone.DefaultZoneRulesProvider",
