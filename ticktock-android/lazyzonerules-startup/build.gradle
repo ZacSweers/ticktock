@@ -34,10 +34,6 @@ mavenPublish {
   }
 }
 
-tasks.withType(AndroidJavadocs).configureEach {
-  failOnError(false)
-}
-
 dependencies {
   api project(":ticktock-android:lazyzonerules")
   implementation "androidx.startup:startup-runtime:1.0.0-alpha01"
