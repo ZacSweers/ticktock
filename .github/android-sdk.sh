@@ -16,5 +16,6 @@ mv $ANDROID_HOME/cmdline-tools/tools $ANDROID_HOME/cmdline-tools/latest
 
 echo "Installing required Android tools"
 echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "patcher;v4"
 
 echo "Done!"
