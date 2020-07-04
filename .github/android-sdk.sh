@@ -16,6 +16,7 @@ mv $ANDROID_HOME/cmdline-tools/tools $ANDROID_HOME/cmdline-tools/latest
 
 echo "Installing required Android tools"
 echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+# without manually installing this the license check in AGP fails https://issuetracker.google.com/issues/160361319
 echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "patcher;v4"
 
 echo "Done!"
