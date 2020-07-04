@@ -2,6 +2,10 @@ name: CI
 
 on: [push]
 
+env:
+  ANDROID_HOME: "/home/runner/tools/android-sdk"
+  ANDROID_SDK_TOOLS: "6609375_latest"
+
 jobs:
   build:
     name: JDK ${{ matrix.java_version }}
@@ -17,6 +21,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java_version }}
+    - name: Install Android SDK
+      run: ./.github/android-sdk.sh
     - name: Configure Gradle + spot check
       # Initial gradle configuration, install dependencies, check formatting, etc
       run: ./gradlew spotlessCheck
