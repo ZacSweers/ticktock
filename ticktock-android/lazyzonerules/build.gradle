@@ -24,6 +24,7 @@ plugins {
 Provider<Directory> generatedDir = layout.buildDirectory.dir("generated/ticktock")
 
 tickTock {
+  tzVersion.set(providers.gradleProperty("ticktock.ianaVersion").forUseAtConfigurationTime())
   codeOutputDir.set(generatedDir)
   tzOutputDir.set(layout.projectDirectory.dir("src/main/assets"))
   packageName.set("dev.zacsweers.ticktock.android.lazyzonerules")

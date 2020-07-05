@@ -21,7 +21,7 @@ plugins {
 }
 
 tickTock {
-  tzVersion.set("2020a")
+  tzVersion.set(providers.gradleProperty("ticktock.ianaVersion").forUseAtConfigurationTime())
   language.set("kotlin")
   codeOutputDir.set(layout.projectDirectory.dir("src/main/kotlin"))
 }
