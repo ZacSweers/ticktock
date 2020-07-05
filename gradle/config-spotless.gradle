@@ -19,6 +19,12 @@ String[] copiedKotlinFiles = [
     // Add any copied files that should have their copyright header preserved
     "copyright",
 ].collect { "**/*${it}.kt" } as String[]
+String[] copiedJavaFiles = [
+    "SerCompat",
+    "Suppliers",
+    "TzdbZoneDataProvider",
+    "copyright",
+].collect { "**/*${it}.java" } as String[]
 spotless {
   format 'misc', {
     target '**/*.md', '**/.gitignore'
@@ -38,6 +44,16 @@ spotless {
   kotlinGradle {
     target '*.gradle.kts'
     ktlint(deps.versions.ktlint).userData(deps.build.ktlintUserData)
+    trimTrailingWhitespace()
+    endWithNewline()
+  }
+  java {
+    target "**/src/**/*.java"
+    targetExclude '**/spotless/*.java'
+    targetExclude(copiedJavaFiles)
+    googleJavaFormat("1.8")
+    licenseHeaderFile rootProject.file('spotless/copyright.java')
+    removeUnusedImports()
     trimTrailingWhitespace()
     endWithNewline()
   }
