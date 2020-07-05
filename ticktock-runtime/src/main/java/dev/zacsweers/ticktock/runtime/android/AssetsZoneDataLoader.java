@@ -41,10 +41,8 @@ public final class AssetsZoneDataLoader implements ZoneDataLoader {
   public DataInputStream openData(String path) {
     try {
       return new DataInputStream(new BufferedInputStream(context.getAssets().open(path)));
-    } catch (FileNotFoundException missingFileEx) {
+    } catch (Exception missingFileEx) {
       throw new ZoneRulesException("Invalid binary time-zone data: " + path, missingFileEx);
-    } catch (Exception ex) {
-      throw new ZoneRulesException("Invalid binary time-zone data: " + path, ex);
     }
   }
 }
