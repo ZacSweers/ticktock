@@ -26,7 +26,6 @@ tickTock {
 // TODO make build depend on tasks.getByName("generateTzdbDat")
 
 dependencies {
-  coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.0.9"
   tickTockCompiler project(":ticktock-compiler")
   api project(":ticktock-android:runtime")
   implementation project(":ticktock-runtime-tzdb")
