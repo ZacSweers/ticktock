@@ -1,18 +1,14 @@
-package dev.zacsweers.ticktock.android;
+package dev.zacsweers.ticktock.runtime;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
-import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
 import java.time.zone.ZoneRulesException;
 
 /** An assets-based {@link ZoneDataLoader}. */
-@TargetApi(Build.VERSION_CODES.O)
+@TargetApi(26)
 public final class AssetsZoneDataLoader implements ZoneDataLoader {
 
   public static AssetsZoneDataLoader create(Context context) {
