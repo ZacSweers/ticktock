@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class TzdbZoneProvider implements ZoneIdsProvider, ZoneDataProvider {
+public final class TzdbZoneProvider implements ZoneIdsProvider, ZoneDataProvider {
 
   private String version;
   private List<String> regionIds;
