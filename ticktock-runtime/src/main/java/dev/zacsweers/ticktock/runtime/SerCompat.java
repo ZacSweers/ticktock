@@ -16,19 +16,13 @@
 package dev.zacsweers.ticktock.runtime;
 
 import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.Externalizable;
 import java.io.IOException;
-import java.io.InvalidClassException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.io.StreamCorruptedException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.ZoneOffset;
 import java.time.zone.ZoneOffsetTransition;
 import java.time.zone.ZoneOffsetTransitionRule;
-import java.time.zone.ZoneRules;
 
 /**
  * The shared serialization delegate for this package.
