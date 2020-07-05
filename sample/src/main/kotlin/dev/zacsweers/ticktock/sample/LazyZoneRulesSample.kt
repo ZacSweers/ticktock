@@ -15,8 +15,8 @@
  */
 package dev.zacsweers.ticktock.sample
 
-import dev.zacsweers.ticktock.runtime.LazyZoneDataProvider
 import dev.zacsweers.ticktock.runtime.EagerZoneRulesLoading
+import dev.zacsweers.ticktock.runtime.LazyZoneDataProvider
 import dev.zacsweers.ticktock.runtime.ResourcesZoneDataLoader
 import dev.zacsweers.ticktock.runtime.TickTockPlugins
 import java.time.Instant

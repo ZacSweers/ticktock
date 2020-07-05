@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ package dev.zacsweers.ticktock.runtime;
 import java.time.zone.ZoneRules;
 
 /**
- * An interface for returning the rules for a zone id. This is used by {@link TickTockZoneRulesProvider}
- * via {@link TickTockPlugins}.
+ * An interface for returning the rules for a zone id. This is used by {@link
+ * TickTockZoneRulesProvider} via {@link TickTockPlugins}.
  */
 public interface ZoneDataProvider {
   /** The {@link ZoneRules} for the given zoneId. */
