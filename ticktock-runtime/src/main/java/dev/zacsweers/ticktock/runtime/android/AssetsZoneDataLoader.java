@@ -20,7 +20,6 @@ import android.content.Context;
 import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
-import java.io.FileNotFoundException;
 import java.time.zone.ZoneRulesException;
 
 /** An assets-based {@link ZoneDataLoader}. */
