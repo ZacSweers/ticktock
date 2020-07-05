@@ -49,98 +49,98 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TzdbZoneProvider implements ZoneIdsProvider, ZoneDataProvider {
 
-    private String version;
-    private List<String> regionIds;
-    private List<ZoneRules> rules;
-    private short[] ruleIndices;
+  private String version;
+  private List<String> regionIds;
+  private List<ZoneRules> rules;
+  private short[] ruleIndices;
 
-    private final AtomicBoolean initialized = new AtomicBoolean();
+  private final AtomicBoolean initialized = new AtomicBoolean();
 
-    private final ZoneDataLoader zoneDataLoader;
+  private final ZoneDataLoader zoneDataLoader;
 
-    public TzdbZoneProvider(ZoneDataLoader zoneDataLoader) {
-        this.zoneDataLoader = zoneDataLoader;
+  public TzdbZoneProvider(ZoneDataLoader zoneDataLoader) {
+    this.zoneDataLoader = zoneDataLoader;
+  }
+
+  @Override
+  public String getVersionId() {
+    checkInitialized();
+    return version;
+  }
+
+  @Override
+  public List<String> getZoneIds() {
+    checkInitialized();
+    return regionIds;
+  }
+
+  @Override
+  public ZoneRules getZoneRules(String zoneId) {
+    checkInitialized();
+    int regionIndex = Collections.binarySearch(regionIds, zoneId);
+    if (regionIndex < 0) {
+      return null;
+    }
+    int index = ruleIndices[regionIndex];
+    return rules.get(index);
+  }
+
+  private void checkInitialized() {
+    if (initialized.compareAndSet(false, true)) {
+      try(DataInputStream dis = zoneDataLoader.openData("j$/time/zone/tzdb.dat")) {
+        load(dis);
+      } catch (Exception ex) {
+        throw new ZoneRulesException("Unable to load TZDB time-zone rules", ex);
+      }
+    }
+  }
+
+  private void load(DataInputStream dis) throws IOException {
+    if (dis.readByte() != 1) {
+      throw new StreamCorruptedException("File format not recognised");
+    }
+    // group
+    String groupId = dis.readUTF();
+    if (!"TZDB".equals(groupId)) {
+      throw new StreamCorruptedException("File format not recognised");
     }
 
-    @Override
-    public String getVersionId() {
-        checkInitialized();
-        return version;
+    // versions
+    int versionCount = dis.readShort();
+    if (versionCount == 0) {
+      throw new ZoneRulesException("No TZDB time-zone rules version found");
+    }
+    if (versionCount > 1) {
+      throw new ZoneRulesException("Multiple TZDB time-zone rules versions are not supported");
+    }
+    version = dis.readUTF();
+
+    // regions
+    int regionCount = dis.readShort();
+    String[] regionArray = new String[regionCount];
+    for (int i = 0; i < regionCount; i++) {
+      regionArray[i] = dis.readUTF();
     }
 
-    @Override
-    public List<String> getZoneIds() {
-        checkInitialized();
-        return regionIds;
+    // rules
+    int ruleCount = dis.readShort();
+    ZoneRules[] ruleArray = new ZoneRules[ruleCount];
+    for (int i = 0; i < ruleCount; i++) {
+      dis.readShort();
+      ruleArray[i] = (ZoneRules) SerCompat.read(dis);
     }
+    rules = Arrays.asList(ruleArray);
 
-    @Override
-    public ZoneRules getZoneRules(String zoneId) {
-        checkInitialized();
-        int regionIndex = Collections.binarySearch(regionIds, zoneId);
-        if (regionIndex < 0) {
-            return null;
-        }
-        int index = ruleIndices[regionIndex];
-        return rules.get(index);
+    // link version-region-rules
+    // simplified because we are just support one version
+    int versionRegionCount = dis.readShort();
+    String[] regionIds = new String[versionRegionCount];
+    short[] ruleIndices = new short[versionRegionCount];
+    for (int i = 0; i < versionRegionCount; i++) {
+      regionIds[i] = regionArray[dis.readShort()];
+      ruleIndices[i] = dis.readShort();
     }
-
-    private void checkInitialized() {
-        if (initialized.compareAndSet(false, true)) {
-            try(DataInputStream dis = zoneDataLoader.openData("j$/time/zone/tzdb.dat")) {
-                load(dis);
-            } catch (Exception ex) {
-                throw new ZoneRulesException("Unable to load TZDB time-zone rules", ex);
-            }
-        }
-    }
-
-    private void load(DataInputStream dis) throws IOException {
-        if (dis.readByte() != 1) {
-            throw new StreamCorruptedException("File format not recognised");
-        }
-        // group
-        String groupId = dis.readUTF();
-        if (!"TZDB".equals(groupId)) {
-            throw new StreamCorruptedException("File format not recognised");
-        }
-
-        // versions
-        int versionCount = dis.readShort();
-        if (versionCount == 0) {
-            throw new ZoneRulesException("No TZDB time-zone rules version found");
-        }
-        if (versionCount > 1) {
-            throw new ZoneRulesException("Multiple TZDB time-zone rules versions are not supported");
-        }
-        version = dis.readUTF();
-
-        // regions
-        int regionCount = dis.readShort();
-        String[] regionArray = new String[regionCount];
-        for (int i = 0; i < regionCount; i++) {
-            regionArray[i] = dis.readUTF();
-        }
-
-        // rules
-        int ruleCount = dis.readShort();
-        ZoneRules[] ruleArray = new ZoneRules[ruleCount];
-        for (int i = 0; i < ruleCount; i++) {
-            dis.readShort();
-            ruleArray[i] = (ZoneRules) SerCompat.read(dis);
-        }
-        rules = Arrays.asList(ruleArray);
-
-        // link version-region-rules
-        // simplified because we are just support one version
-        int versionRegionCount = dis.readShort();
-        String[] regionIds = new String[versionRegionCount];
-        short[] ruleIndices = new short[versionRegionCount];
-        for (int i = 0; i < versionRegionCount; i++) {
-            regionIds[i] = regionArray[dis.readShort()];
-            ruleIndices[i] = dis.readShort();
-        }
-        this.regionIds = Arrays.asList(regionIds);
-        this.ruleIndices = ruleIndices;
-    }
+    this.regionIds = Arrays.asList(regionIds);
+    this.ruleIndices = ruleIndices;
+  }
 }
