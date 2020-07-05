@@ -21,17 +21,6 @@ plugins {
   id 'dev.zacsweers.ticktock'
 }
 
-android {
-  compileSdkVersion 29
-  defaultConfig {
-    minSdkVersion 21
-  }
-  compileOptions {
-    targetCompatibility = JavaVersion.VERSION_1_8
-    sourceCompatibility = JavaVersion.VERSION_1_8
-  }
-}
-
 Provider<Directory> generatedDir = layout.buildDirectory.dir("generated/ticktock")
 
 tickTock {
