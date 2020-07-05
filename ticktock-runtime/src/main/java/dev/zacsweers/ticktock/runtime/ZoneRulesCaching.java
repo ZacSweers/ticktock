@@ -18,6 +18,7 @@ package dev.zacsweers.ticktock.runtime;
 import java.time.ZoneId;
 import java.time.zone.ZoneRulesProvider;
 
+/** Utilities for eager zone rule caching. */
 public final class ZoneRulesCaching {
 
   /**

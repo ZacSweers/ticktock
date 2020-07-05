@@ -20,6 +20,10 @@ import java.io.StreamCorruptedException;
 import java.time.zone.ZoneRules;
 import java.time.zone.ZoneRulesException;
 
+/**
+ * A lazy-loading {@link ZoneDataProvider}. This loads individual zone rules by zone ID from a
+ * {@link ZoneDataLoader} via interpolated "tzdb/{zoneId}.dat" path.
+ */
 public final class LazyZoneDataProvider implements ZoneDataProvider {
 
   private final ZoneDataLoader zoneDataLoader;

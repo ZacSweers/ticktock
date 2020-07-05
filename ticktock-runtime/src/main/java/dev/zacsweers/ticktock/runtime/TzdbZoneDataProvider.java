@@ -41,6 +41,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * A tzdb.dat-based {@link ZoneDataProvider}. This loads individual zone rules by zone ID from a
+ * {@link ZoneDataLoader}. The `tzdb.dat` file is expected to be found at a "known" path:
+ * {@code j$/time/zone/tzdb.dat}.
+ */
 public final class TzdbZoneDataProvider implements ZoneIdsProvider, ZoneDataProvider {
 
   private String version;
