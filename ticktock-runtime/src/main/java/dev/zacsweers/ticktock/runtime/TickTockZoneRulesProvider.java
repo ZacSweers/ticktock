@@ -15,7 +15,6 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
-import dev.zacsweers.ticktock.runtime.internal.Suppliers;
 import java.time.zone.ZoneRules;
 import java.time.zone.ZoneRulesProvider;
 import java.util.Collections;

@@ -29,13 +29,13 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package dev.zacsweers.ticktock.runtime.tzdb;
+package dev.zacsweers.ticktock.runtime;
 
 import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.ZoneDataProvider;
 import dev.zacsweers.ticktock.runtime.ZoneIdsProvider;
-import dev.zacsweers.ticktock.runtime.internal.SerCompat;
-import java.io.ByteArrayInputStream;
+import dev.zacsweers.ticktock.runtime.SerCompat;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.StreamCorruptedException;

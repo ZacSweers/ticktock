@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.zacsweers.ticktock.runtime.internal;
+package dev.zacsweers.ticktock.runtime;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -39,7 +39,7 @@ import java.time.zone.ZoneRules;
  *
  * @serial include
  */
-public final class SerCompat implements Externalizable {
+final class SerCompat {
 
   /** Serialization version. */
   private static final long serialVersionUID = -8885321777449118786L;
@@ -51,63 +51,7 @@ public final class SerCompat implements Externalizable {
   /** Type for ZoneOffsetTransition. */
   static final byte ZOTRULE = 3;
 
-  /** The type being serialized. */
-  private byte type;
-  /** The object being serialized. */
-  private Object object;
-
-  public SerCompat() {}
-
-  /**
-   * Implements the {@code Externalizable} interface to write the object.
-   *
-   * @param out the data stream to write to, not null
-   */
-  @Override
-  public void writeExternal(ObjectOutput out) throws IOException {
-    writeInternal(type, object, out);
-  }
-
-  private static void writeInternal(byte type, Object object, DataOutput out) throws IOException {
-    out.writeByte(type);
-    switch (type) {
-      case SZR:
-        writeExternalFor(ZoneRules.class, object, out);
-        break;
-      case ZOT:
-        writeExternalFor(ZoneOffsetTransition.class, object, out);
-        break;
-      case ZOTRULE:
-        writeExternalFor(ZoneOffsetTransitionRule.class, object, out);
-        break;
-      default:
-        throw new InvalidClassException("Unknown serialized type");
-    }
-  }
-
-  // Reflection is necessary for compatibility with D8
-  private static void writeExternalFor(Class<?> clazz, Object instance, DataOutput out) {
-    try {
-      Method method = clazz.getDeclaredMethod("writeExternal", DataOutput.class);
-      method.setAccessible(true);
-      method.invoke(instance, out);
-    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  /**
-   * Implements the {@code Externalizable} interface to read the object.
-   *
-   * @param in the data to read, not null
-   */
-  @Override
-  public void readExternal(ObjectInput in) throws IOException {
-    type = in.readByte();
-    object = readInternal(type, in);
-  }
-
-  public static Object read(DataInput in) throws IOException {
+  static Object read(DataInput in) throws IOException {
     byte type = in.readByte();
     return readInternal(type, in);
   }
@@ -126,7 +70,7 @@ public final class SerCompat implements Externalizable {
   }
 
   // Reflection is necessary for compatibility with D8
-  public static Object readExternalFor(Class<?> clazz, DataInput in) {
+  static Object readExternalFor(Class<?> clazz, DataInput in) {
     Method method;
     try {
       method = clazz.getDeclaredMethod("readExternal", DataInput.class);
@@ -138,22 +82,13 @@ public final class SerCompat implements Externalizable {
   }
 
   /**
-   * Returns the object that will replace this one.
-   *
-   * @return the read object, should never be null
-   */
-  private Object readResolve() {
-    return object;
-  }
-
-  /**
    * Reads the state from the stream.
    *
    * @param in the input stream, not null
    * @return the created object, not null
    * @throws IOException if an error occurs
    */
-  public static ZoneOffset readOffset(DataInput in) throws IOException {
+  static ZoneOffset readOffset(DataInput in) throws IOException {
     int offsetByte = in.readByte();
     return (offsetByte == 127
         ? ZoneOffset.ofTotalSeconds(in.readInt())
@@ -167,7 +102,7 @@ public final class SerCompat implements Externalizable {
    * @return the epoch seconds, not null
    * @throws IOException if an error occurs
    */
-  public static long readEpochSec(DataInput in) throws IOException {
+  static long readEpochSec(DataInput in) throws IOException {
     int hiByte = in.readByte() & 255;
     if (hiByte == 255) {
       return in.readLong();
