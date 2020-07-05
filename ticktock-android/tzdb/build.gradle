@@ -19,12 +19,6 @@ plugins {
   id 'dev.zacsweers.ticktock'
 }
 
-android {
-  compileOptions {
-    coreLibraryDesugaringEnabled true
-  }
-}
-
 tickTock {
   tzOutputDir.set(layout.projectDirectory.dir("src/main/assets"))
 }

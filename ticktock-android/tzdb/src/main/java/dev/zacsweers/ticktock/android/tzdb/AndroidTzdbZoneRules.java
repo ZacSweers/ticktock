@@ -1,5 +1,6 @@
 package dev.zacsweers.ticktock.android.tzdb;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import dev.zacsweers.ticktock.android.AssetsZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.TickTockPlugins;
@@ -9,6 +10,7 @@ import java.util.function.Supplier;
 
 
 public final class AndroidTzdbZoneRules {
+  @SuppressLint("NewApi")
   public static void init(Context context) {
     System.setProperty(
         "java.time.zone.DefaultZoneRulesProvider",
