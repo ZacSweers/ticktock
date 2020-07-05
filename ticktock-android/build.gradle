@@ -2,6 +2,19 @@ import com.vanniktech.maven.publish.tasks.AndroidJavadocs
 
 subprojects {
   pluginManager.withPlugin("com.android.library") {
+    android {
+      compileSdkVersion 29
+
+      defaultConfig {
+        minSdkVersion 21
+      }
+
+      compileOptions {
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+      }
+    }
+
     // Workaround because modern sdk installations don't seem to contain a docs dir
     tasks.withType(AndroidJavadocs).configureEach {
       options {

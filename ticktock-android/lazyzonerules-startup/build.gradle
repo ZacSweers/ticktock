@@ -19,14 +19,6 @@ plugins {
   id 'com.vanniktech.maven.publish'
 }
 
-android {
-  compileSdkVersion 29
-  compileOptions {
-    targetCompatibility = JavaVersion.VERSION_1_8
-    sourceCompatibility = JavaVersion.VERSION_1_8
-  }
-}
-
 dependencies {
   api project(":ticktock-android:lazyzonerules")
   implementation "androidx.startup:startup-runtime:1.0.0-alpha01"
