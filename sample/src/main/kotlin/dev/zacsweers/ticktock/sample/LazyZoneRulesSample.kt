@@ -16,7 +16,7 @@
 package dev.zacsweers.ticktock.sample
 
 import dev.zacsweers.ticktock.runtime.LazyZoneDataProvider
-import dev.zacsweers.ticktock.runtime.LazyZoneRules
+import dev.zacsweers.ticktock.runtime.ZoneRulesCaching
 import dev.zacsweers.ticktock.runtime.ResourcesZoneDataLoader
 import dev.zacsweers.ticktock.runtime.TickTockPlugins
 import java.time.Instant
@@ -44,7 +44,7 @@ fun main() {
   }
   println("Caching remaining zones")
   measureTimeMillis {
-    LazyZoneRules.cacheZones()
+    ZoneRulesCaching.cacheZones()
   }.also {
     println("Zone caching took $it milliseconds")
   }

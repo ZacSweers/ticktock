@@ -18,7 +18,7 @@ package dev.zacsweers.ticktock.runtime;
 import java.time.ZoneId;
 import java.time.zone.ZoneRulesProvider;
 
-public final class LazyZoneRules {
+public final class ZoneRulesCaching {
 
   /**
    * Call on background thread to eagerly load all zones. Starts with loading {@link
