@@ -28,5 +28,4 @@ tickTock {
 dependencies {
   tickTockCompiler project(":ticktock-compiler")
   api project(":ticktock-android:runtime")
-  implementation project(":ticktock-runtime-tzdb")
 }
