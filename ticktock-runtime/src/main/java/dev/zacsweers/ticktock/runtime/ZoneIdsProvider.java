@@ -18,8 +18,8 @@ package dev.zacsweers.ticktock.runtime;
 import java.util.List;
 
 /**
- * An interface for indicating available zone ids. This is used by TickTock ZoneRulesProviders via
- * {@link TickTockPlugins}.
+ * An interface for indicating available zone ids. This is used by {@link TickTockZoneRulesProvider}
+ * via {@link TickTockPlugins}.
  */
 public interface ZoneIdsProvider {
   /** The timezone data version (e.g. "2020a"). */

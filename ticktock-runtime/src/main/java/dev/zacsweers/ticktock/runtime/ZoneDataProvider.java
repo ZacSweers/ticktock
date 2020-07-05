@@ -15,14 +15,13 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
-import java.io.DataInputStream;
 import java.time.zone.ZoneRules;
 
 /**
- * An interface for opening a stream to load {@link ZoneRules}. This is can be used by implementations
- * of {@link ZoneDataProvider} to keep the data source abstract.
+ * An interface for returning the rules for a zone id. This is used by {@link TickTockZoneRulesProvider}
+ * via {@link TickTockPlugins}.
  */
-public interface ZoneDataLoader {
-  /** Loads {@link ZoneRules} for a given {@code zoneId}. */
-  DataInputStream openData(String path) throws Exception;
+public interface ZoneDataProvider {
+  /** The {@link ZoneRules} for the given zoneId. */
+  ZoneRules getZoneRules(String zoneId);
 }
