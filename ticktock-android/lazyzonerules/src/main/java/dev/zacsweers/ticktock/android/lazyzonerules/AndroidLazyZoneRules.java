@@ -1,7 +1,7 @@
 package dev.zacsweers.ticktock.android.lazyzonerules;
 
 import android.content.Context;
-import dev.zacsweers.ticktock.android.AssetsZoneDataLoader;
+import dev.zacsweers.ticktock.runtime.android.AssetsZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.TickTockPlugins;
 import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.lazyzonerules.LazyZoneDataProvider;
