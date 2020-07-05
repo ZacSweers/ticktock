@@ -17,7 +17,6 @@ package dev.zacsweers.ticktock.runtime;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.zone.TzdbZoneRulesProvider;
 import java.time.zone.ZoneRules;
 import java.time.zone.ZoneRulesProvider;
 import java.util.Collections;
@@ -30,7 +29,7 @@ import java.util.function.Supplier;
 
 /**
  * TickTock implementation of {@link ZoneRulesProvider}. By default, this will behave identically to
- * {@link TzdbZoneRulesProvider}. Data loading and zone IDs can be customized via {@link
+ * {@code TzdbZoneRulesProvider}. Data loading and zone IDs can be customized via {@link
  * TickTockPlugins}.
  */
 public final class TickTockZoneRulesProvider extends ZoneRulesProvider {
