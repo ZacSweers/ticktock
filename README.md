@@ -43,7 +43,7 @@ load data (for instance - on a background thread), TickTock offers a convenience
 
 ```java
 // Synchronously load and cache all timezone rules
-ZoneRulesCaching.cacheZones();
+EagerZoneRulesLoading.cacheZones();
 ```
 
 </details>

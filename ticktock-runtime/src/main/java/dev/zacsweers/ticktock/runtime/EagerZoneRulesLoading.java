@@ -19,7 +19,7 @@ import java.time.ZoneId;
 import java.time.zone.ZoneRulesProvider;
 
 /** Utilities for eager zone rule caching. */
-public final class ZoneRulesCaching {
+public final class EagerZoneRulesLoading {
 
   /**
    * Call on background thread to eagerly load all zones. Starts with loading {@link
