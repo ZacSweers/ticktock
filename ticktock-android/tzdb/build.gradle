@@ -27,5 +27,5 @@ tickTock {
 
 dependencies {
   tickTockCompiler project(":ticktock-compiler")
-  api project(":ticktock-android:runtime")
+  api project(":ticktock-runtime")
 }

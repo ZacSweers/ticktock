@@ -1,4 +1,4 @@
-package dev.zacsweers.ticktock.runtime.internal;
+package dev.zacsweers.ticktock.runtime;
 
 import java.io.Serializable;
 import java.util.function.Supplier;
@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 import static java.util.Objects.requireNonNull;
 
 /** Utilities for {@link Supplier} copied from Guava. */
-public final class Suppliers {
+final class Suppliers {
 
   private Suppliers() {
 
@@ -26,7 +26,7 @@ public final class Suppliers {
    * <p>If {@code delegate} is an instance created by an earlier call to {@code
    * memoize}, it is returned directly.
    */
-  public static <T> Supplier<T> memoize(Supplier<T> delegate) {
+  static <T> Supplier<T> memoize(Supplier<T> delegate) {
     return (delegate instanceof MemoizingSupplier)
         ? delegate
         : new MemoizingSupplier<>(requireNonNull(delegate));

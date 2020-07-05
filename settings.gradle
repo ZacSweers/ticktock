@@ -45,7 +45,6 @@ pluginManagement {
 rootProject.name = 'ticktock-root'
 include ':ticktock-compiler'
 include ':ticktock-runtime'
-include ':ticktock-android:runtime'
 include ':ticktock-android:lazyzonerules'
 include ':ticktock-android:tzdb'
 include ':ticktock-android:lazyzonerules-startup'
