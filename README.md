@@ -20,9 +20,15 @@ If you are not using it and/or are minSdk 26+, this library is of no use to you!
 
 ### JVM
 
-Add the runtime and tzdb dependencies: `dev.zacsweers.ticktock:ticktock-runtime:<version>` dependency and set the 
-`DefaultZoneRulesProvider` property pointing to `TickTockZoneRulesProvider` as early as possible in 
-your application.
+Add the runtime and tzdb dependencies:
+
+```gradle
+implementation 'dev.zacsweers.ticktock:ticktock-runtime:<version>'
+implementation 'dev.zacsweers.ticktock:ticktock-tzdb:<version>'
+```
+
+Then set the `DefaultZoneRulesProvider` property pointing to `TickTockZoneRulesProvider` as early 
+as possible in your application.
 
 ```java
 System.setProperty(
