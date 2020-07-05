@@ -6,7 +6,10 @@ import dev.zacsweers.ticktock.runtime.TickTockPlugins;
 import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.LazyZoneDataProvider;
 
+/** Entry point for lazy zone rules on Android. */
 public final class AndroidLazyZoneRules {
+
+  /** Initializes the TickTockZoneRulesProvider using a {@link LazyZoneDataProvider}. */
   public static void init(Context context) {
     System.setProperty(
         "java.time.zone.DefaultZoneRulesProvider",
