@@ -41,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public final class TzdbZoneProvider implements ZoneIdsProvider, ZoneDataProvider {
+public final class TzdbZoneDataProvider implements ZoneIdsProvider, ZoneDataProvider {
 
   private String version;
   private List<String> regionIds;
@@ -52,7 +52,7 @@ public final class TzdbZoneProvider implements ZoneIdsProvider, ZoneDataProvider
 
   private final ZoneDataLoader zoneDataLoader;
 
-  public TzdbZoneProvider(ZoneDataLoader zoneDataLoader) {
+  public TzdbZoneDataProvider(ZoneDataLoader zoneDataLoader) {
     this.zoneDataLoader = zoneDataLoader;
   }
 

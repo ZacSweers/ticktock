@@ -31,7 +31,10 @@ fun main() {
       "dev.zacsweers.ticktock.runtime.TickTockZoneRulesProvider"
   )
   TickTockPlugins.setZoneIdsProvider { GeneratedZoneIdsProvider }
-  TickTockPlugins.setZoneDataProvider { LazyZoneDataProvider(ResourcesZoneDataLoader()) }
+  TickTockPlugins.setZoneDataProvider {
+    LazyZoneDataProvider(
+        ResourcesZoneDataLoader())
+  }
 
   println("Loading default zone")
   measureTimeMillis {
