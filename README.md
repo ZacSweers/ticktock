@@ -92,7 +92,9 @@ If no provider is specified, TickTock will use `TzdbZoneProvider`.
 TickTock's default behavior is focused around using traditional `tzdb.dat` files for timezone data
 implemented via `TzdbZoneDataProvider`. Early adopters can try a custom, lazy-loading solution 
 via `LazyZoneDataProvider` inspired by [LazyThreeTenBp](https://github.com/gabrielittner/lazythreetenbp).
-In theory, this artifact would 
+In theory, this artifact would be lower overhead on startup for devices with slower IO and a lower 
+application-lifetime memory impact by only keeping used zones in memory. We're seeking feedback on
+whether this is truly worth supporting though, so please let us know!
 
 </details>
 
