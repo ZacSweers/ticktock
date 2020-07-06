@@ -51,6 +51,7 @@ class TickTockPlugin : Plugin<Project> {
   private fun Project.setup() {
     // TODO how can we depend on the direct artifact as a default? Should we?
     val tickTockCompiler = configurations.maybeCreate("tickTockCompiler")
+    tickTockCompiler.isVisible = false
     // Necessary with Clikt/MPP deps on the classpath of this
     // See https://github.com/gradle/gradle/issues/12126
     tickTockCompiler.attributes {
