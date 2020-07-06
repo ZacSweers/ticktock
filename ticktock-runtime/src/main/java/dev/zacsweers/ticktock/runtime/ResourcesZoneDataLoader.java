@@ -28,8 +28,7 @@ public final class ResourcesZoneDataLoader implements ZoneDataLoader {
     return new ResourcesZoneDataLoader();
   }
 
-  private ResourcesZoneDataLoader() {
-  }
+  private ResourcesZoneDataLoader() {}
 
   @Override
   public DataInputStream openData(String path) {
