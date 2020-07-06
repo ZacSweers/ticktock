@@ -18,7 +18,6 @@ package dev.zacsweers.ticktock.android.lazyzonerules;
 import android.content.Context;
 import dev.zacsweers.ticktock.runtime.LazyZoneDataProvider;
 import dev.zacsweers.ticktock.runtime.TickTockPlugins;
-import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.android.AssetsZoneDataLoader;
 
 /** Entry point for lazy zone rules on Android. */
@@ -34,9 +33,6 @@ public final class AndroidLazyZoneRules {
 
     Context applicationContext = context.getApplicationContext();
     TickTockPlugins.setZoneDataProvider(
-        () -> {
-          ZoneDataLoader zoneDataLoader = AssetsZoneDataLoader.create(applicationContext);
-          return new LazyZoneDataProvider(zoneDataLoader);
-        });
+        () -> LazyZoneDataProvider.create(AssetsZoneDataLoader.create(applicationContext)));
   }
 }
