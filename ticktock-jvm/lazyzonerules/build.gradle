@@ -22,6 +22,7 @@ plugins {
 tickTock {
   tzVersion.set(providers.gradleProperty("ticktock.ianaVersion").forUseAtConfigurationTime())
   codeOutputDir.set(layout.projectDirectory.dir("src/main/java"))
+  packageName.set("dev.zacsweers.ticktock.jvm.lazyzonerules")
 }
 
 dependencies {
