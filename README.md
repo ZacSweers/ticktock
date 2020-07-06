@@ -81,7 +81,7 @@ The Android artifacts use a custom assets-based loader to avoid the cost of load
 <summary>Custom Regions</summary>
 
 By default, TickTock's prepackaged timezone data supports all regions. You can define your own via
-implementing a custom `ZonIdsProvider` and registering it via `TickTockPlugins` _before_ using any
+implementing a custom `ZoneIdsProvider` and registering it via `TickTockPlugins` _before_ using any
 time APIs that would cause the system `ZoneRulesProvider` to initialize.
 
 ```java
