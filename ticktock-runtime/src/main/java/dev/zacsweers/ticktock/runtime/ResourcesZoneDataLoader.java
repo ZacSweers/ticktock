@@ -22,6 +22,15 @@ import java.time.zone.ZoneRulesException;
 
 /** A resources-based {@link ZoneDataLoader}. */
 public final class ResourcesZoneDataLoader implements ZoneDataLoader {
+
+  /** Creates a new Java-resources-based {@link ZoneDataLoader}. */
+  public static ZoneDataLoader create() {
+    return new ResourcesZoneDataLoader();
+  }
+
+  private ResourcesZoneDataLoader() {
+  }
+
   @Override
   public DataInputStream openData(String path) {
     try {

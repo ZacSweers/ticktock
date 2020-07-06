@@ -26,9 +26,19 @@ import java.time.zone.ZoneRulesException;
  */
 public final class LazyZoneDataProvider implements ZoneDataProvider {
 
+  /** Creates a new lazy {@link ZoneDataProvider} backed by a {@link ResourcesZoneDataLoader}. */
+  public static ZoneDataProvider create() {
+    return create(ResourcesZoneDataLoader.create());
+  }
+
+  /** Creates a new lazy {@link ZoneDataProvider} backed by {@code zoneDataLoader}. */
+  public static ZoneDataProvider create(ZoneDataLoader zoneDataLoader) {
+    return new LazyZoneDataProvider(zoneDataLoader);
+  }
+
   private final ZoneDataLoader zoneDataLoader;
 
-  public LazyZoneDataProvider(ZoneDataLoader zoneDataLoader) {
+  private LazyZoneDataProvider(ZoneDataLoader zoneDataLoader) {
     this.zoneDataLoader = zoneDataLoader;
   }
 

@@ -48,6 +48,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public final class TzdbZoneDataProvider implements ZoneIdsProvider, ZoneDataProvider {
 
+  /**
+   * Creates a new TZDB-based {@link ZoneDataProvider} backed by a {@link ResourcesZoneDataLoader}.
+   */
+  public static ZoneDataProvider create() {
+    return create(ResourcesZoneDataLoader.create());
+  }
+
+  /** Creates a new TZDB-based {@link ZoneDataProvider} backed by a {@code zoneDataLoader}. */
+  public static ZoneDataProvider create(ZoneDataLoader zoneDataLoader) {
+    return new TzdbZoneDataProvider(zoneDataLoader);
+  }
+
   private String version;
   private List<String> regionIds;
   private List<ZoneRules> rules;
