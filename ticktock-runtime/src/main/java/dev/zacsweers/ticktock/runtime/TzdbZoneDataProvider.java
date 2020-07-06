@@ -49,14 +49,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public final class TzdbZoneDataProvider implements ZoneIdsProvider, ZoneDataProvider {
 
   /**
-   * Creates a new TZDB-based {@link ZoneDataProvider} backed by a {@link ResourcesZoneDataLoader}.
+   * Creates a new TZDB-based {@link TzdbZoneDataProvider} backed by a {@link ResourcesZoneDataLoader}.
    */
-  public static ZoneDataProvider create() {
+  public static TzdbZoneDataProvider create() {
     return create(ResourcesZoneDataLoader.create());
   }
 
-  /** Creates a new TZDB-based {@link ZoneDataProvider} backed by a {@code zoneDataLoader}. */
-  public static ZoneDataProvider create(ZoneDataLoader zoneDataLoader) {
+  /** Creates a new TZDB-based {@link TzdbZoneDataProvider} backed by a {@code zoneDataLoader}. */
+  public static TzdbZoneDataProvider create(ZoneDataLoader zoneDataLoader) {
     return new TzdbZoneDataProvider(zoneDataLoader);
   }
 

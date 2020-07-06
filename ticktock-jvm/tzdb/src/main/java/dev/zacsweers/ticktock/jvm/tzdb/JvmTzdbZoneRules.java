@@ -26,6 +26,8 @@ public final class JvmTzdbZoneRules {
     System.setProperty(
         "java.time.zone.DefaultZoneRulesProvider",
         "dev.zacsweers.ticktock.runtime.TickTockZoneRulesProvider");
-    TickTockPlugins.setZoneDataProvider(TzdbZoneDataProvider::create);
+    TzdbZoneDataProvider provider = TzdbZoneDataProvider.create();
+    TickTockPlugins.setZoneDataProvider(() -> provider);
+    TickTockPlugins.setZoneIdsProvider(() -> provider);
   }
 }
