@@ -16,14 +16,12 @@
 
 plugins {
   id 'java-library'
-  id 'org.jetbrains.kotlin.jvm'
 }
 
 dependencies {
   implementation project(":ticktock-runtime")
   implementation project(":ticktock-jvm:lazyzonerules")
   implementation project(":ticktock-jvm:tzdb")
-  implementation deps.kotlin.stdlibjdk8
 
   testImplementation deps.test.junit
   testImplementation deps.test.truth
