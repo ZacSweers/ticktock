@@ -29,9 +29,15 @@ public final class EagerZoneRulesLoading {
    * SDK version is 26+.
    */
   public static void cacheZones() {
-    ZoneId.systemDefault().getRules();
-    for (String zoneId : ZoneRulesProvider.getAvailableZoneIds()) {
-      ZoneRulesProvider.getRules(zoneId, true);
+    try {
+      ZoneId.systemDefault().getRules();
+      for (String zoneId : ZoneRulesProvider.getAvailableZoneIds()) {
+        ZoneRulesProvider.getRules(zoneId, true);
+      }
+    } catch (NoSuchMethodError e) {
+      // If targeting a newer Android device or minSdk 26, this will fail because ZoneRulesProvider
+      // is a strangely hidden API: https://issuetracker.google.com/issues/159421054
+      System.err.println("Could not eagerly initialize zone rules: " + e.getMessage());
     }
   }
 }
