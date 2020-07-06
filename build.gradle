@@ -64,4 +64,8 @@ subprojects {
   apply from: rootProject.file('gradle/config-spotless.gradle')
 }
 
+tasks.register('uploadArchives') {
+  dependsOn gradle.includedBuilds*.task(':uploadArchives')
+}
+
 apply from: 'gradle/dependencies.gradle'
