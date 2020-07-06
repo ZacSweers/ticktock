@@ -51,11 +51,7 @@ public final class TickTockZoneRulesProvider extends ZoneRulesProvider {
             Supplier<ZoneDataProvider> callable =
                 requireNonNull(
                     TickTockPlugins.getZoneDataProvider(), "No ZoneIdsProvider registered!");
-            ZoneDataProvider provider = callable.get();
-            if (provider == null) {
-              provider = LazyZoneDataProvider.create();
-            }
-            return provider;
+            return callable.get();
           });
 
   public TickTockZoneRulesProvider() {
