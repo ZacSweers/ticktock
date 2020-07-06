@@ -37,6 +37,13 @@ subprojects {
     jcenter()
   }
 
+  pluginManager.withPlugin('java') {
+    java {
+      sourceCompatibility = JavaVersion.VERSION_1_8
+      targetCompatibility = JavaVersion.VERSION_1_8
+    }
+  }
+
   pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
     compileKotlin {
       kotlinOptions {
