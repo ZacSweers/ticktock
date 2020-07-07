@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.zacsweers.ticktock.runtime;
+package dev.zacsweers.ticktock.jvm.tests;
 
-import java.io.InputStream;
-import java.time.zone.ZoneRules;
+import dev.zacsweers.ticktock.jvm.tzdb.JvmTzdbZoneRules;
+import dev.zacsweers.ticktock.runtime.EagerZoneRulesLoading;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-/**
- * An interface for opening a stream to load {@link ZoneRules}. This is can be used by
- * implementations of {@link ZoneDataProvider} to keep the data source abstract.
- */
-public interface ZoneDataLoader {
-  /** Loads {@link ZoneRules} for a given {@code zoneId}. */
-  InputStream openData(String path) throws Exception;
+@RunWith(JUnit4.class)
+public final class TzdbZoneRulesTest {
+
+  @Test
+  public void init() {
+    JvmTzdbZoneRules.init();
+    TestLogger logger = TestLogger.createAndInstall();
+    EagerZoneRulesLoading.cacheZones();
+    logger.assertDidLog();
+  }
 }

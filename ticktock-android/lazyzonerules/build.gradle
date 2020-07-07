@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.zacsweers.ticktock.gradle.GenerateZoneRuleFilesTask
-
 plugins {
   id 'com.android.library'
   id 'com.vanniktech.maven.publish'

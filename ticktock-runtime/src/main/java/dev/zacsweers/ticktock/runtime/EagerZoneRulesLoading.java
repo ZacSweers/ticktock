@@ -17,6 +17,7 @@ package dev.zacsweers.ticktock.runtime;
 
 import java.time.ZoneId;
 import java.time.zone.ZoneRulesProvider;
+import java.util.Set;
 
 /** Utilities for eager zone rule caching. */
 public final class EagerZoneRulesLoading {
@@ -24,14 +25,15 @@ public final class EagerZoneRulesLoading {
   /**
    * Call on background thread to eagerly load all zones. Starts with loading {@link
    * ZoneId#systemDefault()} which is the one most likely to be used.
-   *
-   * <p>NOTE: This is not safe to call on Android without library desugaring, even if your minimum
-   * SDK version is 26+.
    */
   public static void cacheZones() {
     try {
       ZoneId.systemDefault().getRules();
-      for (String zoneId : ZoneRulesProvider.getAvailableZoneIds()) {
+      Set<String> zoneIds = ZoneRulesProvider.getAvailableZoneIds();
+      if (zoneIds.isEmpty()) {
+        throw new IllegalStateException("No zone ids available!");
+      }
+      for (String zoneId : zoneIds) {
         ZoneRulesProvider.getRules(zoneId, true);
       }
     } catch (NoSuchMethodError e) {

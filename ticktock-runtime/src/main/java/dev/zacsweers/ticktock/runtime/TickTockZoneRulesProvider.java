@@ -17,6 +17,7 @@ package dev.zacsweers.ticktock.runtime;
 
 import static java.util.Objects.requireNonNull;
 
+import dev.zacsweers.ticktock.runtime.internal.Suppliers;
 import java.time.zone.ZoneRules;
 import java.time.zone.ZoneRulesProvider;
 import java.util.Collections;
@@ -37,7 +38,7 @@ public final class TickTockZoneRulesProvider extends ZoneRulesProvider {
   private final NavigableMap<String, ZoneRules> zoneRulesById = new ConcurrentSkipListMap<>();
 
   private final Supplier<ZoneIdsProvider> zoneIdsProvider =
-      Suppliers.memoize(
+      dev.zacsweers.ticktock.runtime.internal.Suppliers.memoize(
           () -> {
             Supplier<ZoneIdsProvider> callable =
                 requireNonNull(
@@ -55,7 +56,11 @@ public final class TickTockZoneRulesProvider extends ZoneRulesProvider {
           });
 
   public TickTockZoneRulesProvider() {
-    System.out.println("Initializing TickTockZoneRulesProvider");
+    TickTockLogger logger = TickTockPlugins.getLogger().get();
+    if (logger == null) {
+      logger = TickTockLogger.SYSTEM;
+    }
+    logger.log("Initializing TickTockZoneRulesProvider");
   }
 
   @Override

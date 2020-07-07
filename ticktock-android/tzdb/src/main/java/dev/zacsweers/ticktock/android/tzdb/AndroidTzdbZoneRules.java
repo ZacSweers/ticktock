@@ -21,6 +21,7 @@ import dev.zacsweers.ticktock.runtime.TickTockPlugins;
 import dev.zacsweers.ticktock.runtime.TzdbZoneDataProvider;
 import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import dev.zacsweers.ticktock.runtime.android.AssetsZoneDataLoader;
+import dev.zacsweers.ticktock.runtime.internal.Suppliers;
 import java.util.function.Supplier;
 
 /** Entry point for tzdb zone rules on Android. */
@@ -35,11 +36,12 @@ public final class AndroidTzdbZoneRules {
 
     Context applicationContext = context.getApplicationContext();
     Supplier<TzdbZoneDataProvider> supplier =
-        () -> {
-          ZoneDataLoader zoneDataLoader = AssetsZoneDataLoader.create(applicationContext);
-          return new TzdbZoneDataProvider(zoneDataLoader);
-        };
-    TickTockPlugins.setZoneIdsProvider(() -> supplier.get());
-    TickTockPlugins.setZoneDataProvider(() -> supplier.get());
+        Suppliers.memoize(
+            () -> {
+              ZoneDataLoader zoneDataLoader = AssetsZoneDataLoader.create(applicationContext);
+              return new TzdbZoneDataProvider(zoneDataLoader);
+            });
+    TickTockPlugins.setZoneIdsProvider(supplier::get);
+    TickTockPlugins.setZoneDataProvider(supplier::get);
   }
 }

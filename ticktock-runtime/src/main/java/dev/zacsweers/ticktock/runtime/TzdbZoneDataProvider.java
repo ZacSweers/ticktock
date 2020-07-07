@@ -31,6 +31,7 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -98,7 +99,7 @@ public final class TzdbZoneDataProvider implements ZoneIdsProvider, ZoneDataProv
 
   private void checkInitialized() {
     if (initialized.compareAndSet(false, true)) {
-      try(DataInputStream dis = zoneDataLoader.openData("j$/time/zone/tzdb.dat")) {
+      try(DataInputStream dis = new DataInputStream(new BufferedInputStream(zoneDataLoader.openData("j$/time/zone/tzdb.dat")))) {
         load(dis);
       } catch (Exception ex) {
         throw new ZoneRulesException("Unable to load TZDB time-zone rules", ex);

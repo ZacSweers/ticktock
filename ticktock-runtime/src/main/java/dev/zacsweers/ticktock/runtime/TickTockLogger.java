@@ -15,14 +15,10 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
-import java.io.InputStream;
-import java.time.zone.ZoneRules;
+/** Logger interface for any messages from ticktock. Mostly useful for debugging. */
+public interface TickTockLogger {
+  /** Logs a {@code message}. */
+  void log(String message);
 
-/**
- * An interface for opening a stream to load {@link ZoneRules}. This is can be used by
- * implementations of {@link ZoneDataProvider} to keep the data source abstract.
- */
-public interface ZoneDataLoader {
-  /** Loads {@link ZoneRules} for a given {@code zoneId}. */
-  InputStream openData(String path) throws Exception;
+  TickTockLogger SYSTEM = System.out::println;
 }

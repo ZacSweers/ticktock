@@ -15,11 +15,12 @@
  */
 package dev.zacsweers.ticktock.runtime.android;
 
+import static java.util.Objects.requireNonNull;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
+import java.io.InputStream;
 import java.time.zone.ZoneRulesException;
 
 /** An assets-based {@link ZoneDataLoader}. */
@@ -27,7 +28,9 @@ import java.time.zone.ZoneRulesException;
 public final class AssetsZoneDataLoader implements ZoneDataLoader {
 
   public static AssetsZoneDataLoader create(Context context) {
-    return new AssetsZoneDataLoader(context.getApplicationContext());
+    requireNonNull(context, "context == null");
+    return new AssetsZoneDataLoader(
+        requireNonNull(context.getApplicationContext(), "applicationContext == null"));
   }
 
   private final Context context;
@@ -37,9 +40,9 @@ public final class AssetsZoneDataLoader implements ZoneDataLoader {
   }
 
   @Override
-  public DataInputStream openData(String path) {
+  public InputStream openData(String path) {
     try {
-      return new DataInputStream(new BufferedInputStream(context.getAssets().open(path)));
+      return context.getAssets().open(path);
     } catch (Exception missingFileEx) {
       throw new ZoneRulesException("Invalid binary time-zone data: " + path, missingFileEx);
     }
