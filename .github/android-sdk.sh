@@ -7,7 +7,7 @@ set -e
 echo "Setting up Actions Android SDK"
 
 echo "Installing sdkmanager"
-wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}.zip
+wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-mac-${ANDROID_SDK_TOOLS}.zip
 # unpacking into cmdline-tools/ because of https://issuetracker.google.com/issues/150942306
 mkdir -p $ANDROID_HOME/cmdline-tools/
 unzip -o android-sdk.zip -d $ANDROID_HOME/cmdline-tools
