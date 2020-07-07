@@ -78,7 +78,7 @@ internal class JavaWriter(
         .add("$<$<)")
         .build()
 
-    val listType: TypeName = ParameterizedTypeName.get(List::class.java, String::class.java)
+    val listType: TypeName = ParameterizedTypeName.get(Collection::class.java, String::class.java)
     return FieldSpec.builder(listType, "ZONE_IDS", PRIVATE, STATIC, FINAL)
         .initializer(initializer)
         .build()
