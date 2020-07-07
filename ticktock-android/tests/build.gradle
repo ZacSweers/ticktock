@@ -37,12 +37,6 @@ android {
   testOptions {
     execution 'ANDROIDX_TEST_ORCHESTRATOR'
   }
-//  sourceSets {
-//    androidTest {
-//      // can be configured in different way
-//      assets.srcDirs = ['src/androidTest/assets']
-//    }
-//  }
 }
 
 dependencies {
