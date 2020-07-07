@@ -51,6 +51,7 @@ include ':ticktock-android:tests'
 include ':ticktock-android:tzdb'
 include ':ticktock-android:tzdb-startup'
 include ':ticktock-jvm:lazyzonerules'
+include ':ticktock-jvm:tests'
 include ':ticktock-jvm:tzdb'
 include 'sample'
 
