@@ -13,13 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 plugins {
   id 'com.android.library'
   id 'com.vanniktech.maven.publish'
+  id 'dev.zacsweers.ticktock'
+}
+
+Provider<Directory> generatedDir = layout.buildDirectory.dir("generated/ticktock")
+
+tickTock {
+  tzVersion.set(providers.gradleProperty("ticktock.ianaVersion").forUseAtConfigurationTime())
+  codeOutputDir.set(generatedDir)
+  tzOutputDir.set(layout.projectDirectory.dir("src/main/assets"))
+  packageName.set("dev.zacsweers.ticktock.android.lazyzonerules")
+}
+
+android.libraryVariants.configureEach {
+  it.registerJavaGeneratingTask(tasks.getByName("generateLazyZoneRules"), generatedDir.get().asFile)
 }
 
 dependencies {
-  api project(":ticktock-android:tzdb")
-  implementation "androidx.startup:startup-runtime:1.0.0-alpha01"
+  tickTockCompiler project(":ticktock-compiler")
+  api project(":ticktock-runtime")
 }

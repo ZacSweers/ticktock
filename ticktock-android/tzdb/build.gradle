@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 plugins {
   id 'com.android.library'
   id 'com.vanniktech.maven.publish'
-  id 'dev.zacsweers.ticktock'
 }
-
-tickTock {
-  tzVersion.set(providers.gradleProperty("ticktock.ianaVersion").forUseAtConfigurationTime())
-  tzOutputDir.set(layout.projectDirectory.dir("src/main/assets"))
-}
-
-// TODO make build depend on tasks.getByName("generateTzdbDat")
 
 dependencies {
-  tickTockCompiler project(":ticktock-compiler")
-  api project(":ticktock-runtime")
+  api project(":ticktock-android:tzdb-base")
+  implementation "androidx.startup:startup-runtime:1.0.0-alpha01"
 }
