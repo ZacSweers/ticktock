@@ -23,6 +23,7 @@ public final class TickTockPlugins {
 
   static volatile Supplier<ZoneIdsProvider> zoneIdsProvider;
   static volatile Supplier<ZoneDataProvider> zoneDataProvider;
+  static volatile Supplier<TickTockLogger> loggerSupplier;
 
   /** Prevents changing the plugins. */
   static volatile boolean lockdown;
@@ -69,5 +70,18 @@ public final class TickTockPlugins {
       throw new IllegalStateException("Plugins can't be changed anymore");
     }
     zoneDataProvider = provider;
+  }
+
+  /** @return the value for handling {@link TickTockLogger}. */
+  static Supplier<TickTockLogger> getLogger() {
+    return loggerSupplier;
+  }
+
+  /** @param logger the supplier for creating a {@link TickTockLogger} to use, null allowed */
+  public static void setLogger(Supplier<TickTockLogger> logger) {
+    if (lockdown) {
+      throw new IllegalStateException("Plugins can't be changed anymore");
+    }
+    loggerSupplier = logger;
   }
 }

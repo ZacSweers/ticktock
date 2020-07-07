@@ -56,7 +56,11 @@ public final class TickTockZoneRulesProvider extends ZoneRulesProvider {
           });
 
   public TickTockZoneRulesProvider() {
-    System.out.println("Initializing TickTockZoneRulesProvider");
+    TickTockLogger logger = TickTockPlugins.getLogger().get();
+    if (logger == null) {
+      logger = TickTockLogger.SYSTEM;
+    }
+    logger.log("Initializing TickTockZoneRulesProvider");
   }
 
   @Override
