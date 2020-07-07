@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package dev.zacsweers.ticktock.runtime;
+package dev.zacsweers.ticktock.runtime.internal;
 
 import java.io.Serializable;
 import java.util.function.Supplier;
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 import static java.util.Objects.requireNonNull;
 
 /** Utilities for {@link Supplier} copied from Guava. */
-final class Suppliers {
+public final class Suppliers {
 
   private Suppliers() {
 
@@ -39,7 +39,7 @@ final class Suppliers {
    * <p>If {@code delegate} is an instance created by an earlier call to {@code
    * memoize}, it is returned directly.
    */
-  static <T> Supplier<T> memoize(Supplier<T> delegate) {
+  public static <T> Supplier<T> memoize(Supplier<T> delegate) {
     return (delegate instanceof MemoizingSupplier)
         ? delegate
         : new MemoizingSupplier<>(requireNonNull(delegate));
