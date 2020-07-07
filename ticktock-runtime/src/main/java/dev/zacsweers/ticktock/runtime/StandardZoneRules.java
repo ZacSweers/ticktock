@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   https://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -67,11 +67,13 @@ final class StandardZoneRules {
     }
     try {
       // TODO cache this
-      Constructor<ZoneRules> constructor = ZoneRules.class.getDeclaredConstructor(long[].class,
-          ZoneOffset[].class,
-          long[].class,
-          ZoneOffset[].class,
-          ZoneOffsetTransitionRule[].class);
+      Constructor<ZoneRules> constructor =
+          ZoneRules.class.getDeclaredConstructor(
+              long[].class,
+              ZoneOffset[].class,
+              long[].class,
+              ZoneOffset[].class,
+              ZoneOffsetTransitionRule[].class);
       constructor.setAccessible(true);
       return constructor.newInstance(stdTrans, stdOffsets, savTrans, savOffsets, rules);
     } catch (Exception e) {

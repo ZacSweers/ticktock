@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ticktock
+package dev.zacsweers.ticktock.jvm.lazyzonerules;
 
-import dev.zacsweers.ticktock.runtime.ZoneIdsProvider
-import kotlin.String
-import kotlin.collections.List
+import dev.zacsweers.ticktock.runtime.ZoneIdsProvider;
+import java.util.Arrays;
+import java.util.List;
 
-internal object GeneratedZoneIdsProvider : ZoneIdsProvider {
-  private const val VERSION_ID: String = "2020a"
+final class GeneratedZoneIdsProvider implements ZoneIdsProvider {
+  private static final String VERSION_ID = "2020a";
 
-  private val ZONE_IDS: List<String> = listOf(
+  private static final List<String> ZONE_IDS =
+      Arrays.asList(
           "Africa/Abidjan",
           "Africa/Accra",
           "Africa/Addis_Ababa",
@@ -610,10 +611,15 @@ internal object GeneratedZoneIdsProvider : ZoneIdsProvider {
           "Universal",
           "W-SU",
           "WET",
-          "Zulu"
-      )
+          "Zulu");
 
-  override fun getVersionId(): String = VERSION_ID
+  @Override
+  public String getVersionId() {
+    return VERSION_ID;
+  }
 
-  override fun getZoneIds(): List<String> = ZONE_IDS
+  @Override
+  public List<String> getZoneIds() {
+    return ZONE_IDS;
+  }
 }

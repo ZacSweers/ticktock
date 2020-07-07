@@ -20,8 +20,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.ProjectLayout
-import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
@@ -33,12 +31,10 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.Sync
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.property
 import org.gradle.kotlin.dsl.register
 import org.gradle.process.CommandLineArgumentProvider
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import java.io.File
-import javax.inject.Inject
 
 private const val TICKTOCK_GROUP = "ticktock"
 
@@ -55,6 +51,7 @@ class TickTockPlugin : Plugin<Project> {
   private fun Project.setup() {
     // TODO how can we depend on the direct artifact as a default? Should we?
     val tickTockCompiler = configurations.maybeCreate("tickTockCompiler")
+    tickTockCompiler.isVisible = false
     // Necessary with Clikt/MPP deps on the classpath of this
     // See https://github.com/gradle/gradle/issues/12126
     tickTockCompiler.attributes {
@@ -133,28 +130,6 @@ class TickTockPlugin : Plugin<Project> {
       configure { dependsOn(*tasks) }
     }
   }
-}
-
-abstract class TickTockExtension @Inject constructor(
-    layout: ProjectLayout,
-    objects: ObjectFactory
-) {
-  val tzVersion: Property<String> = objects.property<String>()
-      .convention("2020a")
-
-  val resourcesDir: DirectoryProperty = objects.directoryProperty()
-      .convention(layout.projectDirectory.dir("src/main/resources"))
-
-  val tzOutputDir: DirectoryProperty = objects.directoryProperty()
-      .convention(resourcesDir)
-
-  abstract val codeOutputDir: DirectoryProperty
-
-  val language: Property<String> = objects.property<String>()
-      .convention("java")
-
-  val packageName: Property<String> = objects.property<String>()
-      .convention("ticktock")
 }
 
 /** A zone rules generation task for granular zone rules. */

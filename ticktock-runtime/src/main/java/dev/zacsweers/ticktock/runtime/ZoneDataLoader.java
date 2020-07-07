@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ import java.io.DataInputStream;
 import java.time.zone.ZoneRules;
 
 /**
- * An interface for opening a stream to load {@link ZoneRules}. This is can be used by implementations
- * of {@link ZoneDataProvider} to keep the data source abstract.
+ * An interface for opening a stream to load {@link ZoneRules}. This is can be used by
+ * implementations of {@link ZoneDataProvider} to keep the data source abstract.
  */
 public interface ZoneDataLoader {
   /** Loads {@link ZoneRules} for a given {@code zoneId}. */

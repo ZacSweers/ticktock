@@ -49,6 +49,8 @@ include ':ticktock-android:lazyzonerules'
 include ':ticktock-android:tzdb'
 include ':ticktock-android:lazyzonerules-startup'
 include ':ticktock-android:tzdb-startup'
+include ':ticktock-jvm:lazyzonerules'
+include ':ticktock-jvm:tzdb'
 include 'sample'
 
 includeBuild('ticktock-gradle-plugin') {

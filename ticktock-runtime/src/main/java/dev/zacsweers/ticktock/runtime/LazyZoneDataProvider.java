@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,25 @@ import java.io.StreamCorruptedException;
 import java.time.zone.ZoneRules;
 import java.time.zone.ZoneRulesException;
 
+/**
+ * A lazy-loading {@link ZoneDataProvider}. This loads individual zone rules by zone ID from a
+ * {@link ZoneDataLoader} via interpolated "tzdb/{zoneId}.dat" path.
+ */
 public final class LazyZoneDataProvider implements ZoneDataProvider {
+
+  /** Creates a new lazy {@link ZoneDataProvider} backed by a {@link ResourcesZoneDataLoader}. */
+  public static ZoneDataProvider create() {
+    return create(ResourcesZoneDataLoader.create());
+  }
+
+  /** Creates a new lazy {@link ZoneDataProvider} backed by {@code zoneDataLoader}. */
+  public static ZoneDataProvider create(ZoneDataLoader zoneDataLoader) {
+    return new LazyZoneDataProvider(zoneDataLoader);
+  }
 
   private final ZoneDataLoader zoneDataLoader;
 
-  public LazyZoneDataProvider(ZoneDataLoader zoneDataLoader) {
+  private LazyZoneDataProvider(ZoneDataLoader zoneDataLoader) {
     this.zoneDataLoader = zoneDataLoader;
   }
 

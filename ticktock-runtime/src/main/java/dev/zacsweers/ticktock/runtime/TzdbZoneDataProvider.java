@@ -41,7 +41,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public final class TzdbZoneProvider implements ZoneIdsProvider, ZoneDataProvider {
+/**
+ * A tzdb.dat-based {@link ZoneDataProvider}. This loads individual zone rules by zone ID from a
+ * {@link ZoneDataLoader}. The `tzdb.dat` file is expected to be found at a "known" path:
+ * {@code j$/time/zone/tzdb.dat}.
+ */
+public final class TzdbZoneDataProvider implements ZoneIdsProvider, ZoneDataProvider {
+
+  /**
+   * Creates a new TZDB-based {@link TzdbZoneDataProvider} backed by a {@link ResourcesZoneDataLoader}.
+   */
+  public static TzdbZoneDataProvider create() {
+    return create(ResourcesZoneDataLoader.create());
+  }
+
+  /** Creates a new TZDB-based {@link TzdbZoneDataProvider} backed by a {@code zoneDataLoader}. */
+  public static TzdbZoneDataProvider create(ZoneDataLoader zoneDataLoader) {
+    return new TzdbZoneDataProvider(zoneDataLoader);
+  }
 
   private String version;
   private List<String> regionIds;
@@ -52,7 +69,7 @@ public final class TzdbZoneProvider implements ZoneIdsProvider, ZoneDataProvider
 
   private final ZoneDataLoader zoneDataLoader;
 
-  public TzdbZoneProvider(ZoneDataLoader zoneDataLoader) {
+  public TzdbZoneDataProvider(ZoneDataLoader zoneDataLoader) {
     this.zoneDataLoader = zoneDataLoader;
   }
 

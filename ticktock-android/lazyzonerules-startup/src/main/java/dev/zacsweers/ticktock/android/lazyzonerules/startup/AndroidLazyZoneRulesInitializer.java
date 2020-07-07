@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package dev.zacsweers.ticktock.android.lazyzonerules.startup;
 
 import android.content.Context;
@@ -6,14 +21,18 @@ import dev.zacsweers.ticktock.android.lazyzonerules.AndroidLazyZoneRules;
 import java.util.Collections;
 import java.util.List;
 
-public class AndroidLazyZoneRulesInitializer implements Initializer<Class<AndroidLazyZoneRulesInitializer>> {
+/** androidx.startup {@link Initializer} for {@link AndroidLazyZoneRules}. */
+public final class AndroidLazyZoneRulesInitializer
+    implements Initializer<Class<AndroidLazyZoneRulesInitializer>> {
 
-  @Override public Class<AndroidLazyZoneRulesInitializer> create(Context context) {
+  @Override
+  public Class<AndroidLazyZoneRulesInitializer> create(Context context) {
     AndroidLazyZoneRules.init(context);
     return AndroidLazyZoneRulesInitializer.class;
   }
 
-  @Override public List<Class<? extends Initializer<?>>> dependencies() {
+  @Override
+  public List<Class<? extends Initializer<?>>> dependencies() {
     // No dependencies on other libraries.
     return Collections.emptyList();
   }
