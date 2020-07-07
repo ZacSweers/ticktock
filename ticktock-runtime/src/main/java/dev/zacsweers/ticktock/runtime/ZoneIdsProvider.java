@@ -15,7 +15,7 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * An interface for indicating available zone ids. This is used by {@link TickTockZoneRulesProvider}
@@ -24,6 +24,6 @@ import java.util.List;
 public interface ZoneIdsProvider {
   /** The timezone data version (e.g. "2020a"). */
   String getVersionId();
-  /** A list of zone IDs included in this data set. */
-  List<String> getZoneIds();
+  /** A collection of zone IDs included in this data set. */
+  Collection<String> getZoneIds();
 }

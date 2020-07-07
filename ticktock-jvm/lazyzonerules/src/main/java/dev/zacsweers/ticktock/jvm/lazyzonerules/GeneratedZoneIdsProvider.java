@@ -17,12 +17,12 @@ package dev.zacsweers.ticktock.jvm.lazyzonerules;
 
 import dev.zacsweers.ticktock.runtime.ZoneIdsProvider;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 final class GeneratedZoneIdsProvider implements ZoneIdsProvider {
   private static final String VERSION_ID = "2020a";
 
-  private static final List<String> ZONE_IDS =
+  private static final Collection<String> ZONE_IDS =
       Arrays.asList(
           "Africa/Abidjan",
           "Africa/Accra",
@@ -619,7 +619,7 @@ final class GeneratedZoneIdsProvider implements ZoneIdsProvider {
   }
 
   @Override
-  public List<String> getZoneIds() {
+  public Collection<String> getZoneIds() {
     return ZONE_IDS;
   }
 }

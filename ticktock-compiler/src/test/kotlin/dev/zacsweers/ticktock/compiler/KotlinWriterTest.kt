@@ -60,12 +60,12 @@ class KotlinWriterTest {
 
 import dev.zacsweers.ticktock.runtime.ZoneIdsProvider
 import kotlin.String
-import kotlin.collections.List
+import kotlin.collections.Collection
 
 internal object GeneratedZoneIdsProvider : ZoneIdsProvider {
   private const val VERSION_ID: String = "2010a"
 
-  private val ZONE_IDS: List<String> = listOf(
+  private val ZONE_IDS: Collection<String> = setOf(
           "Europe/Berlin",
           "UTC",
           "US/Pacific"
@@ -73,7 +73,7 @@ internal object GeneratedZoneIdsProvider : ZoneIdsProvider {
 
   override fun getVersionId(): String = VERSION_ID
 
-  override fun getZoneIds(): List<String> = ZONE_IDS
+  override fun getZoneIds(): Collection<String> = ZONE_IDS
 }
 """
     assertThat(source).isEqualTo(expectedSource)
