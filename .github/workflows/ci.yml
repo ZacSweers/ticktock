@@ -23,6 +23,8 @@ jobs:
         java-version: ${{ matrix.java_version }}
     - name: Install Android SDK
       run: ./.github/android-sdk.sh
+    - name: Prepare CI Gradle configuration
+      run: cp .github/ci-gradle.properties ~/.gradle/gradle.properties
     - name: Configure Gradle + spot check
       # Initial gradle configuration, install dependencies, check formatting, etc
       run: ./gradlew spotlessCheck
