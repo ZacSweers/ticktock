@@ -15,10 +15,15 @@ Current version (from [IANA](https://www.iana.org/time-zones)): `2020a`
 Simply add the android tzdb startup dependency:
 
 ```gradle
-implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb-startup:<version>'
+implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb:<version>'
 ```
 
 This will automatically initialize it appropriately without any configuration needed using `androidx.startup`.
+If you don't want automatic initialization, you can use the `-base` version and do it manually.
+
+```java
+AndroidTzdbZoneRules.init(<context>)
+```
 
 Note that Android usage assumes use of [core library desugaring](https://developer.android.com/studio/write/java8-support#library-desugaring). 
 If you are not using it and/or are minSdk 26+, this library is of no use to you!
@@ -113,13 +118,13 @@ implementation 'dev.zacsweers.ticktock:ticktock-runtime:<version>'
 
 // TZDB artifacts
 implementation 'dev.zacsweers.ticktock:ticktock-jvm-tzdb:<version>'
+implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb-base:<version>'
 implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb:<version>'
-implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb-startup:<version>'
 
 // Lazy zone rules artifacts
 implementation 'dev.zacsweers.ticktock:ticktock-jvm-lazyzonerules:<version>'
+implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules-base:<version>'
 implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules:<version>'
-implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules-startup:<version>'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snapshots].

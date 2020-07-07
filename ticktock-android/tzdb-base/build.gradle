@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 plugins {
   id 'com.android.library'
   id 'com.vanniktech.maven.publish'
+  id 'dev.zacsweers.ticktock'
 }
 
+tickTock {
+  tzVersion.set(providers.gradleProperty("ticktock.ianaVersion").forUseAtConfigurationTime())
+  tzOutputDir.set(layout.projectDirectory.dir("src/main/assets"))
+}
+
+// TODO make build depend on tasks.getByName("generateTzdbDat")
+
 dependencies {
-  api project(":ticktock-android:tzdb")
-  implementation "androidx.startup:startup-runtime:1.0.0-alpha01"
+  tickTockCompiler project(":ticktock-compiler")
+  api project(":ticktock-runtime")
 }

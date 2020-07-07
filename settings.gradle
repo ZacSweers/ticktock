@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Zac Sweers
+ * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,11 +45,11 @@ pluginManagement {
 rootProject.name = 'ticktock-root'
 include ':ticktock-compiler'
 include ':ticktock-runtime'
+include ':ticktock-android:lazyzonerules-base'
 include ':ticktock-android:lazyzonerules'
-include ':ticktock-android:lazyzonerules-startup'
 include ':ticktock-android:tests'
+include ':ticktock-android:tzdb-base'
 include ':ticktock-android:tzdb'
-include ':ticktock-android:tzdb-startup'
 include ':ticktock-jvm:lazyzonerules'
 include ':ticktock-jvm:tests'
 include ':ticktock-jvm:tzdb'

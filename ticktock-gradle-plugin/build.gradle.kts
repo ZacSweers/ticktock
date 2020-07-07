@@ -20,7 +20,7 @@ plugins {
   `java-gradle-plugin`
   kotlin("jvm") version "1.3.72"
   kotlin("kapt") version "1.3.72"
-  id("com.vanniktech.maven.publish") version "0.11.1"
+  id("com.vanniktech.maven.publish") version "0.12.0"
 }
 
 buildscript {
@@ -72,12 +72,6 @@ gradlePlugin {
 
 kotlinDslPluginOptions {
   experimentalWarning.set(false)
-}
-
-mavenPublish {
-  nexus {
-    groupId = "dev.zacsweers"
-  }
 }
 
 dependencies {
