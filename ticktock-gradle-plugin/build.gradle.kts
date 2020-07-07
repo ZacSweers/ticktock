@@ -74,12 +74,6 @@ kotlinDslPluginOptions {
   experimentalWarning.set(false)
 }
 
-mavenPublish {
-  nexus {
-    stagingProfile = "dev.zacsweers"
-  }
-}
-
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
   implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.3.72")

@@ -60,14 +60,6 @@ subprojects {
     }
   }
 
-  pluginManager.withPlugin("com.vanniktech.maven.publish") {
-    mavenPublish {
-      nexus {
-        stagingProfile = "dev.zacsweers"
-      }
-    }
-  }
-
   apply from: rootProject.file('gradle/config-spotless.gradle')
 }
 
