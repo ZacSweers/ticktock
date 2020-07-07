@@ -3,15 +3,13 @@ package dev.zacsweers.ticktock.android.tests;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import dev.zacsweers.ticktock.runtime.android.AssetsZoneDataLoader;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import okio.BufferedSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.google.common.truth.Truth.assertThat;
-import static java.util.stream.Collectors.joining;
+import static okio.Okio.buffer;
+import static okio.Okio.source;
 
 @RunWith(AndroidJUnit4.class)
 public final class AssetsZoneDataLoaderTest {
@@ -20,11 +18,8 @@ public final class AssetsZoneDataLoaderTest {
     AssetsZoneDataLoader loader =
         AssetsZoneDataLoader.create(ApplicationProvider.getApplicationContext());
 
-    try (InputStream is = loader.openData("testAssets/testasset.txt")) {
-      String text =
-          new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))
-              .lines()
-              .collect(joining("\n"));
+    try (BufferedSource is = buffer(source(loader.openData("testAssets/testasset.txt")))) {
+      String text = is.readUtf8();
       assertThat(text).isEqualTo("why can't I put this in androidTest/assets");
     }
   }

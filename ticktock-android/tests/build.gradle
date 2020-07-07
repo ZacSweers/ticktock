@@ -44,6 +44,7 @@ dependencies {
   implementation project(":ticktock-android:lazyzonerules")
   implementation project(":ticktock-android:tzdb")
 
+  androidTestImplementation deps.test.okio
   androidTestImplementation deps.test.androidExtJunit
   androidTestImplementation deps.test.androidRunner
   androidTestImplementation deps.test.androidRules
