@@ -30,6 +30,16 @@ jobs:
       run: ./gradlew assemble --stacktrace
     - name: Run tests
       run: ./gradlew test --stacktrace
+    - name: Add Android SDK to path
+      run: |
+        echo "::add-path::$ANDROID_HOME/cmdline-tools/latest/bin"
+        echo "::add-path::$ANDROID_HOME/platform-tools"
+    - name: Run instrumentation tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        # Need an API lower than 26 to properly test this
+        api-level: 25
+        script: ./gradlew connectedCheck --stacktrace
     - name: (Fail-only) Bundle the build report
       if: failure()
       run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
