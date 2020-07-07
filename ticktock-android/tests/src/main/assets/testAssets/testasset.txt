@@ -1,0 +1,1 @@
+why can't I put this in androidTest/assets
