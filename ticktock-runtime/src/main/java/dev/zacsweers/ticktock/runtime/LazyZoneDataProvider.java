@@ -47,7 +47,8 @@ public final class LazyZoneDataProvider implements ZoneDataProvider {
   public ZoneRules getZoneRules(String zoneId) {
     String fileName = "tzdb/" + zoneId + ".dat";
 
-    try (DataInputStream is = new DataInputStream(new BufferedInputStream(zoneDataLoader.openData(fileName)))) {
+    try (DataInputStream is =
+        new DataInputStream(new BufferedInputStream(zoneDataLoader.openData(fileName)))) {
       return loadData(is);
     } catch (Exception ex) {
       throw new ZoneRulesException("Invalid binary time-zone data: " + fileName, ex);

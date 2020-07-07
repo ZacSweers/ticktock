@@ -15,13 +15,13 @@
  */
 package dev.zacsweers.ticktock.runtime.android;
 
+import static java.util.Objects.requireNonNull;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import dev.zacsweers.ticktock.runtime.ZoneDataLoader;
 import java.io.InputStream;
 import java.time.zone.ZoneRulesException;
-
-import static java.util.Objects.requireNonNull;
 
 /** An assets-based {@link ZoneDataLoader}. */
 @TargetApi(26)
@@ -29,7 +29,8 @@ public final class AssetsZoneDataLoader implements ZoneDataLoader {
 
   public static AssetsZoneDataLoader create(Context context) {
     requireNonNull(context, "context == null");
-    return new AssetsZoneDataLoader(requireNonNull(context.getApplicationContext(), "applicationContext == null"));
+    return new AssetsZoneDataLoader(
+        requireNonNull(context.getApplicationContext(), "applicationContext == null"));
   }
 
   private final Context context;
