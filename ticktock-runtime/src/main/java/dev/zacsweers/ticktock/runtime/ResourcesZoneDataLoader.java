@@ -15,8 +15,7 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.zone.ZoneRulesException;
 
@@ -31,13 +30,13 @@ public final class ResourcesZoneDataLoader implements ZoneDataLoader {
   private ResourcesZoneDataLoader() {}
 
   @Override
-  public DataInputStream openData(String path) {
+  public InputStream openData(String path) {
     try {
       URL datUrl = ResourcesZoneDataLoader.class.getClassLoader().getResource(path);
       if (datUrl == null) {
         throw new ZoneRulesException("Missing time-zone data: " + path);
       }
-      return new DataInputStream(new BufferedInputStream(datUrl.openStream()));
+      return datUrl.openStream();
     } catch (Exception ex) {
       throw new ZoneRulesException("Invalid binary time-zone data: " + path, ex);
     }

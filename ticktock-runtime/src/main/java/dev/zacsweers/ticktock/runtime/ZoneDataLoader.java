@@ -15,7 +15,7 @@
  */
 package dev.zacsweers.ticktock.runtime;
 
-import java.io.DataInputStream;
+import java.io.InputStream;
 import java.time.zone.ZoneRules;
 
 /**
@@ -24,5 +24,5 @@ import java.time.zone.ZoneRules;
  */
 public interface ZoneDataLoader {
   /** Loads {@link ZoneRules} for a given {@code zoneId}. */
-  DataInputStream openData(String path) throws Exception;
+  InputStream openData(String path) throws Exception;
 }
