@@ -16,7 +16,6 @@
 package dev.zacsweers.ticktock.jvm.tests;
 
 import dev.zacsweers.ticktock.jvm.tzdb.JvmTzdbZoneRules;
-import dev.zacsweers.ticktock.runtime.EagerZoneRulesLoading;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -28,7 +27,7 @@ public final class TzdbZoneRulesTest {
   public void init() {
     JvmTzdbZoneRules.init();
     TestLogger logger = TestLogger.createAndInstall();
-    EagerZoneRulesLoading.cacheZones();
+    TestEagerZoneRules.cacheZonesAndAssertLoaded();
     logger.assertDidLog();
   }
 }
