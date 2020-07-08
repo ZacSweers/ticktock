@@ -16,7 +16,6 @@
 package dev.zacsweers.ticktock.runtime;
 
 import java.time.ZoneId;
-import java.time.zone.ZoneRulesProvider;
 import java.util.Set;
 
 /** Utilities for eager zone rule caching. */
@@ -34,7 +33,7 @@ public final class EagerZoneRulesLoading {
         throw new IllegalStateException("No zone ids available!");
       }
       for (String zoneId : zoneIds) {
-        ZoneRulesProvider.getRules(zoneId, true);
+        ZoneId.of(zoneId).getRules();
       }
     } catch (NoSuchMethodError e) {
       // If targeting a newer Android device or minSdk 26, this will fail because ZoneRulesProvider
