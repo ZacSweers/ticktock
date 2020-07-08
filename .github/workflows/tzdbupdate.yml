@@ -60,5 +60,5 @@ jobs:
           title: 'Update TZDATA to ${{ env.LATEST_TZDB }}'
           body: 'Updates TZDATA data to ${{ env.LATEST_TZDB }}'
           assignees: zacsweers,gabrielittner
-          labels: TZDB
-          branch: bot/update-tzdb
+          labels: tzdata
+          branch: bot/update-tzdata
