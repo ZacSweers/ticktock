@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.zacsweers.ticktock.jvm.tests;
+package dev.zacsweers.ticktock.android.tests;
 
 import static com.google.common.truth.Truth.assertThat;
 import static java.util.Collections.synchronizedSet;
