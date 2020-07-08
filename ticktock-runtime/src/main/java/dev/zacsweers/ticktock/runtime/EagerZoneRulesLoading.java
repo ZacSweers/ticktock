@@ -29,7 +29,7 @@ public final class EagerZoneRulesLoading {
   public static void cacheZones() {
     try {
       ZoneId.systemDefault().getRules();
-      Set<String> zoneIds = ZoneRulesProvider.getAvailableZoneIds();
+      Set<String> zoneIds = ZoneId.getAvailableZoneIds();
       if (zoneIds.isEmpty()) {
         throw new IllegalStateException("No zone ids available!");
       }
