@@ -131,7 +131,7 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 
 ## Why?
 
-TODO
+https://www.zacsweers.dev/ticktock-desugaring-timezones/
 
 License
 -------
