@@ -16,7 +16,6 @@
 package dev.zacsweers.ticktock.runtime;
 
 import java.time.ZoneId;
-import java.time.zone.ZoneRulesProvider;
 import java.util.Set;
 
 /** Utilities for eager zone rule caching. */
@@ -27,19 +26,13 @@ public final class EagerZoneRulesLoading {
    * ZoneId#systemDefault()} which is the one most likely to be used.
    */
   public static void cacheZones() {
-    try {
-      ZoneId.systemDefault().getRules();
-      Set<String> zoneIds = ZoneRulesProvider.getAvailableZoneIds();
-      if (zoneIds.isEmpty()) {
-        throw new IllegalStateException("No zone ids available!");
-      }
-      for (String zoneId : zoneIds) {
-        ZoneRulesProvider.getRules(zoneId, true);
-      }
-    } catch (NoSuchMethodError e) {
-      // If targeting a newer Android device or minSdk 26, this will fail because ZoneRulesProvider
-      // is a strangely hidden API: https://issuetracker.google.com/issues/159421054
-      System.err.println("Could not eagerly initialize zone rules: " + e.getMessage());
+    ZoneId.systemDefault().getRules();
+    Set<String> zoneIds = ZoneId.getAvailableZoneIds();
+    if (zoneIds.isEmpty()) {
+      throw new IllegalStateException("No zone ids available!");
+    }
+    for (String zoneId : zoneIds) {
+      ZoneId.of(zoneId).getRules();
     }
   }
 }

@@ -47,7 +47,7 @@ public final class TickTockPlugins {
   }
 
   /** @return the value for handling {@link ZoneIdsProvider}. */
-  static Supplier<ZoneIdsProvider> getZoneIdsProvider() {
+  public static Supplier<ZoneIdsProvider> getZoneIdsProvider() {
     return zoneIdsProvider;
   }
 
@@ -60,7 +60,7 @@ public final class TickTockPlugins {
   }
 
   /** @return the value for handling {@link ZoneDataProvider}. */
-  static Supplier<ZoneDataProvider> getZoneDataProvider() {
+  public static Supplier<ZoneDataProvider> getZoneDataProvider() {
     return zoneDataProvider;
   }
 
@@ -73,7 +73,7 @@ public final class TickTockPlugins {
   }
 
   /** @return the value for handling {@link TickTockLogger}. */
-  static Supplier<TickTockLogger> getLogger() {
+  public static Supplier<TickTockLogger> getLogger() {
     return loggerSupplier;
   }
 
