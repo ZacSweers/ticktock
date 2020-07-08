@@ -29,7 +29,9 @@ jobs:
           echo "::set-env name=CURRENT_TZDB::$CURRENT_TZDB"
       - name: Get latest version
         run: |
-          LATEST_TZDB=$(git ls-remote --tags --refs --sort="v:refname" https://github.com/eggert/tz.git | tail -n1 | sed 's/.*\///')
+          wget -q https://data.iana.org/time-zones/tzdata-latest.tar.gz
+          tar -xf tzdata-latest.tar.gz version
+          LATEST_TZDB=$(cat version)
           echo "latest: $LATEST_TZDB"
           echo "::set-env name=LATEST_TZDB::$LATEST_TZDB"
       - name: Compare versions
