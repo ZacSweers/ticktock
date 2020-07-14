@@ -1,0 +1,64 @@
+name: TZDB check
+
+on:
+  schedule:
+    - cron:  '0 3 * * *'
+
+jobs:
+  tzdbcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.TZDATATOKEN }}
+
+      # TODO cache?
+
+      - name: Install JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Get current version
+        run: |
+          source .github/properties.sh
+          CURRENT_TZDB=$(getProperty 'ticktock.ianaVersion' gradle.properties)
+          echo "current: $CURRENT_TZDB"
+          echo "::set-env name=CURRENT_TZDB::$CURRENT_TZDB"
+      - name: Get latest version
+        run: |
+          wget -q https://data.iana.org/time-zones/tzdata-latest.tar.gz
+          tar -xf tzdata-latest.tar.gz version
+          LATEST_TZDB=$(cat version)
+          echo "latest: $LATEST_TZDB"
+          echo "::set-env name=LATEST_TZDB::$LATEST_TZDB"
+      - name: Compare versions
+        run: |
+          echo "current: $CURRENT_TZDB"
+          echo "latest:  $LATEST_TZDB"
+          if [ "$CURRENT_TZDB" == "$LATEST_TZDB" ]; then echo "::set-env name=NOOP::true"; fi
+
+      - name: Update tz data
+        if: env.NOOP != 'true'
+        run: |
+          sed -i -e "s/${CURRENT_TZDB}/${LATEST_TZDB}/g" gradle.properties
+          ./gradlew syncTzDatToResources generateTzdbDat
+
+      - name: Create Pull Request
+        if: env.NOOP != 'true'
+        id: createpr
+        uses: peter-evans/create-pull-request@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.TZDATATOKEN }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Update TZDATA to ${{ env.LATEST_TZDB }}'
+          committer: Zac Sweers (CI) <pandanomic@gmail.com>
+          author: Zac Sweers (CI) <pandanomic@gmail.com>
+          title: 'Update TZDATA to ${{ env.LATEST_TZDB }}'
+          body: 'Updates TZDATA data to ${{ env.LATEST_TZDB }}'
+          assignees: zacsweers,gabrielittner
+          labels: tzdata
+          branch: bot/update-tzdata
