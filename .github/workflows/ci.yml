@@ -57,5 +57,5 @@ jobs:
       run: ./gradlew --stop && jps|grep -E 'KotlinCompileDaemon|GradleDaemon'| awk '{print $1}'| xargs kill -9
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && matrix.java_version == '1.8'
     - name: Upload snapshot (main only)
-      run: ./publish -PSONATYPE_NEXUS_USERNAME=${{ secrets.SonatypeUsername }} -PSONATYPE_NEXUS_PASSWORD=${{ secrets.SonatypePassword }}
+      run: ./publish.sh -PSONATYPE_NEXUS_USERNAME=${{ secrets.SonatypeUsername }} -PSONATYPE_NEXUS_PASSWORD=${{ secrets.SonatypePassword }}
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && matrix.java_version == '1.8'
