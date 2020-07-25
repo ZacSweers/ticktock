@@ -63,7 +63,12 @@ class TickTockPlugin : Plugin<Project> {
 
     val extension = extensions.create<TickTockExtension>("tickTock")
 
-    val tzdbVersion = extension.tzVersion
+    val tzdbVersion = extension.tzVersion.map {
+      check(it.isNotBlank()) {
+        "TZDB version was blank!"
+      }
+      it
+    }
     val tzDbOutput = tzdbVersion.flatMap {
       layout.buildDirectory.file("$INTERMEDIATES/$it/download/$it.tar.gz")
     }
