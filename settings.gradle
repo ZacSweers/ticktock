@@ -32,10 +32,23 @@ pluginManagement {
     }
   }
   repositories {
-    gradlePluginPortal()
     mavenCentral()
     google()
-    jcenter()
+    gradlePluginPortal()
+    exclusiveContent {
+      forRepository {
+        maven {
+          name = "JCenter"
+          setUrl("https://jcenter.bintray.com/")
+        }
+      }
+      filter {
+        // Required for Dokka
+        it.includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
+        it.includeGroup("org.jetbrains.dokka")
+        it.includeModule("org.jetbrains", "markdown")
+      }
+    }
   }
 }
 

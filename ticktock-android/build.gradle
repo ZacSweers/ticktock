@@ -3,7 +3,7 @@ import com.vanniktech.maven.publish.tasks.AndroidJavadocs
 subprojects {
   pluginManager.withPlugin("com.android.library") {
     android {
-      compileSdkVersion 29
+      compileSdkVersion 30
 
       defaultConfig {
         minSdkVersion 21

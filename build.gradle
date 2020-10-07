@@ -17,7 +17,7 @@
 buildscript {
   dependencies {
     classpath("dev.zacsweers.ticktock:ticktock-gradle-plugin:${findProperty("VERSION_NAME")}")
-    classpath("com.android.tools.build:gradle:4.0.0")
+    classpath("com.android.tools.build:gradle:4.0.2")
   }
 }
 
@@ -35,7 +35,22 @@ subprojects {
   repositories {
     mavenCentral()
     google()
-    jcenter()
+    exclusiveContent {
+      forRepository {
+        maven {
+          name = "JCenter"
+          setUrl("https://jcenter.bintray.com/")
+        }
+      }
+      filter {
+        // Required for Dokka
+        it.includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
+        it.includeGroup("org.jetbrains.dokka")
+        it.includeModule("org.jetbrains", "markdown")
+        // For lint
+        it.includeModule("org.jetbrains.trove4j", "trove4j")
+      }
+    }
   }
 
   pluginManager.withPlugin('java-library') {
@@ -61,8 +76,13 @@ subprojects {
     }
   }
 
-  pluginManager.withPlugin('com.vanniktech.maven.publish') {
-    apply plugin: 'org.jetbrains.dokka'
+  pluginManager.withPlugin('org.jetbrains.dokka') {
+    tasks.named("dokkaHtml") {
+      it.outputDirectory.set(rootProject.file("docs/0.x"))
+      it.dokkaSourceSets.configureEach {
+        it.skipDeprecated.set(true)
+      }
+    }
   }
 
   apply from: rootProject.file('gradle/config-spotless.gradle')

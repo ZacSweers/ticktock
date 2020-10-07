@@ -16,9 +16,19 @@
 
 pluginManagement {
   repositories {
-    google()
-    gradlePluginPortal()
     mavenCentral()
+    gradlePluginPortal()
+    exclusiveContent {
+      forRepository {
+        jcenter()
+      }
+      filter {
+        // Required for Dokka
+        includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
+        includeGroup("org.jetbrains.dokka")
+        includeModule("org.jetbrains", "markdown")
+      }
+    }
   }
 }
 
