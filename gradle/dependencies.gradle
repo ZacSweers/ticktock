@@ -38,8 +38,7 @@ def build = [
 ]
 
 def kotlin = [
-    reflect: "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
-    stdlibjdk8: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+    reflect: "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
 ]
 
 def misc = [
