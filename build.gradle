@@ -35,7 +35,20 @@ subprojects {
   repositories {
     mavenCentral()
     google()
-    jcenter()
+    exclusiveContent {
+      forRepository {
+        maven {
+          name = "JCenter"
+          setUrl("https://jcenter.bintray.com/")
+        }
+      }
+      filter {
+        // Required for Dokka
+        it.includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
+        it.includeGroup("org.jetbrains.dokka")
+        it.includeModule("org.jetbrains", "markdown")
+      }
+    }
   }
 
   pluginManager.withPlugin('java-library') {
@@ -61,8 +74,13 @@ subprojects {
     }
   }
 
-  pluginManager.withPlugin('com.vanniktech.maven.publish') {
-    apply plugin: 'org.jetbrains.dokka'
+  pluginManager.withPlugin('org.jetbrains.dokka') {
+    tasks.named("dokkaHtml") {
+      it.outputDirectory.set(rootProject.file("docs/0.x"))
+      it.dokkaSourceSets.configureEach {
+        it.skipDeprecated.set(true)
+      }
+    }
   }
 
   apply from: rootProject.file('gradle/config-spotless.gradle')
