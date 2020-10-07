@@ -19,10 +19,7 @@ pluginManagement {
   resolutionStrategy {
     eachPlugin {
       switch (requested.id.id) {
-        case 'org.jetbrains.dokka':
-          useModule(deps.build.gradlePlugins.dokka)
-          break
-        case 'com.diffplug.gradle.spotless':
+        case 'com.diffplug.spotless':
           useModule(deps.build.gradlePlugins.spotless)
           break
         case 'org.jetbrains.kotlin.jvm':

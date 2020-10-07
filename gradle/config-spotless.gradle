@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.diffplug.gradle.spotless'
+apply plugin: 'com.diffplug.spotless'
 String[] copiedKotlinFiles = [
     // Add any copied files that should have their copyright header preserved
     "copyright",

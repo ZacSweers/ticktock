@@ -30,77 +30,77 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.options.split
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.enum
+import org.threeten.bp.zone.ZoneRulesCompat
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import org.threeten.bp.zone.ZoneRulesCompat
 
 class LazyZoneRulesCommand : CliktCommand() {
 
   private val version: String by option(
-      "--version",
-      help = "Version of the time zone data, e.g. 2017b."
+    "--version",
+    help = "Version of the time zone data, e.g. 2017b."
   ).default("")
-      .validate { it.isNotBlank() }
+    .validate { it.isNotBlank() }
 
   private val srcDir: Path by option(
-      "--srcdir",
-      help = "Directory containing the unpacked leapsecond and tzdb files."
+    "--srcdir",
+    help = "Directory containing the unpacked leapsecond and tzdb files."
   ).path(mustExist = true, canBeFile = false)
-      .required()
+    .required()
 
   private val tzdbFileNames: List<String> by option(
-      "--tzdbfiles",
-      help = "Names of the tzdb files to process."
+    "--tzdbfiles",
+    help = "Names of the tzdb files to process."
   ).split(",")
-      .default(
-          listOf(
-              "africa",
-              "antarctica",
-              "asia",
-              "australasia",
-              "backward",
-              "etcetera",
-              "europe",
-              "northamerica",
-              "southamerica"
-          )
+    .default(
+      listOf(
+        "africa",
+        "antarctica",
+        "asia",
+        "australasia",
+        "backward",
+        "etcetera",
+        "europe",
+        "northamerica",
+        "southamerica"
       )
+    )
 
   private val leapSecondFileName: String by option(
-      "--leapfile",
-      help = "Name of the leapsecond file to process."
+    "--leapfile",
+    help = "Name of the leapsecond file to process."
   ).default("leapseconds")
 
   private val codeOutputDir: Path by option(
-      "--codeoutdir",
-      help = "Output directory for the generated java code."
+    "--codeoutdir",
+    help = "Output directory for the generated java code."
   ).path(canBeFile = false).required()
 
   private val tzdbOutputDir: Path by option(
-      "--tzdboutdir",
-      help = "Output directory for the generated tzdb files."
+    "--tzdboutdir",
+    help = "Output directory for the generated tzdb files."
   ).path(canBeFile = false).required()
 
   private val verbose: Boolean by option(help = "Verbose output.").flag()
 
   private val language: Language by option(
-      "--language",
-      help = "Language output (java or kotlin)."
+    "--language",
+    help = "Language output (java or kotlin)."
   ).enum<Language>().default(Language.JAVA)
 
   private val packageName: String by option(
-      "--packagename",
-      help = "Package name to output with."
+    "--packagename",
+    help = "Package name to output with."
   ).default("ticktock")
 
   private val tzdbFiles: List<File> by lazy {
     tzdbFileNames.asSequence()
-        .map(srcDir::resolve)
-        .filter { Files.exists(it) }
-        .map(Path::toFile)
-        .toList()
+      .map(srcDir::resolve)
+      .filter { Files.exists(it) }
+      .map(Path::toFile)
+      .toList()
   }
 
   private fun leapSecondFile(): File? {
@@ -150,18 +150,18 @@ class LazyZoneRulesCommand : CliktCommand() {
       Regex.fromLiteral(":")
     }
     return convert(
-        metavar = name.toUpperCase(),
-        envvarSplit = split,
-        completionCandidates = CompletionCandidates.Path
+      metavar = name.toUpperCase(),
+      envvarSplit = split,
+      completionCandidates = CompletionCandidates.Path
     ) { transformContext ->
       convertToPath(
-          path = transformContext,
-          mustExist = mustExist,
-          canBeFile = canBeFile,
-          canBeDir = canBeDir,
-          mustBeWritable = mustBeWritable,
-          mustBeReadable = mustBeReadable,
-          canBeSymlink = canBeSymlink
+        path = transformContext,
+        mustExist = mustExist,
+        canBeFile = canBeFile,
+        canBeDir = canBeDir,
+        mustBeWritable = mustBeWritable,
+        mustBeReadable = mustBeReadable,
+        canBeSymlink = canBeSymlink
       ) { errorMessage -> fail(errorMessage) }
     }
   }
@@ -204,10 +204,10 @@ class LazyZoneRulesCommand : CliktCommand() {
   override fun run() {
     validate()
     val compiler = ZoneRulesCompat(
-        version = version,
-        sourceFiles = tzdbFiles,
-        leapSecondsFile = leapSecondFile(),
-        verbose = verbose
+      version = version,
+      sourceFiles = tzdbFiles,
+      leapSecondsFile = leapSecondFile(),
+      verbose = verbose
     )
     val rulesWriter = rulesWriter()
     val zoneWriter = ZoneWriter(tzdbOutputDir)

@@ -8,7 +8,7 @@ version (JVM only).
 
 ## Usage
 
-Current version (from [IANA](https://www.iana.org/time-zones)): `2020a`
+Current version (from [IANA](https://www.iana.org/time-zones)): `2020b`
 
 ### Android
 

@@ -21,8 +21,6 @@ import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.KotlinCompilation.ExitCode.OK
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.SourceFile.Companion.kotlin
-import java.nio.file.Files
-import java.nio.file.Path
 import org.intellij.lang.annotations.Language
 import org.junit.Before
 import org.junit.Rule
@@ -30,6 +28,8 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import java.nio.file.Files
+import java.nio.file.Path
 
 @RunWith(JUnit4::class)
 class KotlinWriterTest {

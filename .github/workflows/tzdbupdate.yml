@@ -26,25 +26,27 @@ jobs:
           source .github/properties.sh
           CURRENT_TZDB=$(getProperty 'ticktock.ianaVersion' gradle.properties)
           echo "current: $CURRENT_TZDB"
-          echo "::set-env name=CURRENT_TZDB::$CURRENT_TZDB"
+          echo "CURRENT_TZDB=$CURRENT_TZDB" >> $GITHUB_ENV
       - name: Get latest version
         run: |
           wget -q https://data.iana.org/time-zones/tzdata-latest.tar.gz
           tar -xf tzdata-latest.tar.gz version
           LATEST_TZDB=$(cat version)
           echo "latest: $LATEST_TZDB"
-          echo "::set-env name=LATEST_TZDB::$LATEST_TZDB"
+          echo "LATEST_TZDB=$LATEST_TZDB" >> $GITHUB_ENV
       - name: Compare versions
         run: |
           echo "current: $CURRENT_TZDB"
           echo "latest:  $LATEST_TZDB"
-          if [ "$CURRENT_TZDB" == "$LATEST_TZDB" ]; then echo "::set-env name=NOOP::true"; fi
+          if [ "$CURRENT_TZDB" == "$LATEST_TZDB" ]; then echo "NOOP=true" >> $GITHUB_ENV; fi
 
       - name: Update tz data
         if: env.NOOP != 'true'
         run: |
           sed -i -e "s/${CURRENT_TZDB}/${LATEST_TZDB}/g" gradle.properties
           ./gradlew syncTzDatToResources generateTzdbDat
+          rm version
+          rm tzdata-latest.tar.gz
 
       - name: Create Pull Request
         if: env.NOOP != 'true'
