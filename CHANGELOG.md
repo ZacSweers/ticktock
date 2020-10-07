@@ -1,6 +1,16 @@
 Changelog
 =========
 
+0.2.0
+-----
+
+_2020-10-07_
+
+* Update to IANA tzdata to `2020b` 
+* Fix: don't package in `tzdb.dat` in Android `lazyzonerules-base`
+* Update to Kotlin 1.4.10
+* Update to `androidx.startup` 1.0.0-beta01
+
 0.1.1
 -----
 
