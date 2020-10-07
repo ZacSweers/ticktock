@@ -26,19 +26,23 @@ plugins {
   id("com.vanniktech.maven.publish") version "0.13.0"
 }
 
-buildscript {
-  repositories {
-    gradlePluginPortal()
-    mavenCentral()
-    jcenter()
-  }
-}
-
 repositories {
-  google()
-  gradlePluginPortal()
   mavenCentral()
-  jcenter()
+  gradlePluginPortal()
+  exclusiveContent {
+    forRepository {
+      maven {
+        name = "JCenter"
+        setUrl("https://jcenter.bintray.com/")
+      }
+    }
+    filter {
+      // Required for Dokka
+      includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
+      includeGroup("org.jetbrains.dokka")
+      includeModule("org.jetbrains", "markdown")
+    }
+  }
 }
 
 tasks.withType<KotlinCompile>().configureEach {
