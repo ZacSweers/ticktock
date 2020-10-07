@@ -19,7 +19,6 @@ package dev.zacsweers.ticktock.compiler
 
 import com.github.ajalt.clikt.completion.CompletionCandidates
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.output.TermUi
 import com.github.ajalt.clikt.parameters.options.NullableOption
 import com.github.ajalt.clikt.parameters.options.RawOption
 import com.github.ajalt.clikt.parameters.options.convert
@@ -144,14 +143,8 @@ class LazyZoneRulesCommand : CliktCommand() {
     canBeSymlink: Boolean = true
   ): NullableOption<Path, Path> {
     val name = pathType(canBeFile, canBeDir)
-    val split = if (TermUi.isWindows) {
-      Regex.fromLiteral(";")
-    } else {
-      Regex.fromLiteral(":")
-    }
     return convert(
       metavar = name.toUpperCase(),
-      envvarSplit = split,
       completionCandidates = CompletionCandidates.Path
     ) { transformContext ->
       convertToPath(

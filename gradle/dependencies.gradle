@@ -42,7 +42,7 @@ def kotlin = [
 ]
 
 def misc = [
-    clikt: "com.github.ajalt:clikt:2.7.1",
+    clikt: "com.github.ajalt.clikt:clikt:3.0.1",
     threetenbpNotz: "org.threeten:threetenbp:1.4.4:no-tzdb",
     threetenbp: "org.threeten:threetenbp:1.4.4",
     javapoet : "com.squareup:javapoet:1.13.0",
@@ -50,7 +50,7 @@ def misc = [
 ]
 
 def test = [
-    androidExtJunit: "androidx.test.ext:junit:1.1.2-rc01",
+    androidExtJunit: "androidx.test.ext:junit:1.1.2",
     androidRunner: "androidx.test:runner:${versions.androidTest}",
     androidRules: "androidx.test:rules:${versions.androidTest}",
     androidOrchestrator: "androidx.test:orchestrator:${versions.androidTest}",
