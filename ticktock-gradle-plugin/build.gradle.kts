@@ -31,10 +31,7 @@ repositories {
   gradlePluginPortal()
   exclusiveContent {
     forRepository {
-      maven {
-        name = "JCenter"
-        setUrl("https://jcenter.bintray.com/")
-      }
+      jcenter()
     }
     filter {
       // Required for Dokka
