@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URL
 
 plugins {
   `kotlin-dsl`
@@ -73,6 +75,16 @@ gradlePlugin {
 
 kotlinDslPluginOptions {
   experimentalWarning.set(false)
+}
+
+tasks.named<DokkaTask>("dokkaHtml") {
+  outputDirectory.set(rootDir.resolve("../docs/0.x"))
+  dokkaSourceSets.configureEach {
+    skipDeprecated.set(true)
+    externalDocumentationLink {
+      url.set(URL("https://docs.gradle.org/${gradle.gradleVersion}/javadoc/index.html"))
+    }
+  }
 }
 
 dependencies {
