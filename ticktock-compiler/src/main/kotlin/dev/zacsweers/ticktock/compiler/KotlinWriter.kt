@@ -42,45 +42,49 @@ internal class KotlinWriter(private val outputDir: Path) : RulesWriter {
     val versionProperty = version(version)
     val zoneIdsProperty = regionId(zoneIds)
     val typeSpec = TypeSpec.objectBuilder("GeneratedZoneIdsProvider")
-        .addSuperinterface(ZoneIdsProvider::class)
-        .addModifiers(INTERNAL)
-        .addProperty(versionProperty)
-        .addFunction(FunSpec.builder("getVersionId")
-            .addModifiers(OVERRIDE)
-            .returns(versionProperty.type)
-            .addStatement("return %N", versionProperty)
-            .build())
-        .addProperty(zoneIdsProperty)
-        .addFunction(FunSpec.builder("getZoneIds")
-            .addModifiers(OVERRIDE)
-            .returns(zoneIdsProperty.type)
-            .addStatement("return %N", zoneIdsProperty)
-            .build())
-        .build()
+      .addSuperinterface(ZoneIdsProvider::class)
+      .addModifiers(INTERNAL)
+      .addProperty(versionProperty)
+      .addFunction(
+        FunSpec.builder("getVersionId")
+          .addModifiers(OVERRIDE)
+          .returns(versionProperty.type)
+          .addStatement("return %N", versionProperty)
+          .build()
+      )
+      .addProperty(zoneIdsProperty)
+      .addFunction(
+        FunSpec.builder("getZoneIds")
+          .addModifiers(OVERRIDE)
+          .returns(zoneIdsProperty.type)
+          .addStatement("return %N", zoneIdsProperty)
+          .build()
+      )
+      .build()
 
     Files.createDirectories(outputDir)
     FileSpec.get(packageName, typeSpec)
-        .writeTo(outputDir)
+      .writeTo(outputDir)
   }
 
   private fun version(version: String): PropertySpec {
     return PropertySpec.builder("VERSION_ID", STRING, PRIVATE, CONST)
-        .initializer("%S", version)
-        .build()
+      .initializer("%S", version)
+      .build()
   }
 
   private fun regionId(allRegionIds: Set<String>): PropertySpec {
     val blocks = allRegionIds.map { CodeBlock.of("%S", it) }
     val joinedBlocks = blocks.joinToCode(",\n")
     val initializer = CodeBlock.builder()
-        .add("setOf(\n⇥⇥")
-        .add(joinedBlocks)
-        .add("⇤⇤\n)")
-        .build()
+      .add("setOf(\n⇥⇥")
+      .add(joinedBlocks)
+      .add("⇤⇤\n)")
+      .build()
 
     val listType = COLLECTION.parameterizedBy(STRING)
     return PropertySpec.builder("ZONE_IDS", listType, PRIVATE)
-        .initializer(initializer)
-        .build()
+      .initializer(initializer)
+      .build()
   }
 }

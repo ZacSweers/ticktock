@@ -16,12 +16,6 @@
 package dev.zacsweers.ticktock.compiler
 
 import com.google.common.truth.Truth.assertThat
-import java.io.DataInputStream
-import java.io.FileInputStream
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.SortedMap
-import java.util.TreeMap
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,6 +23,12 @@ import org.junit.runners.JUnit4
 import org.threeten.bp.zone.ZoneRules
 import org.threeten.bp.zone.ZoneRulesProvider
 import org.threeten.bp.zone.ZoneRulesReaderCompat
+import java.io.DataInputStream
+import java.io.FileInputStream
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.SortedMap
+import java.util.TreeMap
 
 @RunWith(JUnit4::class)
 class ZoneWriterTest {
@@ -59,7 +59,8 @@ class ZoneWriterTest {
   @Test
   fun writeZones() {
     val zones: Map<String, ZoneRules> = generateZones(
-        "Europe/Berlin", "US/Pacific", "Zulu")
+      "Europe/Berlin", "US/Pacific", "Zulu"
+    )
     for ((key, value) in zones) {
       val file = zoneFile(key)
       assertThat(Files.exists(file)).isTrue()
@@ -75,12 +76,14 @@ class ZoneWriterTest {
   @Test
   fun clearDirectory() {
     val zones1: Map<String, ZoneRules> = generateZones(
-        "Europe/Berlin", "US/Pacific", "Zulu")
+      "Europe/Berlin", "US/Pacific", "Zulu"
+    )
     for ((key) in zones1) {
       assertThat(Files.exists(zoneFile(key))).isTrue()
     }
     val zones2 = generateZones(
-        "Europe/Berlin", "US/Pacific")
+      "Europe/Berlin", "US/Pacific"
+    )
     for ((key) in zones2) {
       assertThat(Files.exists(zoneFile(key))).isTrue()
     }

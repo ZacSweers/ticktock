@@ -19,15 +19,15 @@ import com.google.testing.compile.CompilationSubject
 import com.google.testing.compile.Compiler
 import com.google.testing.compile.JavaFileObjectSubject
 import com.google.testing.compile.JavaFileObjects
-import java.nio.file.Files
-import java.nio.file.Path
-import javax.tools.JavaFileObject
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import java.nio.file.Files
+import java.nio.file.Path
+import javax.tools.JavaFileObject
 
 @RunWith(JUnit4::class)
 class JavaWriterTest {
@@ -55,8 +55,8 @@ class JavaWriterTest {
   fun writeZoneIds() {
     val source = generatedSource("2010a", "Europe/Berlin", "UTC", "US/Pacific")
     val expected = JavaFileObjects.forSourceString(
-        SOURCE_NAME,
-        """package ticktock;
+      SOURCE_NAME,
+      """package ticktock;
 
 import dev.zacsweers.ticktock.runtime.ZoneIdsProvider;
 import java.lang.Override;
@@ -81,7 +81,8 @@ final class GeneratedZoneIdsProvider implements ZoneIdsProvider {
   public Collection<String> getZoneIds() {
     return ZONE_IDS;
   }
-}""")
+}"""
+    )
     val compilation = Compiler.javac().compile(source)
     CompilationSubject.assertThat(compilation).succeeded()
     JavaFileObjectSubject.assertThat(source).hasSourceEquivalentTo(expected)

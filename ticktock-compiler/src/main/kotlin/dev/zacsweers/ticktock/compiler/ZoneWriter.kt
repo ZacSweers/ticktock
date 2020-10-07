@@ -15,6 +15,8 @@
  */
 package dev.zacsweers.ticktock.compiler
 
+import org.threeten.bp.zone.ZoneRules
+import org.threeten.bp.zone.ZoneRulesCompat.Companion.writeZoneRules
 import java.io.DataOutputStream
 import java.io.IOException
 import java.nio.file.FileVisitResult
@@ -24,8 +26,6 @@ import java.nio.file.Path
 import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
 import java.util.SortedMap
-import org.threeten.bp.zone.ZoneRules
-import org.threeten.bp.zone.ZoneRulesCompat.Companion.writeZoneRules
 
 internal class ZoneWriter(private val outputDir: Path) {
 
