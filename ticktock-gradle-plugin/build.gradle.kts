@@ -18,9 +18,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   `kotlin-dsl`
   `java-gradle-plugin`
-  kotlin("jvm") version "1.3.72"
-  kotlin("kapt") version "1.3.72"
-  id("com.vanniktech.maven.publish") version "0.12.0"
+  kotlin("jvm") version "1.4.10"
+  kotlin("kapt") version "1.4.10"
+  id("org.jetbrains.dokka") apply false version "1.4.10"
+  id("com.vanniktech.maven.publish") version "0.13.0"
 }
 
 buildscript {
@@ -75,8 +76,8 @@ kotlinDslPluginOptions {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.3.72")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72")
-  implementation("de.undercouch:gradle-download-task:4.0.4")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.10")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.4.10")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10")
+  implementation("de.undercouch:gradle-download-task:4.1.1")
 }
