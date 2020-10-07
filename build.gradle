@@ -47,6 +47,8 @@ subprojects {
         it.includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
         it.includeGroup("org.jetbrains.dokka")
         it.includeModule("org.jetbrains", "markdown")
+        // For lint
+        it.includeModule("org.jetbrains.trove4j", "trove4j")
       }
     }
   }
