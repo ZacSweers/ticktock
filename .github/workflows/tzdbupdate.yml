@@ -45,6 +45,8 @@ jobs:
         run: |
           sed -i -e "s/${CURRENT_TZDB}/${LATEST_TZDB}/g" gradle.properties
           ./gradlew syncTzDatToResources generateTzdbDat
+          rm version
+          rm tzdata-latest.tar.gz
 
       - name: Create Pull Request
         if: env.NOOP != 'true'
