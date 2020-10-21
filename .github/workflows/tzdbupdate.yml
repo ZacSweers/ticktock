@@ -45,6 +45,7 @@ jobs:
         run: |
           sed -i -e "s/${CURRENT_TZDB}/${LATEST_TZDB}/g" gradle.properties
           ./gradlew syncTzDatToResources generateTzdbDat
+          ./gradlew clean check
           rm version
           rm tzdata-latest.tar.gz
 
