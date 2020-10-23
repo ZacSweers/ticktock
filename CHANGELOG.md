@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.1
+-----
+
+_2020-10-23_
+
+* Update to IANA tzdata to `2020d`
+
 0.2.0
 -----
 
