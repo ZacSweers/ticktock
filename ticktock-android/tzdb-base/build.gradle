@@ -29,4 +29,5 @@ tickTock {
 dependencies {
   tickTockCompiler project(":ticktock-compiler")
   api project(":ticktock-runtime")
+  implementation "androidx.startup:startup-runtime:1.0.0"
 }
