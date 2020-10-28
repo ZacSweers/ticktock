@@ -129,12 +129,10 @@ implementation 'dev.zacsweers.ticktock:ticktock-runtime:<version>'
 
 // TZDB artifacts
 implementation 'dev.zacsweers.ticktock:ticktock-jvm-tzdb:<version>'
-implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb-base:<version>'
 implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb:<version>'
 
 // Lazy zone rules artifacts
 implementation 'dev.zacsweers.ticktock:ticktock-jvm-lazyzonerules:<version>'
-implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules-base:<version>'
 implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules:<version>'
 ```
 
