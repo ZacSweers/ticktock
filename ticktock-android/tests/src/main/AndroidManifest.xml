@@ -27,7 +27,7 @@
         android:exported="false"
         tools:node="merge">
       <meta-data
-          package="dev.zacsweers.ticktock.android.tests"
+          android:name="dev.zacsweers.ticktock.android.lazyzonerules.startup.AndroidLazyZoneRulesInitializer"
           tools:node="remove"/>
       <meta-data
           android:name="dev.zacsweers.ticktock.android.tzdb.startup.AndroidTzdbRulesInitializer"
