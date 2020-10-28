@@ -1,8 +1,8 @@
 TickTock
 ========
 
-TickTock is a timezone data management library for the JVM and Android targeting `java.time.*` APIs 
-in Java 8 or above. Use this library if you want to bundle timezone data directly with your 
+TickTock is a timezone data management library for the JVM and Android targeting `java.time.*` APIs
+in Java 8 or above. Use this library if you want to bundle timezone data directly with your
 application rather than rely on the current device timezones (Android) or the default `<java.home>/lib`
 version (JVM only).
 
@@ -19,13 +19,24 @@ implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb:<version>'
 ```
 
 This will automatically initialize it appropriately without any configuration needed using `androidx.startup`.
-If you don't want automatic initialization, you can use the `-base` version and do it manually.
+If you don't want automatic initialization, you can disable it and do it manually.
+
+```xml
+<provider
+    android:name="androidx.startup.InitializationProvider"
+    android:authorities="${applicationId}.androidx-startup"
+    android:exported="false"
+    tools:node="merge">
+    <meta-data android:name="dev.zacsweers.ticktock.android.tzdb.startup.AndroidTzdbRulesInitializer"
+        tools:node="remove"/>
+</provider>
+```
 
 ```java
 AndroidTzdbZoneRules.init(<context>)
 ```
 
-Note that Android usage assumes use of [core library desugaring](https://developer.android.com/studio/write/java8-support#library-desugaring). 
+Note that Android usage assumes use of [core library desugaring](https://developer.android.com/studio/write/java8-support#library-desugaring).
 If you are not using it and/or are minSdk 26+, this library is of no use to you!
 
 ### JVM
@@ -49,7 +60,7 @@ This will make `ZoneRulesProvider` use TickTock's implementation with its bundle
 <details>
 <summary>Eager caching</summary>
 
-TickTock's default behavior is to lazily load timezone data on-demand. If you want to eagerly 
+TickTock's default behavior is to lazily load timezone data on-demand. If you want to eagerly
 load data (for instance - on a background thread), TickTock offers a convenience helper API:
 
 ```java
@@ -62,16 +73,16 @@ EagerZoneRulesLoading.cacheZones();
 <details>
 <summary>Custom Data Loading</summary>
 
-By default, TickTock will try to load timezone data from Java resources via `ResourcesZoneDataLoader`. 
-If you wish to customize this, you can provide your own loading mechanism via implementing a custom 
-`ZoneDataLoader` and/or `ZoneDataProvider` and registering them via `TickTockPlugins` _before_ 
+By default, TickTock will try to load timezone data from Java resources via `ResourcesZoneDataLoader`.
+If you wish to customize this, you can provide your own loading mechanism via implementing a custom
+`ZoneDataLoader` and/or `ZoneDataProvider` and registering them via `TickTockPlugins` _before_
 using any time APIs that would cause the system `ZoneRulesProvider` to initialize.
 
 Usually, you would only want to implement a custom `ZoneDataLoader` and instantiate one of the built-in
 `ZoneRulesProvider` implementations with it. TickTock comes with two: `TzdbZoneDataProvider` (the common case)
  and `LazyZoneDataProvider`. You can also implement your own provider on top of any `ZoneDataLoader`
  type as you see fit.
- 
+
 ```java
 CustomZoneDataLoader loader = new CustomZoneDataLoader();
 TzdbZoneDataProvider provider = new TzdbZoneDataProvider(loader);
@@ -101,9 +112,9 @@ If no provider is specified, TickTock will use `TzdbZoneProvider`.
 <summary>Lazy Zone Rules</summary>
 
 TickTock's default behavior is focused around using traditional `tzdb.dat` files for timezone data
-implemented via `TzdbZoneDataProvider`. Early adopters can try a custom, lazy-loading solution 
+implemented via `TzdbZoneDataProvider`. Early adopters can try a custom, lazy-loading solution
 via `LazyZoneDataProvider` inspired by [LazyThreeTenBp](https://github.com/gabrielittner/lazythreetenbp).
-In theory, this artifact would be lower overhead on startup for devices with slower IO and a lower 
+In theory, this artifact would be lower overhead on startup for devices with slower IO and a lower
 application-lifetime memory impact by only keeping used zones in memory. We're seeking feedback on
 whether this is truly worth supporting though, so please let us know!
 
@@ -118,12 +129,10 @@ implementation 'dev.zacsweers.ticktock:ticktock-runtime:<version>'
 
 // TZDB artifacts
 implementation 'dev.zacsweers.ticktock:ticktock-jvm-tzdb:<version>'
-implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb-base:<version>'
 implementation 'dev.zacsweers.ticktock:ticktock-android-tzdb:<version>'
 
 // Lazy zone rules artifacts
 implementation 'dev.zacsweers.ticktock:ticktock-jvm-lazyzonerules:<version>'
-implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules-base:<version>'
 implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules:<version>'
 ```
 

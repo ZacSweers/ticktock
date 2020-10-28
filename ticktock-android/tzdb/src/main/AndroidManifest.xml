@@ -16,7 +16,7 @@
   -->
 
 <manifest
-    package="dev.zacsweers.ticktock.android.lazyzonerules.startup"
+    package="dev.zacsweers.ticktock.android.tzdb"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -32,4 +32,3 @@
     </provider>
   </application>
 </manifest>
-

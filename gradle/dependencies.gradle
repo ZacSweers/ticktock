@@ -47,6 +47,7 @@ def misc = [
     threetenbp: "org.threeten:threetenbp:1.4.4",
     javapoet : "com.squareup:javapoet:1.13.0",
     kotlinpoet : "com.squareup:kotlinpoet:1.6.0",
+    startup : "androidx.startup:startup-runtime:1.0.0",
 ]
 
 def test = [

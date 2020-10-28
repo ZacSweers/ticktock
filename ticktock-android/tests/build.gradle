@@ -41,8 +41,8 @@ android {
 
 dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.0.9"
-  implementation project(":ticktock-android:lazyzonerules-base")
-  implementation project(":ticktock-android:tzdb-base")
+  implementation project(":ticktock-android:lazyzonerules")
+  implementation project(":ticktock-android:tzdb")
 
   androidTestImplementation deps.test.okio
   androidTestImplementation deps.test.androidExtJunit
