@@ -17,4 +17,21 @@
 
 <manifest
     package="dev.zacsweers.ticktock.android.tests"
-    />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <application>
+    <provider
+        android:name="androidx.startup.InitializationProvider"
+        android:authorities="${applicationId}.androidx-startup"
+        android:exported="false"
+        tools:node="merge">
+      <meta-data
+          package="dev.zacsweers.ticktock.android.tests"
+          tools:node="remove"/>
+      <meta-data
+          android:name="dev.zacsweers.ticktock.android.tzdb.startup.AndroidTzdbRulesInitializer"
+          tools:node="remove"/>
+    </provider>
+  </application>
+</manifest>
