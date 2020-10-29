@@ -120,6 +120,26 @@ whether this is truly worth supporting though, so please let us know!
 
 </details>
 
+<details>
+<summary>Compiler</summary>
+
+If you want to compile your own data, you can use the `ticktock-compiler` or the `ticktock-gradle-plugin`
+
+**Compiler CLI**:
+
+TODO
+- coordinates/jar
+- set up exec
+
+**Gradle plugin**:
+
+TODO
+- lazy rules setup
+- tzdb setup
+- extension
+
+</details>
+
 ## Download
 
 [![Maven Central](https://img.shields.io/maven-central/v/dev.zacsweers.ticktock/ticktock-runtime.svg)](https://mvnrepository.com/artifact/dev.zacsweers.ticktock/ticktock-runtime)
