@@ -113,7 +113,7 @@ class TickTockPlugin : Plugin<Project> {
       argumentProviders.add(CommandLineArgumentProvider(::computeArguments))
     }
 
-    val syncTask = tasks.register<Sync>("syncTzDatToResources") {
+    val syncTask = tasks.register<Sync>("syncTZDBDatToOutputDir") {
       group = TICKTOCK_GROUP
       from(generateTzdbDat.map { it.outputDir })
       into(extension.tzOutputDir.map { it.dir("j\$/time/zone") })
