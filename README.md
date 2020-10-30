@@ -127,16 +127,71 @@ If you want to compile your own data, you can use the `ticktock-compiler` or the
 
 **Compiler CLI**:
 
-TODO
-- coordinates/jar
-- set up exec
+To manually compile lazy zone rules yourself, you can use the ticktock-compiler API.
 
-**Gradle plugin**:
+```
+Usage: ticktockc [OPTIONS]
 
-TODO
-- lazy rules setup
-- tzdb setup
-- extension
+Options:
+  --version TEXT            Version of the time zone data, e.g. 2017b.
+  --srcdir DIRECTORY        Directory containing the unpacked leapsecond and
+                            tzdb files.
+  --tzdbfiles TEXT          Names of the tzdb files to process.
+  --leapfile TEXT           Name of the leapsecond file to process.
+  --codeoutdir DIRECTORY    Output directory for the generated java code.
+  --tzdboutdir DIRECTORY    Output directory for the generated tzdb files.
+  --verbose                 Verbose output.
+  --language [JAVA|KOTLIN]  Language output (java or kotlin).
+  --packagename TEXT        Package name to output with.
+  -h, --help                Show this message and exit
+```
+
+Gradle coordinates:
+
+[![Maven Central](https://img.shields.io/maven-central/v/dev.zacsweers.ticktock/ticktock-compiler.svg)](https://mvnrepository.com/artifact/dev.zacsweers.ticktock/ticktock-compiler)
+```kotlin
+implementation("dev.zacsweers.ticktock:ticktock-compiler:<version>")
+```
+
+If you want a fat jar binary, you can clone and run `./gradlew :ticktock-compiler:installDist`. Binaries
+will be generated to `ticktock-compiler/build/install/ticktock-compiler/bin`. If there is interest,
+we may explore automatically uploading these as GitHub release artifacts.
+
+**Gradle plugin**
+
+The Gradle plugin can be used to automatically download new TZ data, package it, and/or generate
+lazy zone rules.
+
+```kotlin
+plugins {
+  id("dev.zacsweers.ticktock")
+}
+```
+
+To generate a standard `tzdb.dat`: run the `generateTzdbDat` task.
+
+To generate lazy zone rules: run the `generateLazyZoneRules` task.
+
+Extension and configuration:
+
+```kotlin
+ticktock {
+ /** The IANA timezone data version */
+ val tzVersion: Property<String> // default to '2020d'
+
+ /** The output directory to generate tz data to. Defaults to src/main/resources.  */
+ val tzOutputDir: DirectoryProperty // defaults to src/main/resources
+
+ /** Output directory for generated code, if generating for lazy rules. */
+ val codeOutputDir: DirectoryProperty
+
+ /** The language to generate in if generating for lazy rules, either `java` or `kotlin`. */
+ val language: Property<String> // defaults to java
+
+ /** The package name to generate in if generating for lazy rules. */
+ val packageName: Property<String> // defaults to 'ticktock'
+}
+```
 
 </details>
 
