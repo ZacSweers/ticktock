@@ -64,7 +64,6 @@ subprojects {
   }
 
   pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
-    println "Version is " + KotlinVersion.CURRENT
     compileKotlin {
       kotlinOptions {
         jvmTarget = deps.build.kotlin.jvmTarget
