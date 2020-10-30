@@ -71,9 +71,9 @@ internal object GeneratedZoneIdsProvider : ZoneIdsProvider {
           "US/Pacific"
       )
 
-  override fun getVersionId(): String = VERSION_ID
+  public override fun getVersionId(): String = VERSION_ID
 
-  override fun getZoneIds(): Collection<String> = ZONE_IDS
+  public override fun getZoneIds(): Collection<String> = ZONE_IDS
 }
 """
     assertThat(source).isEqualTo(expectedSource)
