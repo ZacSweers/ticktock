@@ -6,14 +6,7 @@ in Java 8 or above. Use this library if you want to bundle timezone data directl
 application rather than rely on the current device timezones (Android) or the default `<java.home>/lib`
 version (JVM only).
 
-## Versioning
-
-Versions are semver + the current [IANA](https://www.iana.org/time-zones) TZ data version it's packaged with. 
-
-Example: `1.0.0-2020d`
-
-Note that while some artifacts don't contain TZ data, we use the same version for everything in the 
-interest of simplicity.
+## Usage
 
 ### Android
 
@@ -216,6 +209,15 @@ implementation 'dev.zacsweers.ticktock:ticktock-android-lazyzonerules:<version>'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snapshots].
+
+### Versioning
+
+Versions are semver + the current [IANA](https://www.iana.org/time-zones) TZ data version it's packaged with. 
+
+Example: `1.0.0-2020d`
+
+Note that while some artifacts don't contain TZ data, we use the same version for everything in the 
+interest of simplicity.
 
 ## Why?
 
