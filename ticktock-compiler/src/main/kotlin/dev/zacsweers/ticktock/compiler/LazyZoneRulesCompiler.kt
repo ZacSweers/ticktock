@@ -35,7 +35,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
-class LazyZoneRulesCommand : CliktCommand() {
+internal class LazyZoneRulesCommand : CliktCommand() {
 
   private val version: String by option(
     "--version",

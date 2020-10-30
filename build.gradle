@@ -70,9 +70,10 @@ subprojects {
         jvmTarget = deps.build.kotlin.jvmTarget
         freeCompilerArgs += deps.build.kotlin.defaultFreeCompilerArgs
       }
-      kotlin {
-        explictApi()
-      }
+      // TODO gradle is awful and I have no idea how to force a newer kotlin version to use this
+//      kotlin {
+//        explictApi()
+//      }
     }
 
     compileTestKotlin {

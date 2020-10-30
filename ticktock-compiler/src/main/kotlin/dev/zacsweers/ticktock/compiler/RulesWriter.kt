@@ -15,6 +15,6 @@
  */
 package dev.zacsweers.ticktock.compiler
 
-interface RulesWriter {
+internal interface RulesWriter {
   fun writeZoneIds(packageName: String, version: String, zoneIds: Set<String>)
 }
