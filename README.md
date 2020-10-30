@@ -121,11 +121,7 @@ whether this is truly worth supporting though, so please let us know!
 </details>
 
 <details>
-<summary>Compiler</summary>
-
-If you want to compile your own data, you can use the `ticktock-compiler` or the `ticktock-gradle-plugin`
-
-**Compiler CLI**:
+<summary>Compiler CLI</summary>
 
 To manually compile lazy zone rules yourself, you can use the ticktock-compiler API.
 
@@ -157,10 +153,13 @@ If you want a fat jar binary, you can clone and run `./gradlew :ticktock-compile
 will be generated to `ticktock-compiler/build/install/ticktock-compiler/bin`. If there is interest,
 we may explore automatically uploading these as GitHub release artifacts.
 
-**Gradle plugin**
+</details>
+
+<details>
+<summary>Gradle Plugin</summary>
 
 The Gradle plugin can be used to automatically download new TZ data, package it, and/or generate
-lazy zone rules.
+lazy zone rules if you want to manage data yourself.
 
 ```kotlin
 plugins {
