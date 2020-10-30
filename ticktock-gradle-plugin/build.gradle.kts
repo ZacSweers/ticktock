@@ -44,9 +44,13 @@ repositories {
 
 tasks.withType<KotlinCompile>().configureEach {
   kotlinOptions {
-    freeCompilerArgs = listOf("-progressive")
+    freeCompilerArgs += listOf("-progressive")
     jvmTarget = "1.8"
   }
+}
+
+kotlin {
+  explicitApi()
 }
 
 tasks.withType<Test>().configureEach {

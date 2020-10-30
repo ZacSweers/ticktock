@@ -38,9 +38,9 @@ import java.io.File
 
 private const val TICKTOCK_GROUP = "ticktock"
 
-class TickTockPlugin : Plugin<Project> {
+public class TickTockPlugin : Plugin<Project> {
 
-  companion object {
+  private companion object {
     const val INTERMEDIATES = "intermediates/ticktock"
   }
 
@@ -113,7 +113,7 @@ class TickTockPlugin : Plugin<Project> {
       argumentProviders.add(CommandLineArgumentProvider(::computeArguments))
     }
 
-    val syncTask = tasks.register<Sync>("syncTzDatToResources") {
+    val syncTask = tasks.register<Sync>("syncTZDBDatToOutputDir") {
       group = TICKTOCK_GROUP
       from(generateTzdbDat.map { it.outputDir })
       into(extension.tzOutputDir.map { it.dir("j\$/time/zone") })
@@ -139,31 +139,31 @@ class TickTockPlugin : Plugin<Project> {
 
 /** A zone rules generation task for granular zone rules. */
 @CacheableTask
-abstract class GenerateZoneRuleFilesTask : JavaExec() {
+public abstract class GenerateZoneRuleFilesTask : JavaExec() {
   @get:Input
-  abstract val tzVersion: Property<String>
+  public abstract val tzVersion: Property<String>
 
   @get:Input
-  abstract val language: Property<String>
+  public abstract val language: Property<String>
 
   @get:Input
-  abstract val packageName: Property<String>
+  public abstract val packageName: Property<String>
 
   @get:PathSensitive(PathSensitivity.RELATIVE)
   @get:InputDirectory
-  abstract val inputDir: Property<File>
+  public abstract val inputDir: Property<File>
 
   @get:OutputDirectory
-  abstract val tzOutputDir: DirectoryProperty
+  public abstract val tzOutputDir: DirectoryProperty
 
   @get:OutputDirectory
-  abstract val codeOutputDir: DirectoryProperty
+  public abstract val codeOutputDir: DirectoryProperty
 
   init {
     group = TICKTOCK_GROUP
   }
 
-  fun computeArguments(): List<String> {
+  internal fun computeArguments(): List<String> {
     return listOf(
         "--srcdir",
         inputDir.get().canonicalPath,
@@ -183,22 +183,22 @@ abstract class GenerateZoneRuleFilesTask : JavaExec() {
 
 /** A zone rules generation task for `tzdb.dat`. */
 @CacheableTask
-abstract class GenerateTzDatTask : JavaExec() {
+public abstract class GenerateTzDatTask : JavaExec() {
   @get:Input
-  abstract val tzVersion: Property<String>
+  public abstract val tzVersion: Property<String>
 
   @get:PathSensitive(PathSensitivity.RELATIVE)
   @get:InputDirectory
-  abstract val inputDir: Property<File>
+  public abstract val inputDir: Property<File>
 
   @get:OutputDirectory
-  abstract val outputDir: DirectoryProperty
+  public abstract val outputDir: DirectoryProperty
 
   init {
     group = TICKTOCK_GROUP
   }
 
-  fun computeArguments(): List<String> {
+  internal fun computeArguments(): List<String> {
     return listOf(
         "-srcdir",
         inputDir.get().canonicalPath,

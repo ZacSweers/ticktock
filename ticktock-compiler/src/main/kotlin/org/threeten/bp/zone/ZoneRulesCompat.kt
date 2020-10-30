@@ -19,7 +19,7 @@ import java.io.DataOutputStream
 import java.io.File
 import java.util.SortedMap
 
-class ZoneRulesCompat(
+internal class ZoneRulesCompat(
   version: String,
   sourceFiles: List<File>,
   leapSecondsFile: File?,
