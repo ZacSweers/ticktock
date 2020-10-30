@@ -6,9 +6,14 @@ in Java 8 or above. Use this library if you want to bundle timezone data directl
 application rather than rely on the current device timezones (Android) or the default `<java.home>/lib`
 version (JVM only).
 
-## Usage
+## Versioning
 
-Current version (from [IANA](https://www.iana.org/time-zones)): `2020d`
+Versions are semver + the current [IANA](https://www.iana.org/time-zones) TZ data version it's packaged with. 
+
+Example: `1.0.0-2020d`
+
+Note that while some artifacts don't contain TZ data, we use the same version for everything in the 
+interest of simplicity.
 
 ### Android
 
