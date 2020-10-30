@@ -14,7 +14,7 @@ public abstract class TickTockExtension @Inject constructor(
 ) {
   /** The IANA timezone data version */
   public val tzVersion: Property<String> = objects.property<String>()
-      .convention("2020a")
+      .convention("2020d")
 
   /** The output directory to generate tz data to. Defaults to src/main/resources.  */
   public val tzOutputDir: DirectoryProperty = objects.directoryProperty()
