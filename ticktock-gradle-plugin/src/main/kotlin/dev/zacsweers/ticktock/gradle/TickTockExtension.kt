@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.property
 import javax.inject.Inject
 
 /** Configuration for a the ticktock plugin. */
-public abstract class TickTockExtension @Inject constructor(
+public abstract class TickTockExtension @Inject internal constructor(
     layout: ProjectLayout,
     objects: ObjectFactory
 ) {

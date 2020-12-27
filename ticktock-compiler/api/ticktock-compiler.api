@@ -1,0 +1,4 @@
+public final class dev/zacsweers/ticktock/compiler/LazyZoneRulesCompiler {
+	public static final fun main ([Ljava/lang/String;)V
+}
+

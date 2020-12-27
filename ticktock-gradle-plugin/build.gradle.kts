@@ -24,6 +24,7 @@ plugins {
   kotlin("kapt") version "1.4.10"
   id("org.jetbrains.dokka") apply false version "1.4.10"
   id("com.vanniktech.maven.publish") version "0.13.0"
+  id("binary-compatibility-validator") version "0.3.0"
 }
 
 repositories {
@@ -44,8 +45,11 @@ repositories {
 
 tasks.withType<KotlinCompile>().configureEach {
   kotlinOptions {
+    @Suppress("SuspiciousCollectionReassignment")
     freeCompilerArgs += listOf("-progressive")
     jvmTarget = "1.8"
+    // Until Gradle 7.0
+    languageVersion = "1.3"
   }
 }
 
@@ -93,8 +97,8 @@ tasks.named<DokkaTask>("dokkaHtml") {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.10")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.4.10")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.4.20")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
   implementation("de.undercouch:gradle-download-task:4.1.1")
 }

@@ -38,7 +38,7 @@ import java.io.File
 
 private const val TICKTOCK_GROUP = "ticktock"
 
-public class TickTockPlugin : Plugin<Project> {
+public class TickTockPlugin internal constructor() : Plugin<Project> {
 
   private companion object {
     const val INTERMEDIATES = "intermediates/ticktock"
@@ -139,7 +139,7 @@ public class TickTockPlugin : Plugin<Project> {
 
 /** A zone rules generation task for granular zone rules. */
 @CacheableTask
-public abstract class GenerateZoneRuleFilesTask : JavaExec() {
+public abstract class GenerateZoneRuleFilesTask internal constructor() : JavaExec() {
   @get:Input
   public abstract val tzVersion: Property<String>
 
@@ -183,7 +183,7 @@ public abstract class GenerateZoneRuleFilesTask : JavaExec() {
 
 /** A zone rules generation task for `tzdb.dat`. */
 @CacheableTask
-public abstract class GenerateTzDatTask : JavaExec() {
+public abstract class GenerateTzDatTask internal constructor() : JavaExec() {
   @get:Input
   public abstract val tzVersion: Property<String>
 
