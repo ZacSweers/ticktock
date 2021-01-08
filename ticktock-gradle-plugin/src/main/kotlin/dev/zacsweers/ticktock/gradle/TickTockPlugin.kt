@@ -41,7 +41,7 @@ private const val TICKTOCK_GROUP = "ticktock"
 public class TickTockPlugin internal constructor() : Plugin<Project> {
 
   private companion object {
-    const val INTERMEDIATES = "intermediates/ticktock"
+    private const val INTERMEDIATES = "intermediates/ticktock"
   }
 
   override fun apply(project: Project) {

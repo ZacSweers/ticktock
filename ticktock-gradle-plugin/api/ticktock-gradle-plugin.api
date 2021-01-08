@@ -22,7 +22,6 @@ public abstract class dev/zacsweers/ticktock/gradle/TickTockExtension {
 }
 
 public final class dev/zacsweers/ticktock/gradle/TickTockPlugin : org/gradle/api/Plugin {
-	public static final field INTERMEDIATES Ljava/lang/String;
 	public synthetic fun apply (Ljava/lang/Object;)V
 	public fun apply (Lorg/gradle/api/Project;)V
 }
