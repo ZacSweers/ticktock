@@ -1,6 +1,24 @@
 Changelog
 =========
 
+1.1.0-2020f
+-----------
+
+_2021-01-08_
+
+* IANA `2020f`.
+* Tested up to JDK 15.
+* Minimum supported AGP version for the Gradle plugin is now 4.1.0.
+* Integrated Kotlin binary validator for compiler and gradle plugin artifacts. Note that some previously "public" Gradle plugin APIs are now `internal` as they should be.
+* Updated dependencies:
+
+```
+Kotlin 1.4.21
+Clikt 3.1.0
+ThreetenBP 1.5.0 (compiler only)
+Gradle 6.8 (compiled against)
+```
+
 1.0.0-2020d
 -----------
 
