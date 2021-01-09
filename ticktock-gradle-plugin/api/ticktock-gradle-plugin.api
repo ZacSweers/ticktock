@@ -1,0 +1,33 @@
+public abstract class dev/zacsweers/ticktock/gradle/GenerateTzDatTask : org/gradle/api/tasks/JavaExec {
+	public abstract fun getInputDir ()Lorg/gradle/api/provider/Property;
+	public abstract fun getOutputDir ()Lorg/gradle/api/file/DirectoryProperty;
+	public abstract fun getTzVersion ()Lorg/gradle/api/provider/Property;
+}
+
+public abstract class dev/zacsweers/ticktock/gradle/GenerateZoneRuleFilesTask : org/gradle/api/tasks/JavaExec {
+	public abstract fun getCodeOutputDir ()Lorg/gradle/api/file/DirectoryProperty;
+	public abstract fun getInputDir ()Lorg/gradle/api/provider/Property;
+	public abstract fun getLanguage ()Lorg/gradle/api/provider/Property;
+	public abstract fun getPackageName ()Lorg/gradle/api/provider/Property;
+	public abstract fun getTzOutputDir ()Lorg/gradle/api/file/DirectoryProperty;
+	public abstract fun getTzVersion ()Lorg/gradle/api/provider/Property;
+}
+
+public abstract class dev/zacsweers/ticktock/gradle/TickTockExtension {
+	public abstract fun getCodeOutputDir ()Lorg/gradle/api/file/DirectoryProperty;
+	public final fun getLanguage ()Lorg/gradle/api/provider/Property;
+	public final fun getPackageName ()Lorg/gradle/api/provider/Property;
+	public final fun getTzOutputDir ()Lorg/gradle/api/file/DirectoryProperty;
+	public final fun getTzVersion ()Lorg/gradle/api/provider/Property;
+}
+
+public final class dev/zacsweers/ticktock/gradle/TickTockPlugin : org/gradle/api/Plugin {
+	public synthetic fun apply (Ljava/lang/Object;)V
+	public fun apply (Lorg/gradle/api/Project;)V
+}
+
+public final class dev/zacsweers/ticktock/gradle/TickTockPlugin$inlined$sam$i$org_gradle_api_Action$0 : org/gradle/api/Action {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final synthetic fun execute (Ljava/lang/Object;)V
+}
+

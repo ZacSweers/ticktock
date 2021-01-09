@@ -38,7 +38,7 @@ public final class TickTockZoneRulesProvider extends ZoneRulesProvider {
   private final NavigableMap<String, ZoneRules> zoneRulesById = new ConcurrentSkipListMap<>();
 
   private final Supplier<ZoneIdsProvider> zoneIdsProvider =
-      dev.zacsweers.ticktock.runtime.internal.Suppliers.memoize(
+      Suppliers.memoize(
           () -> {
             Supplier<ZoneIdsProvider> callable =
                 requireNonNull(

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Zac Sweers & Gabriel Ittner
+ * Copyright (C) 2021 Zac Sweers & Gabriel Ittner
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 final class GeneratedZoneIdsProvider implements ZoneIdsProvider {
-  private static final String VERSION_ID = "2020d";
+  private static final String VERSION_ID = "2020f";
 
   private static final Collection<String> ZONE_IDS =
       Arrays.asList(
