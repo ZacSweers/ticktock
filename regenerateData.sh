@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 ./gradlew clean
 ./gradlew :ticktock-jvm:lazyzonerules:generateLazyZoneRules
