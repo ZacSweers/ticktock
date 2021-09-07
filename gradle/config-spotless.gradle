@@ -51,8 +51,7 @@ spotless {
     target "**/src/**/*.java"
     targetExclude '**/spotless/*.java'
     targetExclude(copiedJavaFiles)
-    // 1.8 is built with java 11
-    googleJavaFormat("1.7")
+    googleJavaFormat("1.11.0")
     licenseHeaderFile rootProject.file('spotless/copyright.java')
     removeUnusedImports()
     trimTrailingWhitespace()
