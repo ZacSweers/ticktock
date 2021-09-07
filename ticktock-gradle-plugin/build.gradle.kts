@@ -93,8 +93,7 @@ tasks.named<DokkaTask>("dokkaHtml") {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.30")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.4.30")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.5.30")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
   implementation("de.undercouch:gradle-download-task:4.1.1")
 }
