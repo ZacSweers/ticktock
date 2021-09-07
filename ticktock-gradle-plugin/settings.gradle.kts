@@ -18,24 +18,6 @@ pluginManagement {
   repositories {
     mavenCentral()
     gradlePluginPortal()
-    exclusiveContent {
-      forRepository {
-        jcenter()
-      }
-      filter {
-        // Required for Dokka
-        includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
-        includeGroup("org.jetbrains.dokka")
-        includeModule("org.jetbrains", "markdown")
-      }
-    }
-  }
-  resolutionStrategy {
-    eachPlugin {
-      if (requested.id.id == "binary-compatibility-validator") {
-        useModule("org.jetbrains.kotlinx:binary-compatibility-validator:${requested.version}")
-      }
-    }
   }
 }
 
