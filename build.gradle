@@ -39,7 +39,7 @@ subprojects {
     google()
   }
 
-  pluginManager.withPlugin('java-library') {
+  pluginManager.withPlugin('java') {
     java {
       toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
