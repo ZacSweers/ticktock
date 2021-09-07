@@ -25,7 +25,7 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     testApplicationId "dev.zacsweers.ticktock.android.androidTest"
     applicationId "dev.zacsweers.ticktock.android.tests"
-    targetSdkVersion 31
+    targetSdkVersion 30 // Manifest merger complains about a non-existent <activity element missing exported
     minSdkVersion 21
     multiDexEnabled true
   }
