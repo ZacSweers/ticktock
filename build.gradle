@@ -16,7 +16,7 @@
 buildscript {
   dependencies {
     // Needs to go first, else gradle's forced older version version takes precedence
-    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
     classpath("dev.zacsweers.ticktock:ticktock-gradle-plugin:${findProperty("VERSION_NAME")}")
     classpath("com.android.tools.build:gradle:7.0.2")
   }
