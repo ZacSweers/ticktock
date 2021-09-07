@@ -58,7 +58,4 @@ dependencies {
   testImplementation deps.test.truth
   testImplementation deps.test.compileTesting
   testImplementation deps.test.kotlinCompileTesting
-  if (JavaVersion.current() < JavaVersion.VERSION_1_9) {
-    testImplementation files(Jvm.current().getToolsJar())
-  }
 }
