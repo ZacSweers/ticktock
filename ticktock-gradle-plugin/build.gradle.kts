@@ -32,6 +32,16 @@ repositories {
   gradlePluginPortal()
 }
 
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
+  }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+  options.release.set(8)
+}
+
 tasks.withType<KotlinCompile>().configureEach {
   kotlinOptions {
     @Suppress("SuspiciousCollectionReassignment")

@@ -216,6 +216,6 @@ internal class LazyZoneRulesCommand : CliktCommand(name = "ticktockc") {
   }
 }
 
-fun main(argv: Array<String>) {
+public fun main(argv: Array<String>) {
   LazyZoneRulesCommand().main(argv)
 }
