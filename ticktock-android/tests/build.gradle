@@ -19,13 +19,13 @@ plugins {
 }
 
 android {
-  compileSdkVersion 29
+  compileSdkVersion 31
 
   defaultConfig {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     testApplicationId "dev.zacsweers.ticktock.android.androidTest"
     applicationId "dev.zacsweers.ticktock.android.tests"
-    targetSdkVersion 29
+    targetSdkVersion 31
     minSdkVersion 21
     multiDexEnabled true
   }
@@ -40,9 +40,10 @@ android {
 }
 
 dependencies {
-  coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.0.9"
+  coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.1.5"
   implementation project(":ticktock-android:lazyzonerules")
   implementation project(":ticktock-android:tzdb")
+  implementation deps.misc.startup
 
   androidTestImplementation deps.test.okio
   androidTestImplementation deps.test.androidExtJunit
