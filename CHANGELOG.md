@@ -1,7 +1,7 @@
 Changelog
 =========
 
-~1.1.0-2020f~ Please don't use this release yet. We found an issue with some missing TZ data and will try to cut another release soon.
+1.1.0-2020f
 -----------
 
 _2021-01-08_
