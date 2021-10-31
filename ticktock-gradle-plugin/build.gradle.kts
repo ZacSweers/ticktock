@@ -20,10 +20,10 @@ import java.net.URL
 plugins {
   `kotlin-dsl`
   `java-gradle-plugin`
-  kotlin("jvm") version "1.4.30"
-  kotlin("kapt") version "1.4.30"
-  id("org.jetbrains.dokka") version "1.5.0"
-  id("com.vanniktech.maven.publish") version "0.17.0"
+  kotlin("jvm") version "1.5.31"
+  kotlin("kapt") version "1.5.31"
+  id("org.jetbrains.dokka") version "1.5.31"
+  id("com.vanniktech.maven.publish") version "0.18.0"
   id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.7.1"
 }
 
@@ -93,7 +93,7 @@ tasks.named<DokkaTask>("dokkaHtml") {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.5.30")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.5.31")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
   implementation("de.undercouch:gradle-download-task:4.1.1")
 }
