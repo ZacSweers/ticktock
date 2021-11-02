@@ -34,6 +34,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.Locale
 
 internal class LazyZoneRulesCommand : CliktCommand(name = "ticktockc") {
 
@@ -144,7 +145,7 @@ internal class LazyZoneRulesCommand : CliktCommand(name = "ticktockc") {
   ): NullableOption<Path, Path> {
     val name = pathType(canBeFile, canBeDir)
     return convert(
-      metavar = name.toUpperCase(),
+      metavar = name.uppercase(Locale.US),
       completionCandidates = CompletionCandidates.Path
     ) { transformContext ->
       convertToPath(
@@ -215,6 +216,6 @@ internal class LazyZoneRulesCommand : CliktCommand(name = "ticktockc") {
   }
 }
 
-fun main(argv: Array<String>) {
+public fun main(argv: Array<String>) {
   LazyZoneRulesCommand().main(argv)
 }

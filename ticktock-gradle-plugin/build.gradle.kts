@@ -20,27 +20,26 @@ import java.net.URL
 plugins {
   `kotlin-dsl`
   `java-gradle-plugin`
-  kotlin("jvm") version "1.4.10"
-  kotlin("kapt") version "1.4.10"
-  id("org.jetbrains.dokka") apply false version "1.4.10"
-  id("com.vanniktech.maven.publish") version "0.13.0"
-  id("binary-compatibility-validator") version "0.3.0"
+  kotlin("jvm") version "1.5.31"
+  kotlin("kapt") version "1.5.31"
+  id("org.jetbrains.dokka") version "1.5.31"
+  id("com.vanniktech.maven.publish") version "0.18.0"
+  id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.7.1"
 }
 
 repositories {
   mavenCentral()
   gradlePluginPortal()
-  exclusiveContent {
-    forRepository {
-      jcenter()
-    }
-    filter {
-      // Required for Dokka
-      includeModule("org.jetbrains.kotlinx", "kotlinx-html-jvm")
-      includeGroup("org.jetbrains.dokka")
-      includeModule("org.jetbrains", "markdown")
-    }
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(11))
   }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+  options.release.set(8)
 }
 
 tasks.withType<KotlinCompile>().configureEach {
@@ -48,8 +47,8 @@ tasks.withType<KotlinCompile>().configureEach {
     @Suppress("SuspiciousCollectionReassignment")
     freeCompilerArgs += listOf("-progressive")
     jvmTarget = "1.8"
-    // Until Gradle 7.0
-    languageVersion = "1.3"
+    // Gradle has ridiculous Kotlin handling
+    languageVersion = "1.4"
   }
 }
 
@@ -68,8 +67,9 @@ sourceSets {
 }
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_1_8
-  targetCompatibility = JavaVersion.VERSION_1_8
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(8))
+  }
 }
 
 gradlePlugin {
@@ -80,10 +80,6 @@ gradlePlugin {
       description = project.findProperty("POM_DESCRIPTION").toString()
     }
   }
-}
-
-kotlinDslPluginOptions {
-  experimentalWarning.set(false)
 }
 
 tasks.named<DokkaTask>("dokkaHtml") {
@@ -97,8 +93,7 @@ tasks.named<DokkaTask>("dokkaHtml") {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.21")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.4.21")
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.5.31")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
   implementation("de.undercouch:gradle-download-task:4.1.1")
 }
