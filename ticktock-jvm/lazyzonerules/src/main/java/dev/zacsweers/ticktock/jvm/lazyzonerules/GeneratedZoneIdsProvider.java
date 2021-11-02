@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 final class GeneratedZoneIdsProvider implements ZoneIdsProvider {
-  private static final String VERSION_ID = "2021a";
+  private static final String VERSION_ID = "2021e";
 
   private static final Collection<String> ZONE_IDS =
       Arrays.asList(
@@ -563,6 +563,7 @@ final class GeneratedZoneIdsProvider implements ZoneIdsProvider {
           "Pacific/Guam",
           "Pacific/Honolulu",
           "Pacific/Johnston",
+          "Pacific/Kanton",
           "Pacific/Kiritimati",
           "Pacific/Kosrae",
           "Pacific/Kwajalein",
