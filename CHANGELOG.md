@@ -1,6 +1,18 @@
 Changelog
 =========
 
+1.2.0-2021e
+-----------
+
+_2021-11-06_
+
+* IANA `2021e`
+* Kotlin `1.5.31`
+* ThreetenBP `1.5.1` (compiler only)
+* Kotlinpoet `1.10.2` (compiler only)
+* Clikt `3.2.0` (compiler only)
+* Gradle 7.2 (compiled against)
+
 1.1.0-2020f
 -----------
 
