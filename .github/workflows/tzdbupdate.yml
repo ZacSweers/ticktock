@@ -1,6 +1,8 @@
 name: TZDB check
 
-on: [push]
+on:
+  schedule:
+    - cron:  '0 3 * * *'
 
 jobs:
   tzdbcheck:
@@ -9,6 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.TZDATATOKEN }}
+
       # TODO cache?
 
       - name: Install JDK 1.8
@@ -49,12 +54,15 @@ jobs:
         if: env.NOOP != 'true'
         id: createpr
         uses: peter-evans/create-pull-request@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.TZDATATOKEN }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Test Update TZDATA to ${{ env.LATEST_TZDB }}'
-          committer: Tony Tang (CI) <tonythompsoncmu@gmail.com>
-          author: Tony Tang (CI) <tonythompsoncmu@gmail.com>
-          title: 'Test Update TZDATA to ${{ env.LATEST_TZDB }}'
-          body: 'Test Updates TZDATA data to ${{ env.LATEST_TZDB }}'
+          commit-message: 'Update TZDATA to ${{ env.LATEST_TZDB }}'
+          committer: Zac Sweers (CI) <pandanomic@gmail.com>
+          author: Zac Sweers (CI) <pandanomic@gmail.com>
+          title: 'Update TZDATA to ${{ env.LATEST_TZDB }}'
+          body: 'Updates TZDATA data to ${{ env.LATEST_TZDB }}'
+          assignees: zacsweers,gabrielittner
           labels: tzdata
           branch: bot/update-tzdata
