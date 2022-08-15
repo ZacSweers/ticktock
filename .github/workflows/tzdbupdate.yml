@@ -1,8 +1,6 @@
 name: TZDB check
 
-on:
-  schedule:
-    - cron:  '0 3 * * *'
+on: [push]
 
 jobs:
   tzdbcheck:
