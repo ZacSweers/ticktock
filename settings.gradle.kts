@@ -40,3 +40,4 @@ includeBuild("ticktock-gradle-plugin") {
     substitute(module("dev.zacsweers.ticktock:ticktock-gradle-plugin")).with(project(":"))
   }
 }
+include(":testandroid")
