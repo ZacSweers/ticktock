@@ -1,3 +1,9 @@
+# DEPRECATED
+
+Due to limitations on Android's mainline update mechanism for TZ data (which prohibits loading custom TZ data), this library is now deprecated and archived. Unfortunately it's only really useful for apps that use library desugaring, and is essentually pointless on apps with minSdk 24+.
+
+---
+
 TickTock
 ========
 
